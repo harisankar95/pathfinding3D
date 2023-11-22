@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pathfinding3d.finder.best_first &mdash; pathfinding3d 0.2 documentation</title>
+  <title>pathfinding3d.finder.best_first &mdash; pathfinding3d 0.3 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=d7c963c3"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=73b1e7da"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -37,7 +37,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.2
+                0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -88,10 +88,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pathfinding3d.finder.best_first</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">..core.diagonal_movement</span> <span class="kn">import</span> <span class="n">DiagonalMovement</span>
-<span class="kn">from</span> <span class="nn">..core.node</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">..core.node</span> <span class="kn">import</span> <span class="n">GridNode</span>
 <span class="kn">from</span> <span class="nn">.a_star</span> <span class="kn">import</span> <span class="n">MAX_RUNS</span><span class="p">,</span> <span class="n">TIME_LIMIT</span><span class="p">,</span> <span class="n">AStarFinder</span>
 
 
@@ -104,9 +104,9 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">heuristic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">weight</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">diagonal_movement</span><span class="p">:</span> <span class="n">DiagonalMovement</span> <span class="o">=</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">never</span><span class="p">,</span>
+        <span class="n">diagonal_movement</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">never</span><span class="p">,</span>
         <span class="n">time_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">TIME_LIMIT</span><span class="p">,</span>
-        <span class="n">max_runs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_RUNS</span><span class="p">,</span>
+        <span class="n">max_runs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">MAX_RUNS</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Find shortest path using BestFirst algorithm</span>
@@ -117,7 +117,7 @@
 <span class="sd">            heuristic used to calculate distance of 2 points</span>
 <span class="sd">        weight : int</span>
 <span class="sd">            weight for the edges</span>
-<span class="sd">        diagonal_movement : DiagonalMovement</span>
+<span class="sd">        diagonal_movement : int</span>
 <span class="sd">            if diagonal movement is allowed</span>
 <span class="sd">            (see enum in diagonal_movement)</span>
 <span class="sd">        time_limit : float</span>
@@ -138,15 +138,17 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">weighted</span> <span class="o">=</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="BestFirst.apply_heuristic"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.best_first.BestFirst.apply_heuristic">[docs]</a>    <span class="k">def</span> <span class="nf">apply_heuristic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_a</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">node_b</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="BestFirst.apply_heuristic"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.best_first.BestFirst.apply_heuristic">[docs]</a>    <span class="k">def</span> <span class="nf">apply_heuristic</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node_a</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">node_b</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper function to apply heuristic</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        node_a : Node</span>
+<span class="sd">        node_a : GridNode</span>
 <span class="sd">            first node</span>
-<span class="sd">        node_b : Node</span>
+<span class="sd">        node_b : GridNode</span>
 <span class="sd">            second node</span>
 <span class="sd">        heuristic : Callable</span>
 <span class="sd">            heuristic used to calculate distance of 2 points</span>

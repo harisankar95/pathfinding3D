@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pathfinding3d.finder.finder &mdash; pathfinding3d 0.2 documentation</title>
+  <title>pathfinding3d.finder.finder &mdash; pathfinding3d 0.3 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -14,7 +14,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=d7c963c3"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=73b1e7da"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -37,7 +37,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.2
+                0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -90,11 +90,11 @@
   <h1>Source code for pathfinding3d.finder.finder</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">heapq</span>  <span class="c1"># used for the so colled &quot;open list&quot; that stores known nodes</span>
 <span class="kn">import</span> <span class="nn">time</span>  <span class="c1"># for time limitation</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">..core.diagonal_movement</span> <span class="kn">import</span> <span class="n">DiagonalMovement</span>
 <span class="kn">from</span> <span class="nn">..core.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
-<span class="kn">from</span> <span class="nn">..core.node</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">..core.node</span> <span class="kn">import</span> <span class="n">GridNode</span>
 
 <span class="c1"># max. amount of tries we iterate until we abort the search</span>
 <span class="n">MAX_RUNS</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
@@ -121,10 +121,10 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">heuristic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">weight</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">diagonal_movement</span><span class="p">:</span> <span class="n">DiagonalMovement</span> <span class="o">=</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">never</span><span class="p">,</span>
+        <span class="n">diagonal_movement</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">never</span><span class="p">,</span>
         <span class="n">weighted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
         <span class="n">time_limit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">TIME_LIMIT</span><span class="p">,</span>
-        <span class="n">max_runs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MAX_RUNS</span><span class="p">,</span>
+        <span class="n">max_runs</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">MAX_RUNS</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Find shortest path</span>
@@ -135,7 +135,7 @@
 <span class="sd">            heuristic used to calculate distance of 2 points</span>
 <span class="sd">        weight : int</span>
 <span class="sd">            weight for the edges</span>
-<span class="sd">        diagonal_movement : DiagonalMovement</span>
+<span class="sd">        diagonal_movement : int</span>
 <span class="sd">            if diagonal movement is allowed</span>
 <span class="sd">            (see enum in diagonal_movement)</span>
 <span class="sd">        weighted: the algorithm supports weighted nodes</span>
@@ -159,15 +159,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">runs</span><span class="p">:</span> <span class="nb">int</span></div>
 
-<div class="viewcode-block" id="Finder.apply_heuristic"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.apply_heuristic">[docs]</a>    <span class="k">def</span> <span class="nf">apply_heuristic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_a</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">node_b</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="Finder.apply_heuristic"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.apply_heuristic">[docs]</a>    <span class="k">def</span> <span class="nf">apply_heuristic</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node_a</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">node_b</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">heuristic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Helper function to apply heuristic</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        node_a : Node</span>
+<span class="sd">        node_a : GridNode</span>
 <span class="sd">            first node</span>
-<span class="sd">        node_b : Node</span>
+<span class="sd">        node_b : GridNode</span>
 <span class="sd">            second node</span>
 <span class="sd">        heuristic : Callable</span>
 <span class="sd">            heuristic used to calculate distance of 2 points</span>
@@ -186,8 +188,11 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Finder.find_neighbors"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.find_neighbors">[docs]</a>    <span class="k">def</span> <span class="nf">find_neighbors</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">diagonal_movement</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DiagonalMovement</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">,</span>
+        <span class="n">node</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span>
+        <span class="n">diagonal_movement</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">GridNode</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Find neighbor, same for Djikstra, A*, Bi-A*, IDA*</span>
 
@@ -195,29 +200,24 @@
 <span class="sd">        ----------</span>
 <span class="sd">        grid : Grid</span>
 <span class="sd">            grid that stores all possible steps/tiles as 3D-list</span>
-<span class="sd">        node : Node</span>
+<span class="sd">        node : GridNode</span>
 <span class="sd">            node to find neighbors for</span>
-<span class="sd">        diagonal_movement : DiagonalMovement</span>
+<span class="sd">        diagonal_movement : int</span>
 <span class="sd">            if diagonal movement is allowed</span>
 <span class="sd">            (see enum in diagonal_movement)</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        List[Node]</span>
+<span class="sd">        List[GridNode]</span>
 <span class="sd">            list of neighbors</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">diagonal_movement</span><span class="p">:</span>
             <span class="n">diagonal_movement</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diagonal_movement</span>
         <span class="k">return</span> <span class="n">grid</span><span class="o">.</span><span class="n">neighbors</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">diagonal_movement</span><span class="o">=</span><span class="n">diagonal_movement</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Finder.keep_running"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.keep_running">[docs]</a>    <span class="k">def</span> <span class="nf">keep_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Finder.keep_running"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.keep_running">[docs]</a>    <span class="k">def</span> <span class="nf">keep_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check, if we run into time or iteration constrains.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        bool</span>
-<span class="sd">            True if we keep running and False if we run into a constraint</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -237,7 +237,15 @@
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> took longer than </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time_limit</span><span class="si">}</span><span class="s2"> seconds, aborting!&quot;</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Finder.process_node"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.process_node">[docs]</a>    <span class="k">def</span> <span class="nf">process_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">open_list</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">open_value</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Finder.process_node"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.process_node">[docs]</a>    <span class="k">def</span> <span class="nf">process_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">,</span>
+        <span class="n">node</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span>
+        <span class="n">parent</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span>
+        <span class="n">end</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span>
+        <span class="n">open_list</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
+        <span class="n">open_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        We check if the given node is part of the path by calculating its</span>
 <span class="sd">        cost and add or remove it from our path</span>
@@ -246,12 +254,12 @@
 <span class="sd">        ----------</span>
 <span class="sd">        grid : Grid</span>
 <span class="sd">            grid that stores all possible steps/tiles as 3D-list</span>
-<span class="sd">        node : Node</span>
+<span class="sd">        node : GridNode</span>
 <span class="sd">            the node we like to test</span>
 <span class="sd">            (the neighbor in A* or jump-node in JumpPointSearch)</span>
-<span class="sd">        parent : Node</span>
+<span class="sd">        parent : GridNode</span>
 <span class="sd">            the parent node (the current node we like to test)</span>
-<span class="sd">        end : Node</span>
+<span class="sd">        end : GridNode</span>
 <span class="sd">            the end point to calculate the cost of the path</span>
 <span class="sd">        open_list : List</span>
 <span class="sd">            the list that keeps track of our current path</span>
@@ -281,17 +289,23 @@
                 <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">open_list</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Finder.check_neighbors"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.check_neighbors">[docs]</a>    <span class="k">def</span> <span class="nf">check_neighbors</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">,</span> <span class="n">open_list</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">open_value</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">backtrace_by</span><span class="o">=</span><span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Node</span><span class="p">]]:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">start</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span>
+        <span class="n">end</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span>
+        <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">,</span>
+        <span class="n">open_list</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span>
+        <span class="n">open_value</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">backtrace_by</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">GridNode</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find next path segment based on given node</span>
 <span class="sd">        (or return path if we found the end)</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        start : Node</span>
+<span class="sd">        start : GridNode</span>
 <span class="sd">            start node</span>
-<span class="sd">        end : Node</span>
+<span class="sd">        end : GridNode</span>
 <span class="sd">            end node</span>
 <span class="sd">        grid : Grid</span>
 <span class="sd">            grid that stores all possible steps/tiles as 3D-list</span>
@@ -300,21 +314,21 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        Optional[List[Node]]</span>
+<span class="sd">        Optional[List[GridNode]]</span>
 <span class="sd">            path</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Please implement check_neighbors in your finder&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Finder.find_path"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.find_path">[docs]</a>    <span class="k">def</span> <span class="nf">find_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">Node</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Node</span><span class="p">],</span> <span class="nb">int</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Finder.find_path"><a class="viewcode-back" href="../../../pathfinding3d.finder.html#pathfinding3d.finder.finder.Finder.find_path">[docs]</a>    <span class="k">def</span> <span class="nf">find_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">Grid</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Find a path from start to end node on grid by iterating over</span>
 <span class="sd">        all neighbors of a node (see check_neighbors)</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        start : Node</span>
+<span class="sd">        start : GridNode</span>
 <span class="sd">            start node</span>
-<span class="sd">        end : Node</span>
+<span class="sd">        end : GridNode</span>
 <span class="sd">            end node</span>
 <span class="sd">        grid : Grid</span>
 <span class="sd">            grid that stores all possible steps/tiles as 3D-list</span>
@@ -322,7 +336,7 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        Optional[Union[List[Node], int]]</span>
+<span class="sd">        Tuple[List, int]</span>
 <span class="sd">            path, number of iterations</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>  <span class="c1"># execution time limitation</span>
@@ -346,7 +360,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a human readable representation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;diagonal_movement=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">diagonal_movement</span><span class="si">}</span><span class="s2"> &gt;&quot;</span></div>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;diagonal_movement=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">diagonal_movement</span><span class="si">}</span><span class="s2"> &gt;&quot;</span>
+        <span class="p">)</span></div>
 </pre></div>
 
            </div>

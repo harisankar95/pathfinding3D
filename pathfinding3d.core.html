@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pathfinding3d.core package &mdash; pathfinding3d 0.2 documentation</title>
+  <title>pathfinding3d.core package &mdash; pathfinding3d 0.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=d7c963c3"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=73b1e7da"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -40,7 +40,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.2
+                0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -169,8 +169,8 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <li><p><strong>width</strong> (<em>int</em>) – </p></li>
 <li><p><strong>height</strong> (<em>int</em>) – </p></li>
 <li><p><strong>depth</strong> (<em>int</em>) – </p></li>
-<li><p><strong>matrix</strong> (<em>List</em>) – </p></li>
-<li><p><strong>grid_id</strong> (<em>int</em>) – </p></li>
+<li><p><strong>matrix</strong> (<em>List</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>inverse</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
@@ -202,7 +202,7 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dd><p>Get node at position</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
@@ -303,7 +303,8 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to get neighbors from</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em><em>, </em><em>optional</em>) – if diagonal movement is allowed
+(see enum in diagonal_movement), by default DiagonalMovement.never</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -490,8 +491,8 @@ it is walkable.</p>
 <li><p><strong>z</strong> (<em>int</em>) – </p></li>
 <li><p><strong>walkable</strong> (<em>bool</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>float</em>) – </p></li>
-<li><p><strong>grid_id</strong> (<em>int</em>) – </p></li>
-<li><p><strong>connections</strong> (<em>list</em>) – </p></li>
+<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>connections</strong> (<em>List</em><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -522,12 +523,12 @@ it is walkable.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.grid_id">
-<span class="sig-name descname"><span class="pre">grid_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pathfinding3d.core.node.GridNode.grid_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">grid_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pathfinding3d.core.node.GridNode.grid_id" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.connections">
-<span class="sig-name descname"><span class="pre">connections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pathfinding3d.core.node.GridNode.connections" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">connections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pathfinding3d.core.node.GridNode.connections" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -552,7 +553,7 @@ it is walkable.</p>
 <li><p><strong>walkable</strong> (<em>bool</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>float</em>) – </p></li>
 <li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>connections</strong> (<em>list</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>connections</strong> (<em>List</em><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -573,16 +574,16 @@ it is walkable.</p>
 (including both start and end nodes)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – node to backtrace from</p>
+<dd class="field-even"><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to backtrace from</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>path</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]</p>
+<dd class="field-even"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -594,19 +595,19 @@ it is walkable.</p>
 (including both start and end nodes)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>node_a</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>node_b</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>path</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]</p>
+<dd class="field-even"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -618,7 +619,7 @@ it is walkable.</p>
 on the line formed by these coordinates, based on ray tracing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
@@ -630,7 +631,7 @@ on the line formed by these coordinates, based on ray tracing.</p>
 <dd class="field-odd"><p>list of coordinates</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[Coords]</p>
+<dd class="field-even"><p>List[List[float]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -642,7 +643,7 @@ on the line formed by these coordinates, based on ray tracing.</p>
 on the line formed by these coordinates, based on Bresenham’s algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
@@ -654,7 +655,7 @@ on the line formed by these coordinates, based on Bresenham’s algorithm.</p>
 <dd class="field-odd"><p>list of coordinates</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[Coords]</p>
+<dd class="field-even"><p>List[List[float]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -687,7 +688,7 @@ in it interpolated.</p>
 turnings and looks more natural.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
@@ -700,7 +701,7 @@ turnings and looks more natural.</p>
 <dd class="field-odd"><p>smoothened path</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[Coords]</p>
+<dd class="field-even"><p>List[List[float]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -733,19 +734,20 @@ turnings and looks more natural.</p>
 <dd><p>Get neighbors of the given node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – node to get neighbors from</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to get neighbors from</p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
+(see enum in diagonal_movement)</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>neighbors of the given node</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]</p>
+<dd class="field-even"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -760,8 +762,8 @@ turnings and looks more natural.</p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – first node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – second node</p></li>
+<li><p><strong>node_a</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – first node</p></li>
+<li><p><strong>node_b</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – second node</p></li>
 <li><p><strong>weighted</strong> (<em>bool</em>) – wether to use weights or not</p></li>
 </ul>
 </dd>

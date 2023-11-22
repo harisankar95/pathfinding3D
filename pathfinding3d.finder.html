@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pathfinding3d.finder package &mdash; pathfinding3d 0.2 documentation</title>
+  <title>pathfinding3d.finder package &mdash; pathfinding3d 0.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=d7c963c3"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=73b1e7da"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -39,7 +39,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.2
+                0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -107,9 +107,9 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -122,7 +122,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
 <li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
@@ -136,27 +136,27 @@ large map.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pathfinding3d.finder.a_star.AStarFinder.check_neighbors">
-<span class="sig-name descname"><span class="pre">check_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backtrace_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/a_star.html#AStarFinder.check_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.a_star.AStarFinder.check_neighbors" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">check_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backtrace_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/a_star.html#AStarFinder.check_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.a_star.AStarFinder.check_neighbors" title="Permalink to this definition"></a></dt>
 <dd><p>Find next path segment based on given node
 (or return path if we found the end)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 <li><p><strong>open_list</strong> (<em>List</em>) – stores nodes that will be processed next</p></li>
-<li><p><strong>open_value</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>open_value</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>path</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]]</p>
+<dd class="field-even"><p>Optional[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -167,12 +167,12 @@ large map.</p></li>
 <dd><p>Find a path from start to end node on grid using the A* algorithm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 </ul>
 </dd>
@@ -180,7 +180,7 @@ large map.</p></li>
 <dd class="field-odd"><p>path, number of iterations</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[Union[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>], int]]</p>
+<dd class="field-even"><p>Tuple[List, int]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -200,9 +200,9 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -215,7 +215,7 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
 <li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
@@ -237,8 +237,8 @@ large map.</p></li>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – first node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – second node</p></li>
+<li><p><strong>node_a</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – first node</p></li>
+<li><p><strong>node_b</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – second node</p></li>
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 </ul>
 </dd>
@@ -266,9 +266,9 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -281,7 +281,7 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
 <li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
@@ -299,12 +299,12 @@ large map.</p></li>
 <dd><p>Find a path from start to end node on grid using the A* algorithm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list
 (can be a list of grids)</p></li>
 </ul>
@@ -313,7 +313,7 @@ large map.</p></li>
 <dd class="field-odd"><p>path, number of iterations</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[Union[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>], int]]</p>
+<dd class="field-even"><p>Tuple[List, int]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -332,9 +332,9 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -347,7 +347,7 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
 <li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
@@ -366,12 +366,12 @@ large map.</p></li>
 (or return path if we found the end)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 <li><p><strong>open_list</strong> (<em>List</em>) – stores nodes that will be processed next</p></li>
 </ul>
@@ -380,7 +380,7 @@ large map.</p></li>
 <dd class="field-odd"><p>path</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]]</p>
+<dd class="field-even"><p>List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -398,9 +398,9 @@ large map.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -412,7 +412,7 @@ large map.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
 <li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
@@ -484,10 +484,10 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
 <li><p><strong>weighted</strong> (<em>bool</em>) – </p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -500,7 +500,7 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>weighted</strong> (<em>the algorithm supports weighted nodes</em>) – (should be True for A* and Dijkstra)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
@@ -523,8 +523,8 @@ large map.</p></li>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – first node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – second node</p></li>
+<li><p><strong>node_a</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – first node</p></li>
+<li><p><strong>node_b</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – second node</p></li>
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 </ul>
 </dd>
@@ -543,13 +543,13 @@ large map.</p></li>
 <dd><p>Find neighbor, same for Djikstra, A*, Bi-A*, IDA*</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
-<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – node to find neighbors for</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to find neighbors for</p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 </ul>
 </dd>
@@ -557,7 +557,7 @@ large map.</p></li>
 <dd class="field-odd"><p>list of neighbors</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]</p>
+<dd class="field-even"><p>List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -567,17 +567,8 @@ large map.</p></li>
 <span class="sig-name descname"><span class="pre">keep_running</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/finder.html#Finder.keep_running"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.finder.Finder.keep_running" title="Permalink to this definition"></a></dt>
 <dd><p>Check, if we run into time or iteration constrains.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if we keep running and False if we run into a constraint</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
 <li><p><a class="reference internal" href="#pathfinding3d.finder.finder.ExecutionTimeException" title="pathfinding3d.finder.finder.ExecutionTimeException"><strong>ExecutionTimeException</strong></a> – if we run into a time constrain</p></li>
 <li><p><a class="reference internal" href="#pathfinding3d.finder.finder.ExecutionRunsException" title="pathfinding3d.finder.finder.ExecutionRunsException"><strong>ExecutionRunsException</strong></a> – if we run into a iteration constrain</p></li>
 </ul>
@@ -587,17 +578,17 @@ large map.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pathfinding3d.finder.finder.Finder.process_node">
-<span class="sig-name descname"><span class="pre">process_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/finder.html#Finder.process_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.finder.Finder.process_node" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">process_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/finder.html#Finder.process_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.finder.Finder.process_node" title="Permalink to this definition"></a></dt>
 <dd><p>We check if the given node is part of the path by calculating its
 cost and add or remove it from our path</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
-<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – the node we like to test
+<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the node we like to test
 (the neighbor in A* or jump-node in JumpPointSearch)</p></li>
-<li><p><strong>parent</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – the parent node (the current node we like to test)</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – the end point to calculate the cost of the path</p></li>
+<li><p><strong>parent</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the parent node (the current node we like to test)</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the end point to calculate the cost of the path</p></li>
 <li><p><strong>open_list</strong> (<em>List</em>) – the list that keeps track of our current path</p></li>
 <li><p><strong>open_value</strong> (<em>bool</em>) – needed if we like to set the open list to something
 else than True (used for bi-directional algorithms)</p></li>
@@ -608,27 +599,27 @@ else than True (used for bi-directional algorithms)</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pathfinding3d.finder.finder.Finder.check_neighbors">
-<span class="sig-name descname"><span class="pre">check_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backtrace_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/finder.html#Finder.check_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.finder.Finder.check_neighbors" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">check_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backtrace_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/finder.html#Finder.check_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.finder.Finder.check_neighbors" title="Permalink to this definition"></a></dt>
 <dd><p>find next path segment based on given node
 (or return path if we found the end)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 <li><p><strong>open_list</strong> (<em>List</em>) – stores nodes that will be processed next</p></li>
-<li><p><strong>open_value</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>open_value</strong> (<em>int</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>path</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]]</p>
+<dd class="field-even"><p>Optional[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -640,12 +631,12 @@ else than True (used for bi-directional algorithms)</p></li>
 all neighbors of a node (see check_neighbors)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list
 (can be a list of grids)</p></li>
 </ul>
@@ -654,7 +645,7 @@ all neighbors of a node (see check_neighbors)</p>
 <dd class="field-odd"><p>path, number of iterations</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[Union[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>], int]]</p>
+<dd class="field-even"><p>Tuple[List, int]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -685,9 +676,9 @@ UT-AI-TR-87-46.pdf</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em><em> | </em><em>None</em>) – </p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
 <li><p><strong>track_recursion</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
@@ -701,7 +692,7 @@ UT-AI-TR-87-46.pdf</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
 <li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
@@ -720,24 +711,24 @@ large map.</p></li>
 <dd><p>Recursive IDA* search implementation</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">GridNode</span></code></a>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – current node</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – current node</p></li>
 <li><p><strong>g</strong> (<em>float</em>) – cost from start to current node</p></li>
 <li><p><strong>cutoff</strong> (<em>float</em>) – cutoff cost</p></li>
-<li><p><strong>path</strong> (<em>List</em><em>[</em><a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a><em>]</em>) – path</p></li>
+<li><p><strong>path</strong> (<em>List</em><em>[</em><a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a><em>]</em>) – path</p></li>
 <li><p><strong>depth</strong> (<em>int</em>) – current depth</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>cutoff cost</p>
+<dd class="field-odd"><p>cutoff cost or end node</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>float</p>
+<dd class="field-even"><p>Union[float, <a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -748,12 +739,12 @@ large map.</p></li>
 <dd><p>Find a path from start to end node on grid using the IDA* algorithm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 </ul>
 </dd>
@@ -761,7 +752,7 @@ large map.</p></li>
 <dd class="field-odd"><p>path, number of iterations</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[Union[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>], int]]</p>
+<dd class="field-even"><p>Tuple[List, int]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -788,7 +779,7 @@ large map.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
 <li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="pathfinding3d.core.diagonal_movement.DiagonalMovement"><em>DiagonalMovement</em></a>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 <li><p><strong>weighted</strong> (<em>the algorithm supports weighted nodes</em>) – (should be True for A* and Dijkstra)</p></li>
 <li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
@@ -813,7 +804,7 @@ of the grid.</p>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
 </ul>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -831,7 +822,7 @@ spanning tree of the grid.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
 </ul>
 </dd>
 </dl>
@@ -844,12 +835,12 @@ spanning tree of the grid.</p>
 Tree algorithm</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – start node</p></li>
-<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – end node</p></li>
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 </ul>
 </dd>
@@ -857,7 +848,7 @@ Tree algorithm</p>
 <dd class="field-odd"><p>path, number of iterations</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[Union[List[<a class="reference internal" href="pathfinding3d.core.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>], int]]</p>
+<dd class="field-even"><p>Tuple[List, int]</p>
 </dd>
 </dl>
 </dd></dl>
