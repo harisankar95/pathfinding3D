@@ -1,9 +1,9 @@
 name: Build, test and publish Python 🐍 distributions 📦 to PyPI
 
 on:
-  push:
-    branches:
-      - release
+  release:
+    types: [created]
+
 jobs:
   build-and-publish:
     name: Build, test and publish Python 🐍 distributions 📦 to PyPI
