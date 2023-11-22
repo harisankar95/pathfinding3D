@@ -28,7 +28,9 @@ def null(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) ->
     return 0.0
 
 
-def manhattan(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
+def manhattan(
+    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
+) -> float:
     """Manhattan heuristics
 
     Parameters
@@ -48,7 +50,9 @@ def manhattan(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float
     return dx + dy + dz
 
 
-def euclidean(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
+def euclidean(
+    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
+) -> float:
     """Euclidean distance heuristics
 
     Parameters
@@ -68,7 +72,9 @@ def euclidean(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float
     return math.sqrt(dx * dx + dy * dy + dz * dz)
 
 
-def chebyshev(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
+def chebyshev(
+    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
+) -> float:
     """Chebyshev distance.
 
     Parameters
@@ -88,7 +94,9 @@ def chebyshev(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float
     return max(dx, dy, dz)
 
 
-def octile(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
+def octile(
+    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
+) -> float:
     """Octile distance.
 
     Parameters

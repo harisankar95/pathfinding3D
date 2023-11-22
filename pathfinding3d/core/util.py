@@ -3,7 +3,7 @@ import math
 from typing import List, Tuple
 
 from .grid import Grid
-from .node import Node
+from .node import GridNode
 
 # square root of 2 for diagonal distance
 SQRT2 = math.sqrt(2)
@@ -13,19 +13,19 @@ SQRT3 = math.sqrt(3)
 Coords = Tuple[float, float, float]
 
 
-def backtrace(node: Node) -> List[Node]:
+def backtrace(node: GridNode) -> List[GridNode]:
     """
     Backtrace according to the parent records and return the path.
     (including both start and end nodes)
 
     Parameters
     ----------
-    node : Node
+    node : GridNode
         node to backtrace from
 
     Returns
     -------
-    List[Node]
+    List[GridNode]
         path
     """
     path = [node]
@@ -36,21 +36,21 @@ def backtrace(node: Node) -> List[Node]:
     return path
 
 
-def bi_backtrace(node_a: Node, node_b: Node) -> List[Node]:
+def bi_backtrace(node_a: GridNode, node_b: GridNode) -> List[GridNode]:
     """
     Backtrace from start and end node, returns the path for bi-directional A*
     (including both start and end nodes)
 
     Parameters
     ----------
-    node_a : Node
+    node_a : GridNode
         start node
-    node_b : Node
+    node_b : GridNode
         end node
 
     Returns
     -------
-    List[Node]
+    List[GridNode]
         path
     """
     path_a = backtrace(node_a)
@@ -59,7 +59,7 @@ def bi_backtrace(node_a: Node, node_b: Node) -> List[Node]:
     return path_a + path_b
 
 
-def raytrace(coords_a: Coords, coords_b: Coords) -> List[Coords]:
+def raytrace(coords_a: Coords, coords_b: Coords) -> List[List[float]]:
     """
     Given the start and end coordinates, return all the coordinates lying
     on the line formed by these coordinates, based on ray tracing.
@@ -73,7 +73,7 @@ def raytrace(coords_a: Coords, coords_b: Coords) -> List[Coords]:
 
     Returns
     -------
-    List[Coords]
+    List[List[float]]
         list of coordinates
     """
     line = []
@@ -105,9 +105,15 @@ def raytrace(coords_a: Coords, coords_b: Coords) -> List[Coords]:
     while t <= 1.0:
         line.append(copy.copy(grid_pos))
         index = None
-        if t_for_next_border[0] <= t_for_next_border[1] and t_for_next_border[0] <= t_for_next_border[2]:
+        if (
+            t_for_next_border[0] <= t_for_next_border[1]
+            and t_for_next_border[0] <= t_for_next_border[2]
+        ):
             index = 0
-        elif t_for_next_border[1] <= t_for_next_border[2] and t_for_next_border[1] <= t_for_next_border[0]:
+        elif (
+            t_for_next_border[1] <= t_for_next_border[2]
+            and t_for_next_border[1] <= t_for_next_border[0]
+        ):
             index = 1
         else:
             index = 2
@@ -118,7 +124,7 @@ def raytrace(coords_a: Coords, coords_b: Coords) -> List[Coords]:
     return line
 
 
-def bresenham(coords_a: Coords, coords_b: Coords) -> List[Coords]:
+def bresenham(coords_a: Coords, coords_b: Coords) -> List[List[float]]:
     """
     Given the start and end coordinates, return all the coordinates lying
     on the line formed by these coordinates, based on Bresenham's algorithm.
@@ -132,7 +138,7 @@ def bresenham(coords_a: Coords, coords_b: Coords) -> List[Coords]:
 
     Returns
     -------
-    List[Coords]
+    List[List[float]]
         list of coordinates
     """
     line = []
@@ -211,7 +217,7 @@ def expand_path(path: List[Coords]) -> List[Coords]:
     List[Coords]
         expanded path
     """
-    expanded = []
+    expanded: List[Coords] = []
     if len(path) < 2:
         return expanded
     for i in range(len(path) - 1):
@@ -220,7 +226,9 @@ def expand_path(path: List[Coords]) -> List[Coords]:
     return expanded
 
 
-def smoothen_path(grid: Grid, path: List[Coords], use_raytrace: bool = False) -> List[Coords]:
+def smoothen_path(
+    grid: Grid, path: List[Coords], use_raytrace: bool = False
+) -> List[List[float]]:
     """
     Given an uncompressed path, return a new path that has less
     turnings and looks more natural.
@@ -236,7 +244,7 @@ def smoothen_path(grid: Grid, path: List[Coords], use_raytrace: bool = False) ->
 
     Returns
     -------
-    List[Coords]
+    List[List[float]]
         smoothened path
     """
     sx, sy, sz = path[0]
@@ -248,7 +256,9 @@ def smoothen_path(grid: Grid, path: List[Coords], use_raytrace: bool = False) ->
         line = interpolate((sx, sy, sz), coord)
         blocked = False
         for test_coord in line[1:]:
-            if not grid.walkable(test_coord[0], test_coord[1], test_coord[2]):
+            if not grid.walkable(
+                int(test_coord[0]), int(test_coord[1]), int(test_coord[2])
+            ):
                 blocked = True
                 break
         if not blocked:

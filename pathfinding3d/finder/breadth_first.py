@@ -1,8 +1,8 @@
-from typing import Callable, List, Optional
+from typing import Callable, List, Optional, Union
 
 from ..core.diagonal_movement import DiagonalMovement
 from ..core.grid import Grid
-from ..core.node import Node
+from ..core.node import GridNode
 from ..core.util import backtrace
 from .finder import MAX_RUNS, TIME_LIMIT, Finder
 
@@ -12,9 +12,9 @@ class BreadthFirstFinder(Finder):
         self,
         heuristic: Optional[Callable] = None,
         weight: int = 1,
-        diagonal_movement: DiagonalMovement = DiagonalMovement.never,
+        diagonal_movement: int = DiagonalMovement.never,
         time_limit: float = TIME_LIMIT,
-        max_runs: int = MAX_RUNS,
+        max_runs: Union[int, float] = MAX_RUNS,
     ):
         """
         Find shortest path using Breadth First algorithm
@@ -25,7 +25,7 @@ class BreadthFirstFinder(Finder):
             heuristic used to calculate distance of 2 points
         weight : int
             weight for the edges
-        diagonal_movement : DiagonalMovement
+        diagonal_movement : int
             if diagonal movement is allowed
             (see enum in diagonal_movement)
         time_limit : float
@@ -49,20 +49,20 @@ class BreadthFirstFinder(Finder):
 
     def check_neighbors(
         self,
-        start: Node,
-        end: Node,
+        start: GridNode,
+        end: GridNode,
         grid: Grid,
         open_list: List,
-    ) -> Optional[List[Node]]:
+    ) -> List[GridNode]:
         """
         Find next path segment based on given node
         (or return path if we found the end)
 
         Parameters
         ----------
-        start : Node
+        start : GridNode
             start node
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
@@ -71,7 +71,7 @@ class BreadthFirstFinder(Finder):
 
         Returns
         -------
-        Optional[List[Node]]
+        List[GridNode]
             path
         """
         node = open_list.pop(0)

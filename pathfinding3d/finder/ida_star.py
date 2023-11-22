@@ -1,10 +1,10 @@
 import time
-from typing import Callable, List, Optional, Union
+from typing import Callable, List, Optional, Tuple, Union
 
 from ..core.diagonal_movement import DiagonalMovement
 from ..core.grid import Grid
 from ..core.heuristic import manhattan, octile
-from ..core.node import Node
+from ..core.node import GridNode
 from .finder import MAX_RUNS, TIME_LIMIT, Finder
 
 
@@ -29,9 +29,9 @@ class IDAStarFinder(Finder):
         self,
         heuristic: Optional[Callable] = None,
         weight: int = 1,
-        diagonal_movement: DiagonalMovement = DiagonalMovement.never,
+        diagonal_movement: int = DiagonalMovement.never,
         time_limit: float = TIME_LIMIT,
-        max_runs: int = MAX_RUNS,
+        max_runs: Union[int, float] = MAX_RUNS,
         track_recursion: bool = True,
     ):
         """
@@ -43,7 +43,7 @@ class IDAStarFinder(Finder):
             heuristic used to calculate distance of 2 points
         weight : int
             weight for the edges
-        diagonal_movement : DiagonalMovement
+        diagonal_movement : int
             if diagonal movement is allowed
             (see enum in diagonal_movement)
         time_limit : float
@@ -77,38 +77,38 @@ class IDAStarFinder(Finder):
 
     def search(
         self,
-        node: Node,
+        node: GridNode,
         g: float,
         cutoff: float,
-        path: List[Node],
+        path: List[GridNode],
         depth: int,
-        end: Node,
+        end: GridNode,
         grid: Grid,
-    ) -> float:
+    ) -> Union[float, GridNode]:
         """
         Recursive IDA* search implementation
 
         Parameters
         ----------
-        node : Node
+        node : GridNode
             current node
         g : float
             cost from start to current node
         cutoff : float
             cutoff cost
-        path : List[Node]
+        path : List[GridNode]
             path
         depth : int
             current depth
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
 
         Returns
         -------
-        float
-            cutoff cost
+        Union[float, GridNode]
+            cutoff cost or end node
         """
         self.runs += 1
         self.keep_running()
@@ -144,9 +144,17 @@ class IDAStarFinder(Finder):
                 neighbor.retain_count += 1
                 neighbor.tested = True
 
-            t = self.search(neighbor, g + grid.calc_cost(node, neighbor), cutoff, path, depth + 1, end, grid)
+            t = self.search(
+                neighbor,
+                g + grid.calc_cost(node, neighbor),
+                cutoff,
+                path,
+                depth + 1,
+                end,
+                grid,
+            )
 
-            if isinstance(t, Node):
+            if isinstance(t, GridNode):
                 if len(path) < depth:
                     path += [None] * (depth - len(path) + 1)
                 path[depth] = node
@@ -163,22 +171,22 @@ class IDAStarFinder(Finder):
 
         return min_t
 
-    def find_path(self, start: Node, end: Node, grid: Grid) -> Optional[Union[List[Node], int]]:
+    def find_path(self, start: GridNode, end: GridNode, grid: Grid) -> Tuple[List, int]:
         """
         Find a path from start to end node on grid using the IDA* algorithm
 
         Parameters
         ----------
-        start : Node
+        start : GridNode
             start node
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
 
         Returns
         -------
-        Optional[Union[List[Node], int]]
+        Tuple[List, int]
             path, number of iterations
         """
         self.start_time = time.time()  # execution time limitation
@@ -202,8 +210,11 @@ class IDAStarFinder(Finder):
 
             # If t is a node, it's also the end node. Route is now
             # populated with a valid path to the end node.
-            if isinstance(t, Node):
-                return ([(node.x, node.y, node.z, node.grid_id) for node in path], self.runs)
+            if isinstance(t, GridNode):
+                return (
+                    [(node.x, node.y, node.z, node.grid_id) for node in path],
+                    self.runs,
+                )
 
             # Try again, this time with a deeper cut-off. The t score
             # is the closest we got to the end node.

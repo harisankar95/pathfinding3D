@@ -1,10 +1,10 @@
 import heapq  # used for the so colled "open list" that stores known nodes
-from typing import Callable, List, Optional, Union
+from typing import Callable, List, Optional, Tuple, Union
 
 from ..core.diagonal_movement import DiagonalMovement
 from ..core.grid import Grid
 from ..core.heuristic import manhattan, octile
-from ..core.node import Node
+from ..core.node import GridNode
 from ..core.util import backtrace, bi_backtrace
 from .finder import BY_END, MAX_RUNS, TIME_LIMIT, Finder
 
@@ -14,9 +14,9 @@ class AStarFinder(Finder):
         self,
         heuristic: Optional[Callable] = None,
         weight: int = 1,
-        diagonal_movement: DiagonalMovement = DiagonalMovement.never,
+        diagonal_movement: int = DiagonalMovement.never,
         time_limit: float = TIME_LIMIT,
-        max_runs: int = MAX_RUNS,
+        max_runs: Union[int, float] = MAX_RUNS,
     ):
         """
         Find shortest path using A* algorithm
@@ -27,7 +27,7 @@ class AStarFinder(Finder):
             heuristic used to calculate distance of 2 points
         weight : int
             weight for the edges
-        diagonal_movement : DiagonalMovement
+        diagonal_movement : int
             if diagonal movement is allowed
             (see enum in diagonal_movement)
         time_limit : float
@@ -56,17 +56,23 @@ class AStarFinder(Finder):
                 self.heuristic = octile
 
     def check_neighbors(
-        self, start: Node, end: Node, grid: Grid, open_list: List, open_value: bool = True, backtrace_by=None
-    ) -> Optional[List[Node]]:
+        self,
+        start: GridNode,
+        end: GridNode,
+        grid: Grid,
+        open_list: List,
+        open_value: int = 1,
+        backtrace_by=None,
+    ) -> Optional[List[GridNode]]:
         """
         Find next path segment based on given node
         (or return path if we found the end)
 
         Parameters
         ----------
-        start : Node
+        start : GridNode
             start node
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
@@ -75,7 +81,7 @@ class AStarFinder(Finder):
 
         Returns
         -------
-        Optional[List[Node]]
+        Optional[List[GridNode]]
             path
         """
 
@@ -110,22 +116,22 @@ class AStarFinder(Finder):
         # the end has not been reached (yet) keep the find_path loop running
         return None
 
-    def find_path(self, start: Node, end: Node, grid: Grid) -> Optional[Union[List[Node], int]]:
+    def find_path(self, start: GridNode, end: GridNode, grid: Grid) -> Tuple[List, int]:
         """
         Find a path from start to end node on grid using the A* algorithm
 
         Parameters
         ----------
-        start : Node
+        start : GridNode
             start node
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
 
         Returns
         -------
-        Optional[Union[List[Node], int]]
+        Tuple[List, int]
             path, number of iterations
         """
 

@@ -1,10 +1,10 @@
 import heapq  # used for the so colled "open list" that stores known nodes
 import time  # for time limitation
-from typing import Callable, List, Optional, Union
+from typing import Callable, List, Optional, Tuple, Union
 
 from ..core.diagonal_movement import DiagonalMovement
 from ..core.grid import Grid
-from ..core.node import Node
+from ..core.node import GridNode
 
 # max. amount of tries we iterate until we abort the search
 MAX_RUNS = float("inf")
@@ -31,10 +31,10 @@ class Finder:
         self,
         heuristic: Optional[Callable] = None,
         weight: int = 1,
-        diagonal_movement: DiagonalMovement = DiagonalMovement.never,
+        diagonal_movement: int = DiagonalMovement.never,
         weighted: bool = True,
         time_limit: float = TIME_LIMIT,
-        max_runs: int = MAX_RUNS,
+        max_runs: Union[int, float] = MAX_RUNS,
     ):
         """
         Find shortest path
@@ -45,7 +45,7 @@ class Finder:
             heuristic used to calculate distance of 2 points
         weight : int
             weight for the edges
-        diagonal_movement : DiagonalMovement
+        diagonal_movement : int
             if diagonal movement is allowed
             (see enum in diagonal_movement)
         weighted: the algorithm supports weighted nodes
@@ -69,15 +69,17 @@ class Finder:
         self.start_time: float
         self.runs: int
 
-    def apply_heuristic(self, node_a: Node, node_b: Node, heuristic: Optional[Callable] = None) -> float:
+    def apply_heuristic(
+        self, node_a: GridNode, node_b: GridNode, heuristic: Optional[Callable] = None
+    ) -> float:
         """
         Helper function to apply heuristic
 
         Parameters
         ----------
-        node_a : Node
+        node_a : GridNode
             first node
-        node_b : Node
+        node_b : GridNode
             second node
         heuristic : Callable
             heuristic used to calculate distance of 2 points
@@ -96,8 +98,11 @@ class Finder:
         )
 
     def find_neighbors(
-        self, grid: Grid, node: Node, diagonal_movement: Optional[DiagonalMovement] = None
-    ) -> List[Node]:
+        self,
+        grid: Grid,
+        node: GridNode,
+        diagonal_movement: Optional[int] = None,
+    ) -> List[GridNode]:
         """
         Find neighbor, same for Djikstra, A*, Bi-A*, IDA*
 
@@ -105,29 +110,24 @@ class Finder:
         ----------
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
-        node : Node
+        node : GridNode
             node to find neighbors for
-        diagonal_movement : DiagonalMovement
+        diagonal_movement : int
             if diagonal movement is allowed
             (see enum in diagonal_movement)
 
         Returns
         -------
-        List[Node]
+        List[GridNode]
             list of neighbors
         """
         if not diagonal_movement:
             diagonal_movement = self.diagonal_movement
         return grid.neighbors(node, diagonal_movement=diagonal_movement)
 
-    def keep_running(self) -> bool:
+    def keep_running(self):
         """
         Check, if we run into time or iteration constrains.
-
-        Returns
-        -------
-        bool
-            True if we keep running and False if we run into a constraint
 
         Raises
         ------
@@ -147,7 +147,15 @@ class Finder:
                 f"{self.__class__.__name__} took longer than {self.time_limit} seconds, aborting!"
             )
 
-    def process_node(self, grid: Grid, node: Node, parent: Node, end: Node, open_list: List, open_value: bool = True):
+    def process_node(
+        self,
+        grid: Grid,
+        node: GridNode,
+        parent: GridNode,
+        end: GridNode,
+        open_list: List,
+        open_value: int = 1,
+    ):
         """
         We check if the given node is part of the path by calculating its
         cost and add or remove it from our path
@@ -156,12 +164,12 @@ class Finder:
         ----------
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
-        node : Node
+        node : GridNode
             the node we like to test
             (the neighbor in A* or jump-node in JumpPointSearch)
-        parent : Node
+        parent : GridNode
             the parent node (the current node we like to test)
-        end : Node
+        end : GridNode
             the end point to calculate the cost of the path
         open_list : List
             the list that keeps track of our current path
@@ -191,17 +199,23 @@ class Finder:
                 heapq.heappush(open_list, node)
 
     def check_neighbors(
-        self, start: Node, end: Node, grid: Grid, open_list: List, open_value: bool = True, backtrace_by=None
-    ) -> Optional[List[Node]]:
+        self,
+        start: GridNode,
+        end: GridNode,
+        grid: Grid,
+        open_list: List,
+        open_value: int = 1,
+        backtrace_by=None,
+    ) -> Optional[List[GridNode]]:
         """
         find next path segment based on given node
         (or return path if we found the end)
 
         Parameters
         ----------
-        start : Node
+        start : GridNode
             start node
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
@@ -210,21 +224,21 @@ class Finder:
 
         Returns
         -------
-        Optional[List[Node]]
+        Optional[List[GridNode]]
             path
         """
         raise NotImplementedError("Please implement check_neighbors in your finder")
 
-    def find_path(self, start: Node, end: Node, grid: Grid) -> Optional[Union[List[Node], int]]:
+    def find_path(self, start: GridNode, end: GridNode, grid: Grid) -> Tuple[List, int]:
         """
         Find a path from start to end node on grid by iterating over
         all neighbors of a node (see check_neighbors)
 
         Parameters
         ----------
-        start : Node
+        start : GridNode
             start node
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
@@ -232,7 +246,7 @@ class Finder:
 
         Returns
         -------
-        Optional[Union[List[Node], int]]
+        Tuple[List, int]
             path, number of iterations
         """
         self.start_time = time.time()  # execution time limitation
@@ -256,4 +270,7 @@ class Finder:
         """
         Return a human readable representation
         """
-        return f"<{self.__class__.__name__}" f"diagonal_movement={self.diagonal_movement} >"
+        return (
+            f"<{self.__class__.__name__}"
+            f"diagonal_movement={self.diagonal_movement} >"
+        )

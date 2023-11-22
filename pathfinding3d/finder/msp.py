@@ -1,11 +1,11 @@
 import heapq
 import time
 from collections import deque, namedtuple
-from typing import List, Optional, Union
+from typing import List, Tuple
 
 from ..core import heuristic
 from ..core.grid import Grid
-from ..core.node import Node
+from ..core.node import GridNode
 from ..finder.finder import Finder
 
 
@@ -22,7 +22,7 @@ class MinimumSpanningTree(Finder):
         super().__init__(*args, **kwargs)
         self.heuristic = heuristic.null
 
-    def tree(self, grid: Grid, start: Node) -> List:
+    def tree(self, grid: Grid, start: GridNode) -> List:
         """
         Returns a list of nodes that are part of the minimum spanning tree
         of the grid.
@@ -31,7 +31,7 @@ class MinimumSpanningTree(Finder):
         ----------
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
-        start : Node
+        start : GridNode
             start node
 
         Returns
@@ -41,7 +41,7 @@ class MinimumSpanningTree(Finder):
 
         return list(self.itertree(grid, start))
 
-    def itertree(self, grid: Grid, start: Node):
+    def itertree(self, grid: Grid, start: GridNode):
         """
         Returns a generator that yields nodes that are part of the minimum
         spanning tree of the grid.
@@ -50,7 +50,7 @@ class MinimumSpanningTree(Finder):
         ----------
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
-        start : Node
+        start : GridNode
             start node
         """
         # Finder.process_node requires an end node, which we don't have.
@@ -76,25 +76,27 @@ class MinimumSpanningTree(Finder):
             neighbors = self.find_neighbors(grid, node)
             for neighbor in neighbors:
                 if not neighbor.closed:
-                    self.process_node(grid, neighbor, node, end, open_list, open_value=True)
+                    self.process_node(
+                        grid, neighbor, node, end, open_list, open_value=True
+                    )
 
-    def find_path(self, start: Node, end: Node, grid: Grid) -> Optional[Union[List[Node], int]]:
+    def find_path(self, start: GridNode, end: GridNode, grid: Grid) -> Tuple[List, int]:
         """
         Find a path from start to end node on grid using the Minimum Spanning
         Tree algorithm
 
         Parameters
         ----------
-        start : Node
+        start : GridNode
             start node
-        end : Node
+        end : GridNode
             end node
         grid : Grid
             grid that stores all possible steps/tiles as 3D-list
 
         Returns
         -------
-        Optional[Union[List[Node], int]]
+        Tuple[List, int]
             path, number of iterations
         """
         self.start_time = time.time()  # execution time limitation

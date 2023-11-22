@@ -1,5 +1,5 @@
 import math
-from typing import List
+from typing import List, Optional
 
 from .diagonal_movement import DiagonalMovement
 from .node import GridNode
@@ -13,7 +13,12 @@ except ImportError:
 
 
 def build_nodes(
-    width: int, height: int, depth: int, matrix: List = None, inverse: bool = False, grid_id: int = None
+    width: int,
+    height: int,
+    depth: int,
+    matrix: Optional[List] = None,
+    inverse: bool = False,
+    grid_id: Optional[int] = None,
 ) -> List[List[List[GridNode]]]:
     """
     Create nodes according to grid size. If a matrix is given it
@@ -42,7 +47,7 @@ def build_nodes(
     list
         A list of list of lists containing the nodes in the grid.
     """
-    nodes = []
+    nodes: List = []
     use_matrix = (isinstance(matrix, (tuple, list))) or (
         USE_NUMPY and isinstance(matrix, np.ndarray) and matrix.size > 0
     )
@@ -61,7 +66,11 @@ def build_nodes(
                 weight = int(matrix[x][y][z]) if use_matrix else 1
                 walkable = weight <= 0 if inverse else weight >= 1
 
-                nodes[x][y].append(GridNode(x=x, y=y, z=z, walkable=walkable, weight=weight, grid_id=grid_id))
+                nodes[x][y].append(
+                    GridNode(
+                        x=x, y=y, z=z, walkable=walkable, weight=weight, grid_id=grid_id
+                    )
+                )
     return nodes
 
 
@@ -71,8 +80,8 @@ class Grid:
         width: int = 0,
         height: int = 0,
         depth: int = 0,
-        matrix: List = None,
-        grid_id: int = None,
+        matrix: Optional[List] = None,
+        grid_id: Optional[int] = None,
         inverse: bool = False,
     ):
         """
@@ -97,16 +106,20 @@ class Grid:
         self.width = width
         self.height = height
         self.depth = depth
-        if isinstance(matrix, (tuple, list)) or (USE_NUMPY and isinstance(matrix, np.ndarray) and (matrix.size > 0)):
+        if isinstance(matrix, (tuple, list)) or (
+            USE_NUMPY and isinstance(matrix, np.ndarray) and (matrix.size > 0)
+        ):
             self.width = len(matrix)
             self.height = len(matrix[0]) if self.width > 0 else 0
             self.depth = len(matrix[0][0]) if self.height > 0 else 0
         if self.width > 0 and self.height > 0 and self.depth > 0:
-            self.nodes = build_nodes(self.width, self.height, self.depth, matrix, inverse, grid_id)
+            self.nodes = build_nodes(
+                self.width, self.height, self.depth, matrix, inverse, grid_id
+            )
         else:
             self.nodes = [[[]]]
 
-    def node(self, x: int, y: int, z: int) -> GridNode:
+    def node(self, x: int, y: int, z: int) -> Optional[GridNode]:
         """
         Get node at position
 
@@ -166,7 +179,9 @@ class Grid:
         """
         return self.inside(x, y, z) and self.nodes[x][y][z].walkable
 
-    def calc_cost(self, node_a: GridNode, node_b: GridNode, weighted: bool = False) -> float:
+    def calc_cost(
+        self, node_a: GridNode, node_b: GridNode, weighted: bool = False
+    ) -> float:
         """
         Get the distance between current node and the neighbor (cost)
 
@@ -197,7 +212,11 @@ class Grid:
 
         return node_a.g + ng
 
-    def neighbors(self, node: GridNode, diagonal_movement: DiagonalMovement = DiagonalMovement.never) -> List[GridNode]:
+    def neighbors(
+        self,
+        node: GridNode,
+        diagonal_movement: int = DiagonalMovement.never,
+    ) -> List[GridNode]:
         """
         Get all neighbors of one node
 
@@ -205,6 +224,9 @@ class Grid:
         ----------
         node : GridNode
             node to get neighbors from
+        diagonal_movement : int, optional
+            if diagonal movement is allowed
+            (see enum in diagonal_movement), by default DiagonalMovement.never
 
         Returns
         -------

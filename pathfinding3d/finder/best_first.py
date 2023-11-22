@@ -1,7 +1,7 @@
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 from ..core.diagonal_movement import DiagonalMovement
-from ..core.node import Node
+from ..core.node import GridNode
 from .a_star import MAX_RUNS, TIME_LIMIT, AStarFinder
 
 
@@ -14,9 +14,9 @@ class BestFirst(AStarFinder):
         self,
         heuristic: Optional[Callable] = None,
         weight: int = 1,
-        diagonal_movement: DiagonalMovement = DiagonalMovement.never,
+        diagonal_movement: int = DiagonalMovement.never,
         time_limit: float = TIME_LIMIT,
-        max_runs: int = MAX_RUNS,
+        max_runs: Union[int, float] = MAX_RUNS,
     ):
         """
         Find shortest path using BestFirst algorithm
@@ -27,7 +27,7 @@ class BestFirst(AStarFinder):
             heuristic used to calculate distance of 2 points
         weight : int
             weight for the edges
-        diagonal_movement : DiagonalMovement
+        diagonal_movement : int
             if diagonal movement is allowed
             (see enum in diagonal_movement)
         time_limit : float
@@ -48,15 +48,17 @@ class BestFirst(AStarFinder):
 
         self.weighted = False
 
-    def apply_heuristic(self, node_a: Node, node_b: Node, heuristic: Optional[Callable] = None) -> float:
+    def apply_heuristic(
+        self, node_a: GridNode, node_b: GridNode, heuristic: Optional[Callable] = None
+    ) -> float:
         """
         Helper function to apply heuristic
 
         Parameters
         ----------
-        node_a : Node
+        node_a : GridNode
             first node
-        node_b : Node
+        node_b : GridNode
             second node
         heuristic : Callable
             heuristic used to calculate distance of 2 points

@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 from ..core.diagonal_movement import DiagonalMovement
 from ..core.heuristic import null
@@ -10,9 +10,9 @@ class DijkstraFinder(AStarFinder):
     def __init__(
         self,
         weight: int = 1,
-        diagonal_movement: DiagonalMovement = DiagonalMovement.never,
+        diagonal_movement: int = DiagonalMovement.never,
         time_limit: float = TIME_LIMIT,
-        max_runs: int = MAX_RUNS,
+        max_runs: Union[int, float] = MAX_RUNS,
     ):
         """
         Find shortest path using Dijkstra algorithm
@@ -21,7 +21,7 @@ class DijkstraFinder(AStarFinder):
         ----------
         weight : int
             weight for the edges
-        diagonal_movement : DiagonalMovement
+        diagonal_movement : int
             if diagonal movement is allowed
             (see enum in diagonal_movement)
         time_limit : float
@@ -33,10 +33,16 @@ class DijkstraFinder(AStarFinder):
             large map.
         """
         super().__init__(
-            heuristic=null, weight=weight, diagonal_movement=diagonal_movement, time_limit=time_limit, max_runs=max_runs
+            heuristic=null,
+            weight=weight,
+            diagonal_movement=diagonal_movement,
+            time_limit=time_limit,
+            max_runs=max_runs,
         )
 
-    def apply_heuristic(self, node_a: Node, node_b: Node, heuristic: Optional[Callable] = None) -> float:
+    def apply_heuristic(
+        self, node_a: Node, node_b: Node, heuristic: Optional[Callable] = None
+    ) -> float:
         """
         Helper function to apply heuristic
 

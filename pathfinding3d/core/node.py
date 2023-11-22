@@ -1,4 +1,5 @@
 import dataclasses
+from typing import List, Optional
 
 
 @dataclasses.dataclass
@@ -58,9 +59,9 @@ class GridNode(Node):
     # normally we just count our grids by number
     # but you can also use a string here.
     # Set it to None if you only have one grid.
-    grid_id: int = None
+    grid_id: Optional[int] = None
 
-    connections: list = None
+    connections: Optional[List] = None
 
     def __iter__(self):
         yield self.x
