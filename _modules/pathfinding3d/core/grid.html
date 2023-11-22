@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pathfinding3d.core.grid &mdash; pathfinding3d 0.2 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=d7c963c3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../../../_static/copybutton.js?v=f281be69"></script>
+        <script src="../../../_static/js/versionwarning.js?v=d4224a34"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pathfinding3d
+          </a>
+              <div class="version">
+                0.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pathfinding3d</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pathfinding3d.html">pathfinding3d package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../pathfinding3d.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../pathfinding3d.core.html">pathfinding3d.core package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../pathfinding3d.finder.html">pathfinding3d.finder package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../pathfinding3d.html#module-pathfinding3d">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pathfinding3d</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pathfinding3d.core.grid</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pathfinding3d.core.grid</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">.diagonal_movement</span> <span class="kn">import</span> <span class="n">DiagonalMovement</span>
+<span class="kn">from</span> <span class="nn">.node</span> <span class="kn">import</span> <span class="n">GridNode</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">USE_NUMPY</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">USE_NUMPY</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="build_nodes"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.build_nodes">[docs]</a><span class="k">def</span> <span class="nf">build_nodes</span><span class="p">(</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">matrix</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">inverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">grid_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">GridNode</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create nodes according to grid size. If a matrix is given it</span>
+<span class="sd">    will be used to determine what nodes are walkable.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    width : int</span>
+<span class="sd">        The width of the grid.</span>
+<span class="sd">    height : int</span>
+<span class="sd">        The height of the grid.</span>
+<span class="sd">    depth : int</span>
+<span class="sd">        The depth of the grid.</span>
+<span class="sd">    matrix : list, optional</span>
+<span class="sd">        A 3D array of values (numbers or objects specifying weight)</span>
+<span class="sd">        that determine how nodes are connected and if they are walkable.</span>
+<span class="sd">        If no matrix is given, all nodes will be walkable.</span>
+<span class="sd">    inverse : bool, optional</span>
+<span class="sd">        If true, all values in the matrix that are not 0 will be considered</span>
+<span class="sd">        walkable. Otherwise all values that are 0 will be considered walkable.</span>
+<span class="sd">    grid_id : int, optional</span>
+<span class="sd">        The id of the grid.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        A list of list of lists containing the nodes in the grid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">use_matrix</span> <span class="o">=</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)))</span> <span class="ow">or</span> <span class="p">(</span>
+        <span class="n">USE_NUMPY</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">matrix</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width</span><span class="p">):</span>
+        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+            <span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+            <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>
+                <span class="c1"># 0, &#39;0&#39;, False will be obstacles</span>
+                <span class="c1"># all other values mark walkable cells.</span>
+                <span class="c1"># you can use values bigger then 1 to assign a weight.</span>
+                <span class="c1"># If inverse is False it changes</span>
+                <span class="c1"># (1 and up becomes obstacle and 0 or everything negative marks a</span>
+                <span class="c1">#  free cells)</span>
+                <span class="n">weight</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span><span class="p">])</span> <span class="k">if</span> <span class="n">use_matrix</span> <span class="k">else</span> <span class="mi">1</span>
+                <span class="n">walkable</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">inverse</span> <span class="k">else</span> <span class="n">weight</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+
+                <span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GridNode</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">walkable</span><span class="o">=</span><span class="n">walkable</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">grid_id</span><span class="o">=</span><span class="n">grid_id</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">nodes</span></div>
+
+
+<div class="viewcode-block" id="Grid"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid">[docs]</a><span class="k">class</span> <span class="nc">Grid</span><span class="p">:</span>
+<div class="viewcode-block" id="Grid.__init__"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">matrix</span><span class="p">:</span> <span class="n">List</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">grid_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">inverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A grid represents the map (as 3d-list of nodes).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        width : int, optional</span>
+<span class="sd">            The width of the grid.</span>
+<span class="sd">        height : int, optional</span>
+<span class="sd">            The height of the grid.</span>
+<span class="sd">        depth : int, optional</span>
+<span class="sd">            The depth of the grid.</span>
+<span class="sd">        matrix : list, optional</span>
+<span class="sd">            A 3D array of values (numbers or objects specifying weight)</span>
+<span class="sd">            that determine how nodes are connected and if they are walkable.</span>
+<span class="sd">            If no matrix is given, all nodes will be walkable.</span>
+<span class="sd">        inverse : bool, optional</span>
+<span class="sd">            If true, all values in the matrix that are not 0 will be considered</span>
+<span class="sd">            walkable. Otherwise all values that are 0 will be considered walkable.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">USE_NUMPY</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="n">build_nodes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">inverse</span><span class="p">,</span> <span class="n">grid_id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[[[]]]</span></div>
+
+<div class="viewcode-block" id="Grid.node"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid.node">[docs]</a>    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GridNode</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get node at position</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : int</span>
+<span class="sd">            x position</span>
+<span class="sd">        y : int</span>
+<span class="sd">            y position</span>
+<span class="sd">        z : int</span>
+<span class="sd">            z position</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        GridNode</span>
+<span class="sd">            node at position</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inside</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Grid.inside"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid.inside">[docs]</a>    <span class="k">def</span> <span class="nf">inside</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check, if field position is inside map</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : int</span>
+<span class="sd">            x position</span>
+<span class="sd">        y : int</span>
+<span class="sd">            y position</span>
+<span class="sd">        z : int</span>
+<span class="sd">            z position</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True, if position is inside map</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">z</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span></div>
+
+<div class="viewcode-block" id="Grid.walkable"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid.walkable">[docs]</a>    <span class="k">def</span> <span class="nf">walkable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check, if the tile is inside grid and if it is set as walkable</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : int</span>
+<span class="sd">            x position</span>
+<span class="sd">        y : int</span>
+<span class="sd">            y position</span>
+<span class="sd">        z : int</span>
+<span class="sd">            z position</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True, if position is inside map and walkable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">inside</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span><span class="p">]</span><span class="o">.</span><span class="n">walkable</span></div>
+
+<div class="viewcode-block" id="Grid.calc_cost"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid.calc_cost">[docs]</a>    <span class="k">def</span> <span class="nf">calc_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_a</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">node_b</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">weighted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the distance between current node and the neighbor (cost)</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        node_a : GridNode</span>
+<span class="sd">            current node</span>
+<span class="sd">        node_b : GridNode</span>
+<span class="sd">            neighbor node</span>
+<span class="sd">        weighted : bool, optional</span>
+<span class="sd">            True, if weighted algorithm is used, by default False</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            distance between current node and the neighbor (cost)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check if we have a straight, diagonal in plane or diagonal in space</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">node_b</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">node_a</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">node_b</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">node_a</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">dz</span> <span class="o">=</span> <span class="n">node_b</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="n">node_a</span><span class="o">.</span><span class="n">z</span>
+
+        <span class="n">ng</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">+</span> <span class="n">dz</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+
+        <span class="c1"># weight for weighted algorithms</span>
+        <span class="k">if</span> <span class="n">weighted</span><span class="p">:</span>
+            <span class="n">ng</span> <span class="o">*=</span> <span class="n">node_b</span><span class="o">.</span><span class="n">weight</span>
+
+        <span class="k">return</span> <span class="n">node_a</span><span class="o">.</span><span class="n">g</span> <span class="o">+</span> <span class="n">ng</span></div>
+
+<div class="viewcode-block" id="Grid.neighbors"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid.neighbors">[docs]</a>    <span class="k">def</span> <span class="nf">neighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">GridNode</span><span class="p">,</span> <span class="n">diagonal_movement</span><span class="p">:</span> <span class="n">DiagonalMovement</span> <span class="o">=</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">never</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">GridNode</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get all neighbors of one node</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        node : GridNode</span>
+<span class="sd">            node to get neighbors from</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            list of neighbor nodes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">z</span>
+
+        <span class="n">neighbors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># current plane</span>
+        <span class="n">cs0</span> <span class="o">=</span> <span class="n">cd0</span> <span class="o">=</span> <span class="n">cs1</span> <span class="o">=</span> <span class="n">cd1</span> <span class="o">=</span> <span class="n">cs2</span> <span class="o">=</span> <span class="n">cd2</span> <span class="o">=</span> <span class="n">cs3</span> <span class="o">=</span> <span class="n">cd3</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># upper plane</span>
+        <span class="n">us0</span> <span class="o">=</span> <span class="n">ud0</span> <span class="o">=</span> <span class="n">us1</span> <span class="o">=</span> <span class="n">ud1</span> <span class="o">=</span> <span class="n">us2</span> <span class="o">=</span> <span class="n">ud2</span> <span class="o">=</span> <span class="n">us3</span> <span class="o">=</span> <span class="n">ud3</span> <span class="o">=</span> <span class="n">ut</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># ut = upper top</span>
+        <span class="c1"># lower plane</span>
+        <span class="n">ls0</span> <span class="o">=</span> <span class="n">ld0</span> <span class="o">=</span> <span class="n">ls1</span> <span class="o">=</span> <span class="n">ld1</span> <span class="o">=</span> <span class="n">ls2</span> <span class="o">=</span> <span class="n">ld2</span> <span class="o">=</span> <span class="n">ls3</span> <span class="o">=</span> <span class="n">ld3</span> <span class="o">=</span> <span class="n">lb</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># lb = lower bottom</span>
+
+        <span class="c1"># +x</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+            <span class="n">cs1</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># -x</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+            <span class="n">cs3</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># +y</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+            <span class="n">cs2</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># -y</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+            <span class="n">cs0</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># +z</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">ut</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># -z</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+            <span class="n">lb</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># check for connections to other grids</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">connections</span><span class="p">:</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">connections</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">diagonal_movement</span> <span class="o">==</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">never</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">neighbors</span>
+
+        <span class="k">if</span> <span class="n">diagonal_movement</span> <span class="o">==</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">only_when_no_obstacle</span><span class="p">:</span>
+            <span class="n">cd0</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">cs3</span>
+            <span class="n">cd1</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">cs1</span>
+            <span class="n">cd2</span> <span class="o">=</span> <span class="n">cs1</span> <span class="ow">and</span> <span class="n">cs2</span>
+            <span class="n">cd3</span> <span class="o">=</span> <span class="n">cs2</span> <span class="ow">and</span> <span class="n">cs3</span>
+
+            <span class="n">us0</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">ut</span>
+            <span class="n">us1</span> <span class="o">=</span> <span class="n">cs1</span> <span class="ow">and</span> <span class="n">ut</span>
+            <span class="n">us2</span> <span class="o">=</span> <span class="n">cs2</span> <span class="ow">and</span> <span class="n">ut</span>
+            <span class="n">us3</span> <span class="o">=</span> <span class="n">cs3</span> <span class="ow">and</span> <span class="n">ut</span>
+
+            <span class="n">ls0</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">lb</span>
+            <span class="n">ls1</span> <span class="o">=</span> <span class="n">cs1</span> <span class="ow">and</span> <span class="n">lb</span>
+            <span class="n">ls2</span> <span class="o">=</span> <span class="n">cs2</span> <span class="ow">and</span> <span class="n">lb</span>
+            <span class="n">ls3</span> <span class="o">=</span> <span class="n">cs3</span> <span class="ow">and</span> <span class="n">lb</span>
+
+        <span class="k">elif</span> <span class="n">diagonal_movement</span> <span class="o">==</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">if_at_most_one_obstacle</span><span class="p">:</span>
+            <span class="n">cd0</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">or</span> <span class="n">cs3</span>
+            <span class="n">cd1</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">or</span> <span class="n">cs1</span>
+            <span class="n">cd2</span> <span class="o">=</span> <span class="n">cs1</span> <span class="ow">or</span> <span class="n">cs2</span>
+            <span class="n">cd3</span> <span class="o">=</span> <span class="n">cs2</span> <span class="ow">or</span> <span class="n">cs3</span>
+
+            <span class="n">us0</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">or</span> <span class="n">ut</span>
+            <span class="n">us1</span> <span class="o">=</span> <span class="n">cs1</span> <span class="ow">or</span> <span class="n">ut</span>
+            <span class="n">us2</span> <span class="o">=</span> <span class="n">cs2</span> <span class="ow">or</span> <span class="n">ut</span>
+            <span class="n">us3</span> <span class="o">=</span> <span class="n">cs3</span> <span class="ow">or</span> <span class="n">ut</span>
+
+            <span class="n">ls0</span> <span class="o">=</span> <span class="n">cs0</span> <span class="ow">or</span> <span class="n">lb</span>
+            <span class="n">ls1</span> <span class="o">=</span> <span class="n">cs1</span> <span class="ow">or</span> <span class="n">lb</span>
+            <span class="n">ls2</span> <span class="o">=</span> <span class="n">cs2</span> <span class="ow">or</span> <span class="n">lb</span>
+            <span class="n">ls3</span> <span class="o">=</span> <span class="n">cs3</span> <span class="ow">or</span> <span class="n">lb</span>
+
+        <span class="k">elif</span> <span class="n">diagonal_movement</span> <span class="o">==</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">always</span><span class="p">:</span>
+            <span class="n">cd0</span> <span class="o">=</span> <span class="n">cd1</span> <span class="o">=</span> <span class="n">cd2</span> <span class="o">=</span> <span class="n">cd3</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">us0</span> <span class="o">=</span> <span class="n">us1</span> <span class="o">=</span> <span class="n">us2</span> <span class="o">=</span> <span class="n">us3</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">ls0</span> <span class="o">=</span> <span class="n">ls1</span> <span class="o">=</span> <span class="n">ls2</span> <span class="o">=</span> <span class="n">ls3</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># +x +y</span>
+        <span class="k">if</span> <span class="n">cd2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cd2</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># +x -y</span>
+        <span class="k">if</span> <span class="n">cd1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cd1</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># -x +y</span>
+        <span class="k">if</span> <span class="n">cd3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cd3</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># -x -y</span>
+        <span class="k">if</span> <span class="n">cd0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cd0</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># +x +z</span>
+        <span class="k">if</span> <span class="n">us2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">us2</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># +x -z</span>
+        <span class="k">if</span> <span class="n">ls2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ls2</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># -x +z</span>
+        <span class="k">if</span> <span class="n">us3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">us3</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># -x -z</span>
+        <span class="k">if</span> <span class="n">ls3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ls3</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># +y +z</span>
+        <span class="k">if</span> <span class="n">us0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">us0</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># +y -z</span>
+        <span class="k">if</span> <span class="n">ls0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ls0</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># -y +z</span>
+        <span class="k">if</span> <span class="n">us1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">us1</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># -y -z</span>
+        <span class="k">if</span> <span class="n">ls1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ls1</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># remaining daigonal neighbors</span>
+        <span class="k">if</span> <span class="n">diagonal_movement</span> <span class="o">==</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">only_when_no_obstacle</span><span class="p">:</span>
+            <span class="n">ud0</span> <span class="o">=</span> <span class="n">cd0</span> <span class="ow">and</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">cs3</span> <span class="ow">and</span> <span class="n">us0</span> <span class="ow">and</span> <span class="n">us3</span> <span class="ow">and</span> <span class="n">ut</span>
+            <span class="n">ud1</span> <span class="o">=</span> <span class="n">cd1</span> <span class="ow">and</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">cs1</span> <span class="ow">and</span> <span class="n">us0</span> <span class="ow">and</span> <span class="n">us1</span> <span class="ow">and</span> <span class="n">ut</span>
+            <span class="n">ud2</span> <span class="o">=</span> <span class="n">cd2</span> <span class="ow">and</span> <span class="n">cs1</span> <span class="ow">and</span> <span class="n">cs2</span> <span class="ow">and</span> <span class="n">us1</span> <span class="ow">and</span> <span class="n">us2</span> <span class="ow">and</span> <span class="n">ut</span>
+            <span class="n">ud3</span> <span class="o">=</span> <span class="n">cd3</span> <span class="ow">and</span> <span class="n">cs2</span> <span class="ow">and</span> <span class="n">cs3</span> <span class="ow">and</span> <span class="n">us2</span> <span class="ow">and</span> <span class="n">us3</span> <span class="ow">and</span> <span class="n">ut</span>
+
+            <span class="n">ld0</span> <span class="o">=</span> <span class="n">cd0</span> <span class="ow">and</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">cs3</span> <span class="ow">and</span> <span class="n">ls0</span> <span class="ow">and</span> <span class="n">ls3</span> <span class="ow">and</span> <span class="n">lb</span>
+            <span class="n">ld1</span> <span class="o">=</span> <span class="n">cd1</span> <span class="ow">and</span> <span class="n">cs0</span> <span class="ow">and</span> <span class="n">cs1</span> <span class="ow">and</span> <span class="n">ls0</span> <span class="ow">and</span> <span class="n">ls1</span> <span class="ow">and</span> <span class="n">lb</span>
+            <span class="n">ld2</span> <span class="o">=</span> <span class="n">cd2</span> <span class="ow">and</span> <span class="n">cs1</span> <span class="ow">and</span> <span class="n">cs2</span> <span class="ow">and</span> <span class="n">ls1</span> <span class="ow">and</span> <span class="n">ls2</span> <span class="ow">and</span> <span class="n">lb</span>
+            <span class="n">ld3</span> <span class="o">=</span> <span class="n">cd3</span> <span class="ow">and</span> <span class="n">cs2</span> <span class="ow">and</span> <span class="n">cs3</span> <span class="ow">and</span> <span class="n">ls2</span> <span class="ow">and</span> <span class="n">ls3</span> <span class="ow">and</span> <span class="n">lb</span>
+
+        <span class="k">elif</span> <span class="n">diagonal_movement</span> <span class="o">==</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">if_at_most_one_obstacle</span><span class="p">:</span>
+            <span class="n">ud0</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd0</span><span class="p">,</span> <span class="n">cs0</span><span class="p">,</span> <span class="n">cs3</span><span class="p">,</span> <span class="n">us0</span><span class="p">,</span> <span class="n">us3</span><span class="p">,</span> <span class="n">ut</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+            <span class="n">ud1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd1</span><span class="p">,</span> <span class="n">cs0</span><span class="p">,</span> <span class="n">cs1</span><span class="p">,</span> <span class="n">us0</span><span class="p">,</span> <span class="n">us1</span><span class="p">,</span> <span class="n">ut</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+            <span class="n">ud2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd2</span><span class="p">,</span> <span class="n">cs1</span><span class="p">,</span> <span class="n">cs2</span><span class="p">,</span> <span class="n">us1</span><span class="p">,</span> <span class="n">us2</span><span class="p">,</span> <span class="n">ut</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+            <span class="n">ud3</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd3</span><span class="p">,</span> <span class="n">cs2</span><span class="p">,</span> <span class="n">cs3</span><span class="p">,</span> <span class="n">us2</span><span class="p">,</span> <span class="n">us3</span><span class="p">,</span> <span class="n">ut</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+
+            <span class="n">ld0</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd0</span><span class="p">,</span> <span class="n">cs0</span><span class="p">,</span> <span class="n">cs3</span><span class="p">,</span> <span class="n">ls0</span><span class="p">,</span> <span class="n">ls3</span><span class="p">,</span> <span class="n">lb</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+            <span class="n">ld1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd1</span><span class="p">,</span> <span class="n">cs0</span><span class="p">,</span> <span class="n">cs1</span><span class="p">,</span> <span class="n">ls0</span><span class="p">,</span> <span class="n">ls1</span><span class="p">,</span> <span class="n">lb</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+            <span class="n">ld2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd2</span><span class="p">,</span> <span class="n">cs1</span><span class="p">,</span> <span class="n">cs2</span><span class="p">,</span> <span class="n">ls1</span><span class="p">,</span> <span class="n">ls2</span><span class="p">,</span> <span class="n">lb</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+            <span class="n">ld3</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">cd3</span><span class="p">,</span> <span class="n">cs2</span><span class="p">,</span> <span class="n">cs3</span><span class="p">,</span> <span class="n">ls2</span><span class="p">,</span> <span class="n">ls3</span><span class="p">,</span> <span class="n">lb</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">5</span>
+
+        <span class="k">elif</span> <span class="n">diagonal_movement</span> <span class="o">==</span> <span class="n">DiagonalMovement</span><span class="o">.</span><span class="n">always</span><span class="p">:</span>
+            <span class="n">ud0</span> <span class="o">=</span> <span class="n">ud1</span> <span class="o">=</span> <span class="n">ud2</span> <span class="o">=</span> <span class="n">ud3</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">ld0</span> <span class="o">=</span> <span class="n">ld1</span> <span class="o">=</span> <span class="n">ld2</span> <span class="o">=</span> <span class="n">ld3</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># +x +y +z</span>
+        <span class="k">if</span> <span class="n">ud2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># +x +y -z</span>
+        <span class="k">if</span> <span class="n">ld2</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># +x -y +z</span>
+        <span class="k">if</span> <span class="n">ud1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># +x -y -z</span>
+        <span class="k">if</span> <span class="n">ld1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># -x +y +z</span>
+        <span class="k">if</span> <span class="n">ud3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># -x +y -z</span>
+        <span class="k">if</span> <span class="n">ld3</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># -x -y +z</span>
+        <span class="k">if</span> <span class="n">ud0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># -x -y -z</span>
+        <span class="k">if</span> <span class="n">ld0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">walkable</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">neighbors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">z</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">neighbors</span></div>
+
+<div class="viewcode-block" id="Grid.cleanup"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.grid.Grid.cleanup">[docs]</a>    <span class="k">def</span> <span class="nf">cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cleanup grid</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">x_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">y_nodes</span> <span class="ow">in</span> <span class="n">x_nodes</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">z_node</span> <span class="ow">in</span> <span class="n">y_nodes</span><span class="p">:</span>
+                    <span class="n">z_node</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Harisankar Babu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
