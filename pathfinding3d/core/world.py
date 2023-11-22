@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 
 from .diagonal_movement import DiagonalMovement
 from .grid import Grid
@@ -10,7 +10,7 @@ class World:
     def __init__(self, grids: Dict[int, Grid]):
         self.grids = grids
 
-    def neighbors(self, node: Node, diagonal_movement: DiagonalMovement) -> list[Node]:
+    def neighbors(self, node: Node, diagonal_movement: DiagonalMovement) -> List[Node]:
         """
         Get neighbors of the given node.
 
