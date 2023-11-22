@@ -46,14 +46,3 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.xml
           flags: unittests
-
-      - name: Build docs
-        run: |
-          pip install sphinx sphinx_rtd_theme sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-version-warning
-          sphinx-build -b html docs/ ./public
-
-      - name: Deploy docs
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
