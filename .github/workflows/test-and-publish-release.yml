@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Setup Python (faster than using Python container)
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.8"
 
@@ -32,7 +32,16 @@ jobs:
         run: coverage run --source pathfinding3d -m pytest 
 
       - name: Show basic test coverage report
-        run: coverage report
+        run: |
+          coverage report -m
+          coverage xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v1
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
 
       - name: Publish 📦 to PyPI
         env:

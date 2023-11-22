@@ -1,5 +1,11 @@
 # python-pathfinding-3D
 
+![MIT License](https://img.shields.io/github/license/harisankar95/python-pathfinding-3d)
+![PyPI](https://img.shields.io/pypi/v/pathfinding3d)
+[![Pipeline](https://github.com/harisankar95/python-pathfinding-3D/actions/workflows/test-main.yml/badge.svg?branch=main)](https://github.com/harisankar95/python-pathfinding-3D/actions/workflows/test-main.yml)
+[![codecov](https://codecov.io/gh/harisankar95/python-pathfinding-3D/branch/main/graph/badge.svg?token=ZQZQZQZQZQ)](https://codecov.io/gh/harisankar95/python-pathfinding-3D)
+[![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 Pathfinding algorithms for python3 froked from [python-pathfinding](https://github.com/brean/python-pathfinding) by [@brean](https://github.com/brean).
 
 Currently there are 7 path-finders bundled in this library, namely:
@@ -13,9 +19,6 @@ Currently there are 7 path-finders bundled in this library, namely:
 - Minimum Spanning Tree (MSP)
 
 Dijkstra and A* take the weight of the fields on the map into account.
-
-![MIT License](https://img.shields.io/github/license/harisankar95/python-pathfinding-3d)
-![PyPI](https://img.shields.io/pypi/v/pathfinding3d)
 
 ## Installation
 
