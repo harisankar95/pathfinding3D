@@ -47,8 +47,8 @@ A simple usage example to find a path using A*.
 
     ```python
     print('operations:', runs, 'path length:', len(path))
-    print(grid.grid_str(path=path, start=start, end=end))
-    ``
+    print('path:', path)
+    ```
 
 Here is the whole example if you just want to copy-and-paste the code and play with it:
 
