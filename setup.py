@@ -26,4 +26,5 @@ setup(
     package_data={"pathfinding3d": ["version.txt"]},
     install_requires=["numpy"],
     tests_require=["numpy", "pytest", "coverage"],
+    min_python_version="3.8",
 )
