@@ -1,21 +1,29 @@
 #!/usr/bin/env python
+import os
+
 from setuptools import find_packages, setup
 
-
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+# read the version from version.txt
+with open(os.path.join("pathfinding3d", "version.txt"), encoding="utf-8") as file_handler:
+    __version__ = file_handler.read().strip()
 
 setup(
-    name="pathfinding",
-    description="Pathfinding algorithms (based on Pathfinding.JS)",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/brean/python-pathfinding",
-    version="1.0.4",
+    name="pathfinding3d",
+    description="Pathfinding algorithms in 3D (based on python-pathfinding)",
+    url="https://github.com/harisankar95/python-pathfinding-3D",
+    version="__version__",
     license="MIT",
-    author="Andreas Bresser",
-    packages=find_packages(),
-    tests_require=["numpy", "pandas"],
-    include_package_data=True,
-    install_requires=[],
+    author="Harisankar Babu",
+    keywords=["pathfinding", "python"],
+    classifiers=[
+        "Development Status :: 1 - Alpha",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: English",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+    ],
+    packages=[package for package in find_packages() if package.startswith("pathfinding3d")],
+    package_data={"pathfinding3d": ["version.txt"]},
+    install_requires=["numpy"],
+    tests_require=["numpy", "pytest", "coverage"],
 )

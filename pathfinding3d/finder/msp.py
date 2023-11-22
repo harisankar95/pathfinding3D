@@ -1,7 +1,11 @@
 import heapq
 import time
 from collections import deque, namedtuple
+from typing import List, Optional, Union
+
 from ..core import heuristic
+from ..core.grid import Grid
+from ..core.node import Node
 from ..finder.finder import Finder
 
 
@@ -13,21 +17,48 @@ class MinimumSpanningTree(Finder):
     The wikipedia page has a nice description about MSP:
     https://en.wikipedia.org/wiki/Minimum_spanning_tree
     """
+
     def __init__(self, *args, **kwargs):
-        super(MinimumSpanningTree, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.heuristic = heuristic.null
 
-    def tree(self, grid, start):
+    def tree(self, grid: Grid, start: Node) -> List:
+        """
+        Returns a list of nodes that are part of the minimum spanning tree
+        of the grid.
+
+        Parameters
+        ----------
+        grid : Grid
+            grid that stores all possible steps/tiles as 3D-list
+        start : Node
+            start node
+
+        Returns
+        -------
+        List
+        """
+
         return list(self.itertree(grid, start))
 
-    def itertree(self, grid, start):
+    def itertree(self, grid: Grid, start: Node):
+        """
+        Returns a generator that yields nodes that are part of the minimum
+        spanning tree of the grid.
 
+        Parameters
+        ----------
+        grid : Grid
+            grid that stores all possible steps/tiles as 3D-list
+        start : Node
+            start node
+        """
         # Finder.process_node requires an end node, which we don't have.
         # The following value tricks the call to Finder.apply_heuristic.
         # Though maybe we want to generate a limited spanning tree that
         # trends in a certain direction? In which case we'd want a more
         # nuanced solution.
-        end = namedtuple("FakeNode", ["x", "y"])(-1, -1)
+        end = namedtuple("FakeNode", ["x", "y", "z"])(-1, -1, -1)
 
         start.opened = True
 
@@ -45,10 +76,27 @@ class MinimumSpanningTree(Finder):
             neighbors = self.find_neighbors(grid, node)
             for neighbor in neighbors:
                 if not neighbor.closed:
-                    self.process_node(
-                        grid, neighbor, node, end, open_list, open_value=True)
+                    self.process_node(grid, neighbor, node, end, open_list, open_value=True)
 
-    def find_path(self, start, end, grid):
+    def find_path(self, start: Node, end: Node, grid: Grid) -> Optional[Union[List[Node], int]]:
+        """
+        Find a path from start to end node on grid using the Minimum Spanning
+        Tree algorithm
+
+        Parameters
+        ----------
+        start : Node
+            start node
+        end : Node
+            end node
+        grid : Grid
+            grid that stores all possible steps/tiles as 3D-list
+
+        Returns
+        -------
+        Optional[Union[List[Node], int]]
+            path, number of iterations
+        """
         self.start_time = time.time()  # execution time limitation
         self.runs = 0  # count number of iterations
 
@@ -61,5 +109,5 @@ class MinimumSpanningTree(Finder):
                     step = step.parent
                 path.appendleft(step)
                 return path, self.runs
-        else:
-            return [], self.runs
+
+        return [], self.runs

@@ -7,18 +7,12 @@ class Node:
         # values used in the finder
         self.cleanup()
 
-    def __lt__(self, other):
-        """
-        nodes are sorted by f value (see a_star.py)
-
-        :param other: compare Node
-        :return:
-        """
+    def __lt__(self, other: "Node") -> bool:
         return self.f < other.f
 
     def cleanup(self):
         """
-        reset all calculated values, fresh start for pathfinding
+        Reset all calculated values, fresh start for pathfinding
         """
         # cost from this node to the goal (for A* including the heuristic)
         self.h = 0.0
@@ -43,32 +37,16 @@ class Node:
 
 
 @dataclasses.dataclass
-class GraphNode(Node):
-    """
-    simple node in a graph that's not a grid.
-    """
-    # id of the node in the graph (probably str or int but can be anything)
-    node_id = object
-
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.__post_init__()
-
-    def __eq__(self, o):
-        if isinstance(o, (int, str)):
-            return o == self.node_id
-        return self.node_id == o.node_id
-
-
-@dataclasses.dataclass
 class GridNode(Node):
     """
-    basic node, saves X and Y coordinates on some grid and determine if
+    basic node, saves X, Y and Z coordinates on some grid and determine if
     it is walkable.
     """
+
     # Coordinates
     x: int = 0
     y: int = 0
+    z: int = 0
 
     # Wether this node can be walked through.
     walkable: bool = True
@@ -87,10 +65,11 @@ class GridNode(Node):
     def __iter__(self):
         yield self.x
         yield self.y
+        yield self.z
         if self.grid_id is not None:
             yield self.grid_id
 
-    def connect(self, other_node):
+    def connect(self, other_node: "GridNode"):
         if not self.connections:
             self.connections = [other_node]
         else:

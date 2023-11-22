@@ -1,8 +1,11 @@
 import time
-from .finder import Finder, MAX_RUNS, TIME_LIMIT
+from typing import Callable, List, Optional, Union
+
 from ..core.diagonal_movement import DiagonalMovement
+from ..core.grid import Grid
 from ..core.heuristic import manhattan, octile
 from ..core.node import Node
+from .finder import MAX_RUNS, TIME_LIMIT, Finder
 
 
 class IDAStarFinder(Finder):
@@ -21,17 +24,46 @@ class IDAStarFinder(Finder):
     based on the JavaScript implementation by Gerard Meier
     (www.gerardmeier.com)
     """
-    def __init__(self, heuristic=None, weight=1,
-                 diagonal_movement=DiagonalMovement.never,
-                 time_limit=TIME_LIMIT,
-                 max_runs=MAX_RUNS,
-                 track_recursion=True):
-        super(IDAStarFinder, self).__init__(
-            heuristic=heuristic, weight=weight,
+
+    def __init__(
+        self,
+        heuristic: Optional[Callable] = None,
+        weight: int = 1,
+        diagonal_movement: DiagonalMovement = DiagonalMovement.never,
+        time_limit: float = TIME_LIMIT,
+        max_runs: int = MAX_RUNS,
+        track_recursion: bool = True,
+    ):
+        """
+        Find shortest path using IDA* algorithm
+
+        Parameters
+        ----------
+        heuristic : Callable
+            heuristic used to calculate distance of 2 points
+        weight : int
+            weight for the edges
+        diagonal_movement : DiagonalMovement
+            if diagonal movement is allowed
+            (see enum in diagonal_movement)
+        time_limit : float
+            max. runtime in seconds
+        max_runs : int
+            max. amount of tries until we abort the search
+            (optional, only if we enter huge grids and have time constrains)
+            <=0 means there are no constrains and the code might run on any
+            large map.
+        track_recursion : bool
+            if we should track recursion
+        """
+        super().__init__(
+            heuristic=heuristic,
+            weight=weight,
             diagonal_movement=diagonal_movement,
             weighted=False,
             time_limit=time_limit,
-            max_runs=max_runs)
+            max_runs=max_runs,
+        )
         self.track_recursion = track_recursion
         if not heuristic:
             if diagonal_movement == DiagonalMovement.never:
@@ -41,7 +73,43 @@ class IDAStarFinder(Finder):
                 # not admissible it should be octile instead
                 self.heuristic = octile
 
-    def search(self, node, g, cutoff, path, depth, end, grid):
+        self.nodes_visited: int
+
+    def search(
+        self,
+        node: Node,
+        g: float,
+        cutoff: float,
+        path: List[Node],
+        depth: int,
+        end: Node,
+        grid: Grid,
+    ) -> float:
+        """
+        Recursive IDA* search implementation
+
+        Parameters
+        ----------
+        node : Node
+            current node
+        g : float
+            cost from start to current node
+        cutoff : float
+            cutoff cost
+        path : List[Node]
+            path
+        depth : int
+            current depth
+        end : Node
+            end node
+        grid : Grid
+            grid that stores all possible steps/tiles as 3D-list
+
+        Returns
+        -------
+        float
+            cutoff cost
+        """
         self.runs += 1
         self.keep_running()
 
@@ -68,7 +136,7 @@ class IDAStarFinder(Finder):
         #        return self.apply_heuristic(a, end) - \
         #            self.apply_heuristic(b, end)
         #    sorted(neighbors, sort_neighbors)
-        min_t = float('inf')
+        min_t = float("inf")
         for neighbor in neighbors:
             if self.track_recursion:
                 # Retain a copy for visualisation. Due to recursion, this
@@ -76,8 +144,7 @@ class IDAStarFinder(Finder):
                 neighbor.retain_count += 1
                 neighbor.tested = True
 
-            t = self.search(neighbor, g + grid.calc_cost(node, neighbor),
-                            cutoff, path, depth + 1, end, grid)
+            t = self.search(neighbor, g + grid.calc_cost(node, neighbor), cutoff, path, depth + 1, end, grid)
 
             if isinstance(t, Node):
                 if len(path) < depth:
@@ -96,7 +163,24 @@ class IDAStarFinder(Finder):
 
         return min_t
 
-    def find_path(self, start, end, grid):
+    def find_path(self, start: Node, end: Node, grid: Grid) -> Optional[Union[List[Node], int]]:
+        """
+        Find a path from start to end node on grid using the IDA* algorithm
+
+        Parameters
+        ----------
+        start : Node
+            start node
+        end : Node
+            end node
+        grid : Grid
+            grid that stores all possible steps/tiles as 3D-list
+
+        Returns
+        -------
+        Optional[Union[List[Node], int]]
+            path, number of iterations
+        """
         self.start_time = time.time()  # execution time limitation
         self.runs = 0  # count number of iterations
 
@@ -119,10 +203,7 @@ class IDAStarFinder(Finder):
             # If t is a node, it's also the end node. Route is now
             # populated with a valid path to the end node.
             if isinstance(t, Node):
-                return (
-                    [(node.x, node.y, node.grid_id) for node in path],
-                    self.runs
-                )
+                return ([(node.x, node.y, node.z, node.grid_id) for node in path], self.runs)
 
             # Try again, this time with a deeper cut-off. The t score
             # is the closest we got to the end node.

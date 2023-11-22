@@ -1,6 +1,6 @@
-# python-pathfinding
+# python-pathfinding-3D
 
-Pathfinding algorithms for python 3.
+Pathfinding algorithms for python3 froked from [python-pathfinding](https://github.com/brean/python-pathfinding) by @brean
 
 Currently there are 7 path-finders bundled in this library, namely:
 
@@ -14,22 +14,21 @@ Currently there are 7 path-finders bundled in this library, namely:
 
 Dijkstra and A* take the weight of the fields on the map into account.
 
-![MIT License](https://img.shields.io/github/license/brean/python-pathfinding)
-![PyPI](https://img.shields.io/pypi/v/pathfinding)
-
-*If you are still using python 2 take a look at the [python2-branch](https://github.com/brean/python-pathfinding/tree/python2).*
+![MIT License](https://img.shields.io/github/license/harisankar95/python-pathfinding-3d)
+![PyPI](https://img.shields.io/pypi/v/pathfinding3d)
 
 ## Installation
 
 This library is provided by pypi, so you can just install the current stable version using pip:
 
 ```python
-pip install pathfinding
+pip install pathfinding3d
 ```
 
-see [pathfinding on pypi](https://pypi.org/project/pathfinding/)
+see [pathfinding on pypi](https://pypi.org/project/pathfinding3d/)
 
 ## Usage examples
+
 For usage examples with detailed descriptions take a look at the [docs](docs/) folder, also take a look at the [test/](test/) folder for more examples, e.g. how to use pandas
 
 ## Rerun the algorithm
@@ -63,21 +62,17 @@ flow:
 ```
 
 ## Testing
+
 You can run the tests locally using pytest. Take a look at the `test`-folder
 
 ## Contributing
 
-Please use the [issue tracker](https://github.com/brean/python-pathfinding/issues) to submit bug reports and feature requests. Please use merge requests as described [here](/CONTRIBUTING.md) to add/adapt functionality. 
+Please use the [issue tracker](https://github.com/harisankar95/python-pathfinding-3D/issues) to submit bug reports and feature requests. Please use merge requests as described [here](/CONTRIBUTING.md) to add/adapt functionality.
 
 ## License
 
 python-pathfinding is distributed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## Maintainer
-
-Andreas Bresser, self@andreasbresser.de
-
 ## Authors / Contributers
-Authors and contributers are [listed on github](https://github.com/brean/python-pathfinding/graphs/contributors).
 
-Inspired by [Pathfinding.JS](https://github.com/qiao/PathFinding.js)
+Authors and contributers are [listed on github](https://github.com/harisankar95/python-pathfinding-3D/graphs/contributors).

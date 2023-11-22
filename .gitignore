@@ -2,6 +2,7 @@
 .idea
 .coverage
 .pypirc
+.vscode
 
 
 # Byte-compiled / optimized / DLL files
