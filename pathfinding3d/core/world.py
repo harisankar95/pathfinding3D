@@ -21,7 +21,7 @@ class World:
 
         Returns
         -------
-        list[Node]
+        List[Node]
             neighbors of the given node
         """
 

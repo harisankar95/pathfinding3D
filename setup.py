@@ -11,7 +11,7 @@ setup(
     name="pathfinding3d",
     description="Pathfinding algorithms in 3D (based on python-pathfinding)",
     url="https://github.com/harisankar95/python-pathfinding-3D",
-    version="__version__",
+    version=__version__,
     license="MIT",
     author="Harisankar Babu",
     keywords=["pathfinding", "python"],
