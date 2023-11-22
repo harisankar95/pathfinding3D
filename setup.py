@@ -16,7 +16,6 @@ setup(
     author="Harisankar Babu",
     keywords=["pathfinding", "python"],
     classifiers=[
-        "Development Status :: 1 - Alpha",
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
         "Operating System :: OS Independent",

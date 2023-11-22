@@ -1,6 +1,6 @@
 # python-pathfinding-3D
 
-Pathfinding algorithms for python3 froked from [python-pathfinding](https://github.com/brean/python-pathfinding) by @brean
+Pathfinding algorithms for python3 froked from [python-pathfinding](https://github.com/brean/python-pathfinding) by [@brean](https://github.com/brean).
 
 Currently there are 7 path-finders bundled in this library, namely:
 
