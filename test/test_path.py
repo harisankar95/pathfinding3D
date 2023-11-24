@@ -27,6 +27,7 @@ TIME_LIMIT = 10  # give it a 10 second limit.
 
 weighted_finders = [
     AStarFinder,
+    BiAStarFinder,
     DijkstraFinder,
     MinimumSpanningTree,
 ]
@@ -128,9 +129,7 @@ def test_max_runs():
     end = grid.node(4, 4, 0)
     for find in finders:
         grid.cleanup()
-        finder = find(
-            diagonal_movement=DiagonalMovement.always, time_limit=TIME_LIMIT, max_runs=3
-        )
+        finder = find(diagonal_movement=DiagonalMovement.always, time_limit=TIME_LIMIT, max_runs=3)
         with pytest.raises(ExecutionRunsException):
             path, runs = finder.find_path(start, end, grid)
             print(f"{find.__name__} finishes after {runs} runs without exception")

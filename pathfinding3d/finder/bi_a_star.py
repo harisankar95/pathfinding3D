@@ -49,8 +49,6 @@ class BiAStarFinder(AStarFinder):
             max_runs=max_runs,
         )
 
-        self.weighted = False
-
     def find_path(self, start: GridNode, end: GridNode, grid: Grid) -> Tuple[List, int]:
         """
         Find a path from start to end node on grid using the A* algorithm

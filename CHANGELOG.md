@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+Enabled weights for BiAStarFinder
+
 ## 0.3
 
 Adds:
