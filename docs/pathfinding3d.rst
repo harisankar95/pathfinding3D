@@ -1,6 +1,11 @@
 pathfinding3d package
 =====================
 
+.. automodule:: pathfinding3d
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Subpackages
 -----------
 
@@ -9,11 +14,3 @@ Subpackages
 
    pathfinding3d.core
    pathfinding3d.finder
-
-Module contents
----------------
-
-.. automodule:: pathfinding3d
-   :members:
-   :undoc-members:
-   :show-inheritance:

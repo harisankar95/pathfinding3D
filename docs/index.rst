@@ -7,9 +7,13 @@ Welcome to pathfinding3d's documentation!
 =========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
+   Pathfinding3D <./INTRO.md>
+   Installation <./INSTALL.md>
+   Usage <./USAGE.md>
+   Change Log <./CHANGELOG.md>
    modules
 
 

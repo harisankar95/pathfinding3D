@@ -27,31 +27,42 @@ version = __version__
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx_autodoc_typehints",
-    "sphinx.ext.ifconfig",
-    "sphinx.ext.autosummary",
-    "sphinx.ext.doctest",
-    "sphinx.ext.todo",
-    "sphinx.ext.viewcode",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.githubpages",
-    "sphinx.ext.inheritance_diagram",
-    "sphinx.ext.graphviz",
-    "sphinx_copybutton",
-    "sphinx-prompt",
-    "notfound.extension",
-    "versionwarning.extension",
+    "sphinx.ext.autodoc",  # for autodoc
+    "sphinx.ext.ifconfig",  # for if statements
+    "sphinx.ext.autosummary",  # for autosummary
+    "sphinx.ext.doctest",  # for doctest
+    "sphinx.ext.todo",  # for todo list
+    "sphinx.ext.viewcode",  # for source code
+    "sphinx.ext.napoleon",  # for google style docstrings
+    "sphinx.ext.githubpages",  # for github pages
+    "sphinx.ext.inheritance_diagram",  # for inheritance diagrams
+    "sphinx.ext.graphviz",  # for graphviz
+    "sphinx.ext.mathjax",  # for math
+    "sphinxcontrib.spelling",  # for spell check
+    "sphinx_autodoc_typehints",  # for type hints
+    "sphinx_autodoc_annotation",  # for annotations
+    "sphinx_copybutton",  # for copy button
+    "sphinx-prompt",  # for prompt
+    "notfound.extension",  # for 404 page
+    "versionwarning.extension",  # for version warning
+    "recommonmark",  # for markdown
+    "nbsphinx",  # for notebooks
 ]
 
 templates_path = ["_templates"]
-source_suffix = ".rst"
+html_sidebars = {
+    "**": [
+        "_templates/versions.html",
+    ],
+}
+
+source_suffix = [".rst", ".md"]
 
 # The master toctree document.
 master_doc = "index"
 language = "en"
 
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -59,6 +70,26 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
+html_show_sourcelink = False
+html_show_sphinx = False
+html_copy_source = False
+html_show_copyright = True
+html_use_index = True
+# html
+html_theme_options = {
+    "canonical_url": "",
+    "display_version": True,
+    "prev_next_buttons_location": "bottom",
+    "style_external_links": True,
+    "style_nav_header_background": "white",
+    # Toc options
+    "collapse_navigation": False,
+    "sticky_navigation": True,
+    "navigation_depth": 4,
+    "includehidden": True,
+    "titles_only": False,
+}
 
 # generate autosummary even if no references
 autosummary_generate = True
@@ -77,7 +108,8 @@ autodoc_default_options = {
     "private-members": True,
     "exclude-members": "__weakref__",
     "show-inheritance": True,
-    "inherited-members": False,
+    "inherited-members": True,
+    "ignore-module-all": True,
 }
 
 # coverage
@@ -87,17 +119,6 @@ coverage_skip_undoc_in_source = True
 # syntax highlighting
 pygments_style = "sphinx"
 highlight_language = "python3"
-
-# html
-html_theme_options = {
-    "navigation_depth": 4,
-    "collapse_navigation": False,
-    "sticky_navigation": True,
-    "includehidden": True,
-    "titles_only": False,
-    "display_version": True,
-}
-
 
 # napoleon
 napoleon_numpy_docstring = True

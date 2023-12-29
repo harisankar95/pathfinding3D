@@ -1,4 +1,4 @@
-# Changelog
+# Version History
 
 ## 0.4.0
 

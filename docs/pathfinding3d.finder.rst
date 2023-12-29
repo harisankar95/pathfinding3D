@@ -1,6 +1,11 @@
 pathfinding3d.finder package
 ============================
 
+.. automodule:: pathfinding3d.finder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Submodules
 ----------
 
@@ -64,14 +69,6 @@ pathfinding3d.finder.msp module
 -------------------------------
 
 .. automodule:: pathfinding3d.finder.msp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: pathfinding3d.finder
    :members:
    :undoc-members:
    :show-inheritance:

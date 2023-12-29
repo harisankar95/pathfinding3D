@@ -1,9 +1,9 @@
-# python-pathfinding-3D
+# Pathfinding3D
 
-[![MIT License](https://img.shields.io/github/license/harisankar95/python-pathfinding-3d)](LICENSE)
+[![MIT License](https://img.shields.io/github/license/harisankar95/pathfinding3d)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/pathfinding3d)](https://pypi.org/project/pathfinding3d/)
-[![Pipeline](https://github.com/harisankar95/python-pathfinding-3D/actions/workflows/test-main.yml/badge.svg?branch=main)](https://github.com/harisankar95/python-pathfinding-3D/actions/workflows/test-main.yml)
-[![codecov](https://codecov.io/gh/harisankar95/python-pathfinding-3D/branch/main/graph/badge.svg?token=ZQZQZQZQZQ)](https://codecov.io/gh/harisankar95/python-pathfinding-3D)
+[![Pipeline](https://github.com/harisankar95/pathfinding3D/actions/workflows/test-main.yml/badge.svg?branch=main)](https://github.com/harisankar95/pathfinding3D/actions/workflows/test-main.yml)
+[![codecov](https://codecov.io/gh/harisankar95/pathfinding3D/branch/main/graph/badge.svg?token=ZQZQZQZQZQ)](https://codecov.io/gh/harisankar95/pathfinding3D)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Pathfinding algorithms for python3 froked from [python-pathfinding](https://github.com/brean/python-pathfinding) by [@brean](https://github.com/brean).
@@ -18,21 +18,21 @@ Currently there are 7 path-finders bundled in this library, namely:
 - Iterative Deeping A\* (IDA*)
 - Minimum Spanning Tree (MSP)
 
-Dijkstra and A* take the weight of the fields on the map into account.
+Dijkstra, A\* and Bi-directional A\* take the weight of the fields on the map into account.
 
 ## Installation
 
-This library is provided by pypi, so you can just install the current stable version using pip:
+The package is available on pypi, so you can install it with pip:
 
-```python
+```bash
 pip install pathfinding3d
 ```
 
-see [pathfinding on pypi](https://pypi.org/project/pathfinding3d/)
+see [pathfinding3d on pypi](https://pypi.org/project/pathfinding3d/)
 
 ## Usage examples
 
-For usage examples with detailed descriptions take a look at the [examples](examples/) folder, also take a look at the [test/](test/) folder for more examples, e.g. how to use pandas
+For usage examples with detailed descriptions take a look at the [examples](examples/) folder, also take a look at the [test/](test/) folder for more examples.
 
 ## Rerun the algorithm
 
@@ -70,7 +70,7 @@ You can run the tests locally using pytest. Take a look at the `test`-folder
 
 ## Contributing
 
-Please use the [issue tracker](https://github.com/harisankar95/python-pathfinding-3D/issues) to submit bug reports and feature requests. Please use merge requests as described [here](/CONTRIBUTING.md) to add/adapt functionality.
+Please use the [issue tracker](https://github.com/harisankar95/pathfinding3D/issues) to submit bug reports and feature requests. Please use merge requests as described [here](/CONTRIBUTING.md) to add/adapt functionality.
 
 ## License
 
@@ -78,4 +78,4 @@ python-pathfinding is distributed under the [MIT license](https://opensource.org
 
 ## Authors / Contributers
 
-Authors and contributers are [listed on github](https://github.com/harisankar95/python-pathfinding-3D/graphs/contributors).
+Authors and contributers are [listed on github](https://github.com/harisankar95/pathfinding3D/graphs/contributors).
