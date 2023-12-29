@@ -86,8 +86,7 @@ class AStarFinder(Finder):
         """
 
         # pop node with minimum 'f' value
-        node = heapq.nsmallest(1, open_list)[0]
-        open_list.remove(node)
+        node = heapq.heappop(open_list)
         node.closed = True
 
         # if reached the end position, construct the path and return it
