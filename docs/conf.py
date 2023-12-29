@@ -38,7 +38,6 @@ extensions = [
     "sphinx.ext.inheritance_diagram",  # for inheritance diagrams
     "sphinx.ext.graphviz",  # for graphviz
     "sphinx.ext.mathjax",  # for math
-    "sphinxcontrib.spelling",  # for spell check
     "sphinx_autodoc_typehints",  # for type hints
     "sphinx_autodoc_annotation",  # for annotations
     "sphinx_copybutton",  # for copy button

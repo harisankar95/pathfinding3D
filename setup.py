@@ -39,7 +39,6 @@ setup(
             "sphinx-prompt",
             "sphinx-notfound-page",
             "sphinx-version-warning",
-            "sphinxcontrib-spelling",
             "sphinx-autodoc-annotation",
         ]
     },
