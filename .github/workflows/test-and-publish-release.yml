@@ -45,7 +45,8 @@ jobs:
 
       - name: Build docs
         run: |
-          pip install sphinx<=6.2.1 sphinx_rtd_theme recommonmark nbsphinx sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-version-warning sphinx-autodoc-annotation
+          pip install sphinx==6.2.1
+          pip install sphinx_rtd_theme recommonmark nbsphinx sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-version-warning sphinx-autodoc-annotation
           sphinx-build -b html docs/ ./public
 
       - name: Deploy docs
