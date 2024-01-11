@@ -66,12 +66,10 @@ class Finder:
         self.weight = weight
         self.heuristic = heuristic
 
-        self.start_time: float
-        self.runs: int
+        self.start_time: float = 0.0
+        self.runs: int = 0
 
-    def apply_heuristic(
-        self, node_a: GridNode, node_b: GridNode, heuristic: Optional[Callable] = None
-    ) -> float:
+    def apply_heuristic(self, node_a: GridNode, node_b: GridNode, heuristic: Optional[Callable] = None) -> float:
         """
         Helper function to apply heuristic
 
@@ -168,7 +166,7 @@ class Finder:
             the node we like to test
             (the neighbor in A* or jump-node in JumpPointSearch)
         parent : GridNode
-            the parent node (the current node we like to test)
+            the parent node (of the current node we like to test)
         end : GridNode
             the end point to calculate the cost of the path
         open_list : List
@@ -179,11 +177,11 @@ class Finder:
         """
 
         # calculate cost from current node (parent) to the next node (neighbor)
-        ng = grid.calc_cost(parent, node, self.weighted)
+        ng = parent.g + grid.calc_cost(parent, node, self.weighted)
 
         if not node.opened or ng < node.g:
             node.g = ng
-            node.h = node.h or self.apply_heuristic(node, end) * self.weight
+            node.h = node.h or self.apply_heuristic(node, end)
             # f is the estimated total cost from start to goal
             node.f = node.g + node.h
             node.parent = parent
@@ -270,7 +268,4 @@ class Finder:
         """
         Return a human readable representation
         """
-        return (
-            f"<{self.__class__.__name__}"
-            f"diagonal_movement={self.diagonal_movement} >"
-        )
+        return f"<{self.__class__.__name__}" f"diagonal_movement={self.diagonal_movement} >"

@@ -40,9 +40,7 @@ class DijkstraFinder(AStarFinder):
             max_runs=max_runs,
         )
 
-    def apply_heuristic(
-        self, node_a: Node, node_b: Node, heuristic: Optional[Callable] = None
-    ) -> float:
+    def apply_heuristic(self, node_a: Node, node_b: Node, heuristic: Optional[Callable] = None) -> float:
         """
         Helper function to apply heuristic
 
@@ -58,6 +56,6 @@ class DijkstraFinder(AStarFinder):
         Returns
         -------
         float
-            1.0
+            0.0
         """
-        return 1.0
+        return 0.0
