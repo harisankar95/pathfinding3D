@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.1
+
+- Based on version v1.0.7 of [python-pathfinding](https://github.com/brean/python-pathfinding/commits/main/)
+
 ## 0.4.0
 
 - Updated Grid initialization to have better error messages
