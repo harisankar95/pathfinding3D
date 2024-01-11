@@ -43,9 +43,7 @@ extensions = [
     "sphinx_copybutton",  # for copy button
     "sphinx-prompt",  # for prompt
     "notfound.extension",  # for 404 page
-    "versionwarning.extension",  # for version warning
     "recommonmark",  # for markdown
-    "nbsphinx",  # for notebooks
 ]
 
 templates_path = ["_templates"]
@@ -55,6 +53,15 @@ html_sidebars = {
     ],
 }
 
+notfound_context = {
+    "body": (
+        "<h1>Page not found.</h1>\n\n"
+        "<p>Unfortunately, the page <tt>{{ pagename }}</tt> wasn't found.</p>\n\n"
+        "<p>Try going back to the <a href='https://harisankar95.github.io/pathfinding3D/'>homepage</a>.</p>\n\n"
+    ),
+}
+
+# source suffix
 source_suffix = [".rst", ".md"]
 
 # The master toctree document.
