@@ -30,7 +30,7 @@ setup(
             "black",
             "pytest",
             "coverage",
-            "sphinx<=6.2.1",
+            "sphinx<=7.2.6",
             "sphinx_rtd_theme",
             "recommonmark",
             "nbsphinx",
