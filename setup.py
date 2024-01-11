@@ -33,12 +33,10 @@ setup(
             "sphinx<=7.2.6",
             "sphinx_rtd_theme",
             "recommonmark",
-            "nbsphinx",
             "sphinx-autodoc-typehints",
             "sphinx-copybutton",
             "sphinx-prompt",
             "sphinx-notfound-page",
-            "sphinx-version-warning",
             "sphinx-autodoc-annotation",
         ]
     },

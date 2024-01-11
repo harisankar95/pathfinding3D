@@ -2,7 +2,7 @@ name: Build, test and publish Python 🐍 distributions 📦 to PyPI
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   build-and-publish:
@@ -45,8 +45,7 @@ jobs:
 
       - name: Build docs
         run: |
-          pip install sphinx==6.2.1
-          pip install sphinx_rtd_theme recommonmark nbsphinx sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-version-warning sphinx-autodoc-annotation
+          pip install sphinx sphinx_rtd_theme recommonmark sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-autodoc-annotation
           sphinx-build -b html docs/ ./public
 
       - name: Deploy docs
