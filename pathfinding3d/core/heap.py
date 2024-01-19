@@ -3,34 +3,37 @@ Simple heap with ordering and removal.
 Inspired from https://github.com/brean/python-pathfinding/pull/54
 """
 import heapq
-from typing import Callable, Tuple
+from typing import Callable, Union
 
 from .grid import Grid
+from .node import GridNode
 from .world import World
 
 
 class SimpleHeap:
     """
-    A simple implementation of a heap data structure.
+    A simple implementation of a heap data structure optimized for pathfinding.
     It maintains an open list of nodes, a status for each node, and a function to retrieve nodes.
     """
 
-    def __init__(self, node, grid):
+    def __init__(self, node: GridNode, grid: Union[Grid, World]):
         """
         Initializes the SimpleHeap with a given node and grid.
 
         Parameters
         ----------
-        node : Node
+        node : GridNode
             The initial node to be added to the heap. This node should have an 'f' attribute representing its cost.
-        grid : list of list of Node
-            The grid in which the nodes are located. This is used for pathfinding purposes.
+        grid : Union[Grid, World]
+            The grid in which the nodes are located.
         """
 
         self.grid = grid
-        self.open_list = [(node.f, node)]
-        self.node_status = {self._generate_node_identifier(node): True}
-        self.node_retrieval_function = self._determine_node_retrieval_function()
+        self._get_node_tuple = self._determine_node_retrieval_function()
+        self.open_list = [self._get_node_tuple(node, 0)]
+        self.removed_node_tuples = set()
+        self.heap_order = {}
+        self.number_pushed = 0
 
     def _determine_node_retrieval_function(self) -> Callable:
         """
@@ -47,72 +50,66 @@ class SimpleHeap:
             If the grid is not of type Grid or World.
         """
         if isinstance(self.grid, Grid):
-            return lambda node_tuple: self.grid.node(node_tuple[1].x, node_tuple[1].y, node_tuple[1].z)
+            return lambda node, heap_order: (node.f, heap_order, *node.identifier)
 
         if isinstance(self.grid, World):
-            return lambda node_tuple: self.grid.grids[node_tuple[1].grid_id].node(
-                node_tuple[1].x, node_tuple[1].y, node_tuple[1].z
-            )
+            return lambda node, heap_order: (node.f, heap_order, *node.identifier)
 
         raise ValueError("Unsupported grid type")
 
-    def _generate_node_identifier(self, node) -> Tuple:
-        """
-        Generates the node identifier based on the type of grid.
-
-        Parameters
-        ----------
-        node : Node
-            The node for which to generate the identifier.
-
-        Returns
-        -------
-        Tuple
-            The node identifier.
-        """
-
-        if isinstance(self.grid, World):
-            return (node.x, node.y, node.z, node.grid_id)
-
-        return (node.x, node.y, node.z)
-
-    def pop_node(self) -> Tuple:
+    def pop_node(self) -> GridNode:
         """
         Pops the node with the lowest cost from the heap.
 
         Returns
         -------
-        Tuple
+        GridNode
             The node with the lowest cost.
         """
+        node_tuple = heapq.heappop(self.open_list)
+        while node_tuple in self.removed_node_tuples:
+            node_tuple = heapq.heappop(self.open_list)
 
-        while True:
-            _, node = heapq.heappop(self.open_list)
-            if self.node_status.get(self._generate_node_identifier(node), False):
-                return self.node_retrieval_function((None, node))
+        if isinstance(self.grid, Grid):
+            node = self.grid.node(*node_tuple[2:])
+        elif isinstance(self.grid, World):
+            node = self.grid.grids[node_tuple[5]].node(*node_tuple[2:5])
 
-    def push_node(self, node):
+        return node
+
+    def push_node(self, node: GridNode):
         """
         Pushes a node to the heap.
 
         Parameters
         ----------
-        node : Node
+        node : GridNode
             The node to be pushed to the heap.
         """
-        heapq.heappush(self.open_list, (node.f, node))
-        self.node_status[self._generate_node_identifier(node)] = True
+        self.number_pushed = self.number_pushed + 1
+        node_tuple = self._get_node_tuple(node, self.number_pushed)
 
-    def remove_node(self, node):
+        self.heap_order[node.identifier] = self.number_pushed
+
+        heapq.heappush(self.open_list, node_tuple)
+
+    def remove_node(self, node: GridNode, old_f: float):
         """
-        Removes a node from the heap.
+        Remove the node from the heap.
+
+        This just stores it in a set and we just ignore the node if it does
+        get popped from the heap.
 
         Parameters
         ----------
-        node : Node
+        node : GridNode
             The node to be removed from the heap.
+        old_f: float
+            The old cost of the node.
         """
-        self.node_status[self._generate_node_identifier(node)] = False
+        heap_order = self.heap_order[node.identifier]
+        node_tuple = self._get_node_tuple(node, heap_order)
+        self.removed_node_tuples.add(node_tuple)
 
     def __len__(self) -> int:
         """

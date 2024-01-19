@@ -194,7 +194,7 @@ class Finder:
                 # the node can be reached with smaller cost.
                 # Since its f value has been updated, we have to
                 # update its position in the open list
-                open_list.remove_node(node)
+                open_list.remove_node(node, old_f)
                 open_list.push_node(node)
 
     def check_neighbors(
