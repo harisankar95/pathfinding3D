@@ -30,6 +30,7 @@ class SimpleHeap:
 
         self.grid = grid
         self._get_node_tuple = self._determine_node_retrieval_function()
+        self._get_node = self._determine_node_function()
         self.open_list = [self._get_node_tuple(node, 0)]
         self.removed_node_tuples = set()
         self.heap_order = {}
@@ -57,6 +58,29 @@ class SimpleHeap:
 
         raise ValueError("Unsupported grid type")
 
+    def _determine_node_function(self) -> Callable:
+        """
+        Determines the node function based on the type of grid.
+
+        Returns
+        -------
+        function
+            A function that takes a node tuple and returns the corresponding node.
+
+        Raises
+        ------
+        ValueError
+            If the grid is not of type Grid or World.
+        """
+
+        if isinstance(self.grid, Grid):
+            return lambda node_tuple: self.grid.node(*node_tuple[2:])
+
+        if isinstance(self.grid, World):
+            return lambda node_tuple: self.grid.grids[node_tuple[5]].node(*node_tuple[2:5])
+
+        raise ValueError("Unsupported grid type")
+
     def pop_node(self) -> GridNode:
         """
         Pops the node with the lowest cost from the heap.
@@ -70,12 +94,7 @@ class SimpleHeap:
         while node_tuple in self.removed_node_tuples:
             node_tuple = heapq.heappop(self.open_list)
 
-        if isinstance(self.grid, Grid):
-            node = self.grid.node(*node_tuple[2:])
-        elif isinstance(self.grid, World):
-            node = self.grid.grids[node_tuple[5]].node(*node_tuple[2:5])
-
-        return node
+        return self._get_node(node_tuple)
 
     def push_node(self, node: GridNode):
         """
