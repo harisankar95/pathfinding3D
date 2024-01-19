@@ -1,4 +1,3 @@
-import heapq  # used for the so colled "open list" that stores known nodes
 from typing import Callable, List, Optional, Tuple, Union
 
 from ..core.diagonal_movement import DiagonalMovement
@@ -86,7 +85,7 @@ class AStarFinder(Finder):
         """
 
         # pop node with minimum 'f' value
-        node = heapq.heappop(open_list)
+        node = open_list.pop_node()
         node.closed = True
 
         # if reached the end position, construct the path and return it
