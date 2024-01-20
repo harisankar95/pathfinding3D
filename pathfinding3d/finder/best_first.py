@@ -48,9 +48,7 @@ class BestFirst(AStarFinder):
 
         self.weighted = False
 
-    def apply_heuristic(
-        self, node_a: GridNode, node_b: GridNode, heuristic: Optional[Callable] = None
-    ) -> float:
+    def apply_heuristic(self, node_a: GridNode, node_b: GridNode, heuristic: Optional[Callable] = None) -> float:
         """
         Helper function to apply heuristic
 

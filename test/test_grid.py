@@ -89,7 +89,14 @@ def test_diagonal_movement_never(gen_grid):
     neighbors = test_grid.neighbors(node, DiagonalMovement.never)
     assert len(neighbors) == 6  # Only 6 neighbors (no diagonals)
     # only the following nodes are considered neighbors:
-    expected_neighbors = [(0, 1, 1), (1, 0, 1), (1, 2, 1), (2, 1, 1), (1, 1, 0), (1, 1, 2)]
+    expected_neighbors = [
+        (0, 1, 1),
+        (1, 0, 1),
+        (1, 2, 1),
+        (2, 1, 1),
+        (1, 1, 0),
+        (1, 1, 2),
+    ]
     actual_neighbors = [(neighbor.x, neighbor.y, neighbor.z) for neighbor in neighbors]
     # assert all neighbors are in the expected list
     for neighbor in actual_neighbors:
