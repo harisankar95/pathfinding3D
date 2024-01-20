@@ -1,10 +1,10 @@
-import heapq
 import time
 from collections import deque, namedtuple
 from typing import List, Tuple
 
 from ..core import heuristic
 from ..core.grid import Grid
+from ..core.heap import SimpleHeap
 from ..core.node import GridNode
 from ..finder.finder import Finder
 
@@ -62,23 +62,20 @@ class MinimumSpanningTree(Finder):
 
         start.opened = True
 
-        open_list = [start]
+        open_list = SimpleHeap(start, grid)
 
         while len(open_list) > 0:
             self.runs += 1
             self.keep_running()
 
-            node = heapq.nsmallest(1, open_list)[0]
-            open_list.remove(node)
+            node = open_list.pop_node()
             node.closed = True
             yield node
 
             neighbors = self.find_neighbors(grid, node)
             for neighbor in neighbors:
                 if not neighbor.closed:
-                    self.process_node(
-                        grid, neighbor, node, end, open_list, open_value=True
-                    )
+                    self.process_node(grid, neighbor, node, end, open_list, open_value=True)
 
     def find_path(self, start: GridNode, end: GridNode, grid: Grid) -> Tuple[List, int]:
         """

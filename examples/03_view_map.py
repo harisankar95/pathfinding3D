@@ -42,7 +42,7 @@ for node in path_:
     elif isinstance(node, tuple):
         path.append([node[0], node[1], node[2]])
 print(f"path: {path}")
-  
+
 
 # visualize path in open3d
 if USE_OPEN3D:
@@ -51,16 +51,16 @@ if USE_OPEN3D:
     xyz_pt = np.stack(obstacle_indices, axis=-1).astype(float)
     colors = np.zeros((xyz_pt.shape[0], 3))
     colors[:, 2] = obstacle_indices[2] / np.max(obstacle_indices[2])
-    
+
     # Prepare start and end colors
     start_color = np.array([[1.0, 0, 0]])  # Red
-    end_color = np.array([[0, 1.0, 0]])    # Green
+    end_color = np.array([[0, 1.0, 0]])  # Green
     path_colors = np.full((len(path) - 2, 3), [0.7, 0.7, 0.7])  # Grey for the path
 
     # Combine points and colors
     xyz_pt = np.concatenate((xyz_pt, [start_pt], [end_pt], path[1:-1]))
     colors = np.concatenate((colors, start_color, end_color, path_colors))
-    
+
     # Create and visualize the point cloud
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(xyz_pt)

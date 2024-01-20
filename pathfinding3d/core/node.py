@@ -1,11 +1,12 @@
 import dataclasses
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 
 @dataclasses.dataclass
 class Node:
-    def __post_init__(self):
-        # values used in the finder
+    __slots__ = ["h", "g", "f", "opened", "closed", "parent", "retain_count", "tested"]
+
+    def __init__(self):
         self.cleanup()
 
     def __lt__(self, other: "Node") -> bool:
@@ -62,6 +63,15 @@ class GridNode(Node):
     grid_id: Optional[int] = None
 
     connections: Optional[List] = None
+
+    identifier: Optional[Tuple] = None
+
+    def __post_init__(self):
+        super().__init__()
+        # for heap
+        self.identifier: Tuple = (
+            (self.x, self.y, self.z) if self.grid_id is None else (self.x, self.y, self.z, self.grid_id)
+        )
 
     def __iter__(self):
         yield self.x

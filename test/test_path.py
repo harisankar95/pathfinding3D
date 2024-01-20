@@ -13,7 +13,6 @@ from pathfinding3d.finder.finder import ExecutionRunsException, ExecutionTimeExc
 from pathfinding3d.finder.ida_star import IDAStarFinder
 from pathfinding3d.finder.msp import MinimumSpanningTree
 
-# test scenarios from Pathfinding.JS
 finders = [
     AStarFinder,
     BestFirst,
@@ -31,7 +30,6 @@ weighted_finders = [
     DijkstraFinder,
     MinimumSpanningTree,
 ]
-TIME_LIMIT = 10  # give it a 10 second limit
 
 SIMPLE_MATRIX = np.zeros((5, 5, 5))
 SIMPLE_MATRIX[0, 0, 0] = 1
@@ -60,7 +58,7 @@ WEIGHTED_SIMPLE_MATRIX[3, :, :] = 99
 
 def test_path():
     """
-    test scenarios defined in json file
+    test if we can find a path
     """
     grid = Grid(matrix=SIMPLE_MATRIX)
     start = grid.node(0, 0, 0)

@@ -1,9 +1,9 @@
-import heapq  # used for the so colled "open list" that stores known nodes
 import time  # for time limitation
 from typing import Callable, List, Optional, Tuple, Union
 
 from ..core.diagonal_movement import DiagonalMovement
 from ..core.grid import Grid
+from ..core.heap import SimpleHeap
 from ..core.node import GridNode
 
 # max. amount of tries we iterate until we abort the search
@@ -180,6 +180,7 @@ class Finder:
         ng = parent.g + grid.calc_cost(parent, node, self.weighted)
 
         if not node.opened or ng < node.g:
+            old_f = node.f
             node.g = ng
             node.h = node.h or self.apply_heuristic(node, end)
             # f is the estimated total cost from start to goal
@@ -187,14 +188,14 @@ class Finder:
             node.parent = parent
 
             if not node.opened:
-                heapq.heappush(open_list, node)
+                open_list.push_node(node)
                 node.opened = open_value
             else:
                 # the node can be reached with smaller cost.
                 # Since its f value has been updated, we have to
                 # update its position in the open list
-                open_list.remove(node)
-                heapq.heappush(open_list, node)
+                open_list.remove_node(node, old_f)
+                open_list.push_node(node)
 
     def check_neighbors(
         self,
@@ -251,7 +252,7 @@ class Finder:
         self.runs = 0  # count number of iterations
         start.opened = True
 
-        open_list = [start]
+        open_list = SimpleHeap(start, grid)
 
         while len(open_list) > 0:
             self.runs += 1
