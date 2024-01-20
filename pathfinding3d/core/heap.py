@@ -1,6 +1,7 @@
 """
 Simple heap with ordering and removal.
 Inspired from https://github.com/brean/python-pathfinding/pull/54
+Original author: https://github.com/peterchenadded
 """
 import heapq
 from typing import Callable, Union
