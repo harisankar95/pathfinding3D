@@ -9,6 +9,10 @@ from .node import GridNode
 SQRT2 = math.sqrt(2)
 # square root of 3 for octile distance
 SQRT3 = math.sqrt(3)
+# square root of 2 minus 1 for octile distance
+SQRT2_MINUS_1 = SQRT2 - 1
+# square root of 3 minus square root of 2 for octile distance
+SQRT3_MINUS_SQRT2 = SQRT3 - SQRT2
 
 Coords = Tuple[float, float, float]
 
@@ -105,15 +109,9 @@ def raytrace(coords_a: Coords, coords_b: Coords) -> List[List[float]]:
     while t <= 1.0:
         line.append(copy.copy(grid_pos))
         index = None
-        if (
-            t_for_next_border[0] <= t_for_next_border[1]
-            and t_for_next_border[0] <= t_for_next_border[2]
-        ):
+        if t_for_next_border[0] <= t_for_next_border[1] and t_for_next_border[0] <= t_for_next_border[2]:
             index = 0
-        elif (
-            t_for_next_border[1] <= t_for_next_border[2]
-            and t_for_next_border[1] <= t_for_next_border[0]
-        ):
+        elif t_for_next_border[1] <= t_for_next_border[2] and t_for_next_border[1] <= t_for_next_border[0]:
             index = 1
         else:
             index = 2
@@ -226,9 +224,7 @@ def expand_path(path: List[Coords]) -> List[Coords]:
     return expanded
 
 
-def smoothen_path(
-    grid: Grid, path: List[Coords], use_raytrace: bool = False
-) -> List[List[float]]:
+def smoothen_path(grid: Grid, path: List[Coords], use_raytrace: bool = False) -> List[List[float]]:
     """
     Given an uncompressed path, return a new path that has less
     turnings and looks more natural.
@@ -256,9 +252,7 @@ def smoothen_path(
         line = interpolate((sx, sy, sz), coord)
         blocked = False
         for test_coord in line[1:]:
-            if not grid.walkable(
-                int(test_coord[0]), int(test_coord[1]), int(test_coord[2])
-            ):
+            if not grid.walkable(int(test_coord[0]), int(test_coord[1]), int(test_coord[2])):
                 blocked = True
                 break
         if not blocked:
