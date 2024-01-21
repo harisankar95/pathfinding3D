@@ -17,7 +17,7 @@ with open(os.path.join("../pathfinding3d", "version.txt"), encoding="utf-8") as 
 
 
 project = "pathfinding3d"
-copyright = "2023, Harisankar Babu"
+copyright = "2024, Harisankar Babu"
 author = "Harisankar Babu"
 release = __version__
 version = __version__
