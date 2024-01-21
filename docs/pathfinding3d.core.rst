@@ -25,6 +25,14 @@ pathfinding3d.core.grid module
    :undoc-members:
    :show-inheritance:
 
+pathfinding3d.core.heap module
+------------------------------
+
+.. automodule:: pathfinding3d.core.heap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 pathfinding3d.core.heuristic module
 -----------------------------------
 
