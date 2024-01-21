@@ -1,5 +1,10 @@
 # Version History
 
+## 0.5.1
+
+- Minor bug fixes
+- More tests added
+
 ## 0.5.0
 
 - New tests added for diagonal movements

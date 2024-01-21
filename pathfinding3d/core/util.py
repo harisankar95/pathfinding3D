@@ -220,7 +220,8 @@ def expand_path(path: List[Coords]) -> List[Coords]:
         return expanded
     for i in range(len(path) - 1):
         expanded += bresenham(path[i], path[i + 1])
-    expanded += [path[:-1]]
+        expanded.pop()
+    expanded.append(path[-1])
     return expanded
 
 

@@ -1,5 +1,52 @@
+import pytest
+
 from pathfinding3d.core.grid import Grid
 from pathfinding3d.core.heap import SimpleHeap
+
+
+def test_determine_node_retrieval_function():
+    grid = Grid(width=10, height=10, depth=10)
+    start = grid.node(0, 0, 0)
+    heap = SimpleHeap(start, grid)
+
+    assert callable(heap._determine_node_retrieval_function())
+
+    with pytest.raises(ValueError):
+        heap.grid = "UnsupportedType"
+        heap._determine_node_retrieval_function()
+
+
+def test_determine_node_function():
+    grid = Grid(width=10, height=10, depth=10)
+    start = grid.node(0, 0, 0)
+    heap = SimpleHeap(start, grid)
+
+    assert callable(heap._determine_node_function())
+
+    with pytest.raises(ValueError):
+        heap.grid = "UnsupportedType"
+        heap._determine_node_function()
+
+
+def test_push_node():
+    grid = Grid(width=10, height=10, depth=10)
+    start = grid.node(0, 0, 0)
+    heap = SimpleHeap(start, grid)
+
+    heap.push_node(grid.node(1, 1, 1))
+    assert len(heap) == 2
+    assert heap.number_pushed == 1
+
+
+def test_remove_node():
+    grid = Grid(width=10, height=10, depth=10)
+    start = grid.node(0, 0, 0)
+    heap = SimpleHeap(start, grid)
+
+    heap.push_node(grid.node(1, 1, 1))
+    heap.remove_node(grid.node(1, 1, 1), 0)
+    assert len(heap) == 2
+    assert (0.0, 1, 1, 1, 1) in heap.removed_node_tuples
 
 
 def test_heap():

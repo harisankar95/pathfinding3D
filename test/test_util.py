@@ -1,5 +1,5 @@
 from pathfinding3d.core.grid import Grid
-from pathfinding3d.core.util import bresenham, raytrace, smoothen_path
+from pathfinding3d.core.util import bresenham, expand_path, raytrace, smoothen_path
 
 
 def test_bresenham():
@@ -73,3 +73,26 @@ def test_smoothen_path():
         [4, 4, 2],
     ]
     assert smoothen_path(grid, path) == smooth_path
+
+
+def test_expand_path():
+    """
+    test expand_path function
+    """
+    # Test with empty path
+    assert expand_path([]) == []
+
+    # Test with one point path
+    assert expand_path([[0, 0, 0]]) == []
+
+    # Test with two points path
+    assert expand_path([[0, 0, 0], [1, 1, 1]]) == [[0, 0, 0], [1, 1, 1]]
+
+    # Test with multiple points path
+    assert expand_path([[0, 0, 0], [2, 2, 2], [4, 2, 2]]) == [
+        [0, 0, 0],
+        [1, 1, 1],
+        [2, 2, 2],
+        [3, 2, 2],
+        [4, 2, 2],
+    ]
