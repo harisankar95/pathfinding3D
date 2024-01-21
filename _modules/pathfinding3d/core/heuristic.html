@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pathfinding3d.core.heuristic &mdash; pathfinding3d 0.4.1 documentation</title>
+  <title>pathfinding3d.core.heuristic &mdash; pathfinding3d 0.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
@@ -17,7 +17,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=699e32f5"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=1f97deab"></script>
         <script src="../../../_static/doctools.js?v=888ff710"></script>
         <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -39,7 +39,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.4.1
+                0.5.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -56,21 +56,27 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../INSTALL.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../INSTALL.html#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../INSTALL.html#pypi">PyPI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../INSTALL.html#for-development-purpose-use-editable-mode">For development purpose use editable mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../INSTALL.html#for-development-purposes-please-use-editable-mode">For development purposes please use editable mode</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../USAGE.html">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../USAGE.html#basic-usage">Basic usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../USAGE.html#steps-portals-bridges">Steps/Portals/Bridges</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../USAGE.html#toy-example-connecting-two-building-storeys-with-a-bridge">Toy Example: Connecting Two Building Storeys with a Bridge</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG.html">Change Log</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id1">0.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id2">0.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id3">0.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id4">0.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id5">0.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id6">0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id1">0.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id2">0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id3">0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id4">0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id5">0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id6">0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../CHANGELOG.html#id7">0.1</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules.html">pathfinding3d</a><ul>
@@ -112,9 +118,10 @@
              
   <h1>Source code for pathfinding3d.core.heuristic</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
-<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">SQRT2</span><span class="p">,</span> <span class="n">SQRT3</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">SQRT2_MINUS_1</span><span class="p">,</span> <span class="n">SQRT3_MINUS_SQRT2</span>
 
 
 <div class="viewcode-block" id="null"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.null">[docs]</a><span class="k">def</span> <span class="nf">null</span><span class="p">(</span><span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -141,9 +148,7 @@
     <span class="k">return</span> <span class="mf">0.0</span></div>
 
 
-<div class="viewcode-block" id="manhattan"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.manhattan">[docs]</a><span class="k">def</span> <span class="nf">manhattan</span><span class="p">(</span>
-    <span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="manhattan"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.manhattan">[docs]</a><span class="k">def</span> <span class="nf">manhattan</span><span class="p">(</span><span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Manhattan heuristics</span>
 
 <span class="sd">    Parameters</span>
@@ -163,9 +168,8 @@
     <span class="k">return</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">+</span> <span class="n">dz</span></div>
 
 
-<div class="viewcode-block" id="euclidean"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.euclidean">[docs]</a><span class="k">def</span> <span class="nf">euclidean</span><span class="p">(</span>
-    <span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="euclidean"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.euclidean">[docs]</a><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">euclidean</span><span class="p">(</span><span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Euclidean distance heuristics</span>
 
 <span class="sd">    Parameters</span>
@@ -185,9 +189,7 @@
     <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">dy</span> <span class="o">+</span> <span class="n">dz</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="chebyshev"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.chebyshev">[docs]</a><span class="k">def</span> <span class="nf">chebyshev</span><span class="p">(</span>
-    <span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="chebyshev"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.chebyshev">[docs]</a><span class="k">def</span> <span class="nf">chebyshev</span><span class="p">(</span><span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Chebyshev distance.</span>
 
 <span class="sd">    Parameters</span>
@@ -207,9 +209,8 @@
     <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="octile"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.octile">[docs]</a><span class="k">def</span> <span class="nf">octile</span><span class="p">(</span>
-    <span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="octile"><a class="viewcode-back" href="../../../pathfinding3d.core.html#pathfinding3d.core.heuristic.octile">[docs]</a><span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">octile</span><span class="p">(</span><span class="n">dx</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dy</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">dz</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Octile distance.</span>
 
 <span class="sd">    Parameters</span>
@@ -230,7 +231,7 @@
     <span class="n">dmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
     <span class="n">dmid</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">+</span> <span class="n">dz</span> <span class="o">-</span> <span class="n">dmax</span> <span class="o">-</span> <span class="n">dmin</span>
 
-    <span class="k">return</span> <span class="n">dmax</span> <span class="o">+</span> <span class="p">(</span><span class="n">SQRT2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dmid</span> <span class="o">+</span> <span class="p">(</span><span class="n">SQRT3</span> <span class="o">-</span> <span class="n">SQRT2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dmin</span></div>
+    <span class="k">return</span> <span class="n">dmax</span> <span class="o">+</span> <span class="n">SQRT2_MINUS_1</span> <span class="o">*</span> <span class="n">dmid</span> <span class="o">+</span> <span class="n">SQRT3_MINUS_SQRT2</span> <span class="o">*</span> <span class="n">dmin</span></div>
 </pre></div>
 
            </div>
