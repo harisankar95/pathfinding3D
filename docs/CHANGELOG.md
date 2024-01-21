@@ -1,5 +1,13 @@
 # Version History
 
+## 0.5.0
+
+- New tests added for diagonal movements
+- LRU caching for heuristics
+- Updated documentation and examples
+- Node class has additional attributes for heap caching
+- Replicated simple heap structure inspired from [python-pathfinding](https://github.com/brean/python-pathfinding/pull/54), [original author](https://github.com/peterchenadded).
+
 ## 0.4.1
 
 - Based on version v1.0.7 of [python-pathfinding](https://github.com/brean/python-pathfinding/commits/main/)
