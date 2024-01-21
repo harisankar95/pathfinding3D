@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pathfinding3d.core package &mdash; pathfinding3d 0.5.0 documentation</title>
+  <title>pathfinding3d.core package &mdash; pathfinding3d 0.5.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
@@ -18,7 +18,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=1f97deab"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=7b580eef"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -42,7 +42,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.5.0
+                0.5.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -73,13 +73,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Change Log</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id1">0.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id2">0.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id3">0.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id4">0.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id5">0.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id6">0.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id7">0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id1">0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id2">0.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id3">0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id4">0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id5">0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id6">0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id7">0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id8">0.1</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pathfinding3d</a><ul class="current">
@@ -358,6 +359,117 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.cleanup">
 <span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.cleanup" title="Permalink to this definition"></a></dt>
 <dd><p>Cleanup grid</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pathfinding3d.core.heap">
+<span id="pathfinding3d-core-heap-module"></span><h2>pathfinding3d.core.heap module<a class="headerlink" href="#module-pathfinding3d.core.heap" title="Permalink to this heading"></a></h2>
+<p>Simple heap with ordering and removal.
+Inspired from <a class="reference external" href="https://github.com/brean/python-pathfinding/pull/54">https://github.com/brean/python-pathfinding/pull/54</a>
+Original author: <a class="reference external" href="https://github.com/peterchenadded">https://github.com/peterchenadded</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heap.</span></span><span class="sig-name descname"><span class="pre">SimpleHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A simple implementation of a heap data structure optimized for pathfinding.
+It maintains an open list of nodes, a status for each node, and a function to retrieve nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – </p></li>
+<li><p><strong>grid</strong> (<a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a><em> | </em><a class="reference internal" href="#pathfinding3d.core.world.World" title="pathfinding3d.core.world.World"><em>World</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Initializes the SimpleHeap with a given node and grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The initial node to be added to the heap. This node should have an ‘f’ attribute representing its cost.</p></li>
+<li><p><strong>grid</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a><em>, </em><a class="reference internal" href="#pathfinding3d.core.world.World" title="pathfinding3d.core.world.World"><em>World</em></a><em>]</em>) – The grid in which the nodes are located.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap._determine_node_retrieval_function">
+<span class="sig-name descname"><span class="pre">_determine_node_retrieval_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap._determine_node_retrieval_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap._determine_node_retrieval_function" title="Permalink to this definition"></a></dt>
+<dd><p>Determines the node retrieval function based on the type of grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A function that takes a node tuple and returns the corresponding node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the grid is not of type Grid or World.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap._determine_node_function">
+<span class="sig-name descname"><span class="pre">_determine_node_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap._determine_node_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap._determine_node_function" title="Permalink to this definition"></a></dt>
+<dd><p>Determines the node function based on the type of grid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A function that takes a node tuple and returns the corresponding node.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>function</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the grid is not of type Grid or World.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.pop_node">
+<span class="sig-name descname"><span class="pre">pop_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.pop_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.pop_node" title="Permalink to this definition"></a></dt>
+<dd><p>Pops the node with the lowest cost from the heap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The node with the lowest cost.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.push_node">
+<span class="sig-name descname"><span class="pre">push_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.push_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.push_node" title="Permalink to this definition"></a></dt>
+<dd><p>Pushes a node to the heap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The node to be pushed to the heap.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.remove_node">
+<span class="sig-name descname"><span class="pre">remove_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.remove_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.remove_node" title="Permalink to this definition"></a></dt>
+<dd><p>Remove the node from the heap.</p>
+<p>This just stores it in a set and we just ignore the node if it does
+get popped from the heap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The node to be removed from the heap.</p></li>
+<li><p><strong>old_f</strong> (<em>float</em>) – The old cost of the node.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -877,7 +989,7 @@ turnings and looks more natural.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, Harisankar Babu.</p>
+    <p>&#169; Copyright 2024, Harisankar Babu.</p>
   </div>
 
    
