@@ -13,13 +13,13 @@ class IDAStarFinder(Finder):
     Iterative Deeping A Star (IDA*) path-finder.
 
     Recursion based on:
-       http://www.apl.jhu.edu/~hall/AI-Programming/IDA-Star.html
+    http://www.apl.jhu.edu/~hall/AI-Programming/IDA-Star.html
 
     Path retracing based on:
-     V. Nageshwara Rao, Vipin Kumar and K. Ramesh
-     "A Parallel Implementation of Iterative-Deeping-A*", January 1987.
-     ftp://ftp.cs.utexas.edu/.snapshot/hourly.1/pub/AI-Lab/tech-reports/
-     UT-AI-TR-87-46.pdf
+    V. Nageshwara Rao, Vipin Kumar and K. Ramesh
+    "A Parallel Implementation of Iterative-Deeping-A*", January 1987.
+    ftp://ftp.cs.utexas.edu/.snapshot/hourly.1/pub/AI-Lab/tech-reports/
+    UT-AI-TR-87-46.pdf
 
     based on the JavaScript implementation by Gerard Meier
     (www.gerardmeier.com)

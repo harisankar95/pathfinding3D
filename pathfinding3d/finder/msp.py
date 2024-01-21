@@ -22,7 +22,7 @@ class MinimumSpanningTree(Finder):
         super().__init__(*args, **kwargs)
         self.heuristic = heuristic.null
 
-    def tree(self, grid: Grid, start: GridNode) -> List:
+    def tree(self, grid: Grid, start: GridNode) -> List[GridNode]:
         """
         Returns a list of nodes that are part of the minimum spanning tree
         of the grid.
@@ -36,7 +36,7 @@ class MinimumSpanningTree(Finder):
 
         Returns
         -------
-        List
+        List[GridNode]
         """
 
         return list(self.itertree(grid, start))

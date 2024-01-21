@@ -44,8 +44,6 @@ class BreadthFirstFinder(Finder):
             time_limit=time_limit,
             max_runs=max_runs,
         )
-        if not diagonal_movement:
-            self.diagonalMovement = DiagonalMovement.never
 
     def check_neighbors(
         self,
