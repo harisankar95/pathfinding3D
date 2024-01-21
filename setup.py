@@ -44,5 +44,6 @@ setup(
         "pytest",
         "coverage",
     ],
-    min_python_version="3.8",
+    python_requires=">=3.8",
+    platforms=["any"],
 )

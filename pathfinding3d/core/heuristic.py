@@ -1,7 +1,8 @@
 import math
+from functools import lru_cache
 from typing import Union
 
-from .util import SQRT2, SQRT3
+from .util import SQRT2_MINUS_1, SQRT3_MINUS_SQRT2
 
 
 def null(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
@@ -28,9 +29,7 @@ def null(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) ->
     return 0.0
 
 
-def manhattan(
-    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
-) -> float:
+def manhattan(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
     """Manhattan heuristics
 
     Parameters
@@ -50,9 +49,8 @@ def manhattan(
     return dx + dy + dz
 
 
-def euclidean(
-    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
-) -> float:
+@lru_cache(maxsize=128)
+def euclidean(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
     """Euclidean distance heuristics
 
     Parameters
@@ -72,9 +70,7 @@ def euclidean(
     return math.sqrt(dx * dx + dy * dy + dz * dz)
 
 
-def chebyshev(
-    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
-) -> float:
+def chebyshev(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
     """Chebyshev distance.
 
     Parameters
@@ -94,9 +90,8 @@ def chebyshev(
     return max(dx, dy, dz)
 
 
-def octile(
-    dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]
-) -> float:
+@lru_cache(maxsize=128)
+def octile(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
     """Octile distance.
 
     Parameters
@@ -117,4 +112,4 @@ def octile(
     dmin = min(dx, dy, dz)
     dmid = dx + dy + dz - dmax - dmin
 
-    return dmax + (SQRT2 - 1) * dmid + (SQRT3 - SQRT2) * dmin
+    return dmax + SQRT2_MINUS_1 * dmid + SQRT3_MINUS_SQRT2 * dmin

@@ -228,9 +228,7 @@ class Grid:
         list
             list of neighbor nodes
         """
-        x = node.x
-        y = node.y
-        z = node.z
+        x, y, z = node.x, node.y, node.z
 
         neighbors = []
         # current plane
@@ -240,25 +238,25 @@ class Grid:
         # lower plane
         ls0 = ld0 = ls1 = ld1 = ls2 = ld2 = ls3 = ld3 = lb = False  # lb = lower bottom
 
+        # -y
+        if self.walkable(x, y - 1, z):
+            neighbors.append(self.nodes[x][y - 1][z])
+            cs0 = True
+
         # +x
         if self.walkable(x + 1, y, z):
             neighbors.append(self.nodes[x + 1][y][z])
             cs1 = True
-
-        # -x
-        if self.walkable(x - 1, y, z):
-            neighbors.append(self.nodes[x - 1][y][z])
-            cs3 = True
 
         # +y
         if self.walkable(x, y + 1, z):
             neighbors.append(self.nodes[x][y + 1][z])
             cs2 = True
 
-        # -y
-        if self.walkable(x, y - 1, z):
-            neighbors.append(self.nodes[x][y - 1][z])
-            cs0 = True
+        # -x
+        if self.walkable(x - 1, y, z):
+            neighbors.append(self.nodes[x - 1][y][z])
+            cs3 = True
 
         # +z
         if self.walkable(x, y, z + 1):
@@ -278,10 +276,10 @@ class Grid:
             return neighbors
 
         if diagonal_movement == DiagonalMovement.only_when_no_obstacle:
-            cd0 = cs0 and cs3
-            cd1 = cs0 and cs1
-            cd2 = cs1 and cs2
-            cd3 = cs2 and cs3
+            cd0 = cs0 and cs1
+            cd1 = cs1 and cs2
+            cd2 = cs2 and cs3
+            cd3 = cs3 and cs0
 
             us0 = cs0 and ut
             us1 = cs1 and ut
@@ -294,10 +292,10 @@ class Grid:
             ls3 = cs3 and lb
 
         elif diagonal_movement == DiagonalMovement.if_at_most_one_obstacle:
-            cd0 = cs0 or cs3
-            cd1 = cs0 or cs1
-            cd2 = cs1 or cs2
-            cd3 = cs2 or cs3
+            cd0 = cs0 or cs1
+            cd1 = cs1 or cs2
+            cd2 = cs2 or cs3
+            cd3 = cs3 or cs0
 
             us0 = cs0 or ut
             us1 = cs1 or ut
@@ -314,41 +312,47 @@ class Grid:
             us0 = us1 = us2 = us3 = True
             ls0 = ls1 = ls2 = ls3 = True
 
-        # +x +y
-        if cd2 and self.walkable(x + 1, y + 1, z):
-            neighbors.append(self.nodes[x + 1][y + 1][z])
-        else:
-            cd2 = False
-
         # +x -y
-        if cd1 and self.walkable(x + 1, y - 1, z):
+        if cd0 and self.walkable(x + 1, y - 1, z):
             neighbors.append(self.nodes[x + 1][y - 1][z])
+        else:
+            cd0 = False
+
+        # +x +y
+        if cd1 and self.walkable(x + 1, y + 1, z):
+            neighbors.append(self.nodes[x + 1][y + 1][z])
         else:
             cd1 = False
 
         # -x +y
-        if cd3 and self.walkable(x - 1, y + 1, z):
+        if cd2 and self.walkable(x - 1, y + 1, z):
             neighbors.append(self.nodes[x - 1][y + 1][z])
+        else:
+            cd2 = False
+
+        # -x -y
+        if cd3 and self.walkable(x - 1, y - 1, z):
+            neighbors.append(self.nodes[x - 1][y - 1][z])
         else:
             cd3 = False
 
-        # -x -y
-        if cd0 and self.walkable(x - 1, y - 1, z):
-            neighbors.append(self.nodes[x - 1][y - 1][z])
+        # -y +z
+        if us0 and self.walkable(x, y - 1, z + 1):
+            neighbors.append(self.nodes[x][y - 1][z + 1])
         else:
-            cd0 = False
+            us0 = False
 
         # +x +z
-        if us2 and self.walkable(x + 1, y, z + 1):
+        if us1 and self.walkable(x + 1, y, z + 1):
             neighbors.append(self.nodes[x + 1][y][z + 1])
         else:
-            us2 = False
+            us1 = False
 
-        # +x -z
-        if ls2 and self.walkable(x + 1, y, z - 1):
-            neighbors.append(self.nodes[x + 1][y][z - 1])
+        # +y +z
+        if us2 and self.walkable(x, y + 1, z + 1):
+            neighbors.append(self.nodes[x][y + 1][z + 1])
         else:
-            ls2 = False
+            us2 = False
 
         # -x +z
         if us3 and self.walkable(x - 1, y, z + 1):
@@ -356,93 +360,87 @@ class Grid:
         else:
             us3 = False
 
+        # -y -z
+        if ls0 and self.walkable(x, y - 1, z - 1):
+            neighbors.append(self.nodes[x][y - 1][z - 1])
+        else:
+            ls0 = False
+
+        # +x -z
+        if ls1 and self.walkable(x + 1, y, z - 1):
+            neighbors.append(self.nodes[x + 1][y][z - 1])
+        else:
+            ls1 = False
+
+        # +y -z
+        if ls2 and self.walkable(x, y + 1, z - 1):
+            neighbors.append(self.nodes[x][y + 1][z - 1])
+        else:
+            ls2 = False
+
         # -x -z
         if ls3 and self.walkable(x - 1, y, z - 1):
             neighbors.append(self.nodes[x - 1][y][z - 1])
         else:
             ls3 = False
 
-        # +y +z
-        if us0 and self.walkable(x, y + 1, z + 1):
-            neighbors.append(self.nodes[x][y + 1][z + 1])
-        else:
-            us0 = False
-
-        # +y -z
-        if ls0 and self.walkable(x, y + 1, z - 1):
-            neighbors.append(self.nodes[x][y + 1][z - 1])
-        else:
-            ls0 = False
-
-        # -y +z
-        if us1 and self.walkable(x, y - 1, z + 1):
-            neighbors.append(self.nodes[x][y - 1][z + 1])
-        else:
-            us1 = False
-
-        # -y -z
-        if ls1 and self.walkable(x, y - 1, z - 1):
-            neighbors.append(self.nodes[x][y - 1][z - 1])
-        else:
-            ls1 = False
-
         # remaining daigonal neighbors
         if diagonal_movement == DiagonalMovement.only_when_no_obstacle:
-            ud0 = cd0 and cs0 and cs3 and us0 and us3 and ut
-            ud1 = cd1 and cs0 and cs1 and us0 and us1 and ut
-            ud2 = cd2 and cs1 and cs2 and us1 and us2 and ut
-            ud3 = cd3 and cs2 and cs3 and us2 and us3 and ut
+            ud0 = cs0 and cd0 and cs1 and us0 and us1 and ut
+            ud1 = cs1 and cd1 and cs2 and us1 and us2 and ut
+            ud2 = cs2 and cd2 and cs3 and us2 and us3 and ut
+            ud3 = cs3 and cd3 and cs0 and us3 and us0 and ut
 
-            ld0 = cd0 and cs0 and cs3 and ls0 and ls3 and lb
-            ld1 = cd1 and cs0 and cs1 and ls0 and ls1 and lb
-            ld2 = cd2 and cs1 and cs2 and ls1 and ls2 and lb
-            ld3 = cd3 and cs2 and cs3 and ls2 and ls3 and lb
+            ld0 = cs0 and cd0 and cs1 and ls0 and ls1 and lb
+            ld1 = cs1 and cd1 and cs2 and ls1 and ls2 and lb
+            ld2 = cs2 and cd2 and cs3 and ls2 and ls3 and lb
+            ld3 = cs3 and cd3 and cs0 and ls3 and ls0 and lb
 
         elif diagonal_movement == DiagonalMovement.if_at_most_one_obstacle:
-            ud0 = sum([cd0, cs0, cs3, us0, us3, ut]) >= 5
-            ud1 = sum([cd1, cs0, cs1, us0, us1, ut]) >= 5
-            ud2 = sum([cd2, cs1, cs2, us1, us2, ut]) >= 5
-            ud3 = sum([cd3, cs2, cs3, us2, us3, ut]) >= 5
+            ud0 = sum([cs0, cd0, cs1, us0, us1, ut]) >= 5
+            ud1 = sum([cs1, cd1, cs2, us1, us2, ut]) >= 5
+            ud2 = sum([cs2, cd2, cs3, us2, us3, ut]) >= 5
+            ud3 = sum([cs3, cd3, cs0, us3, us0, ut]) >= 5
 
-            ld0 = sum([cd0, cs0, cs3, ls0, ls3, lb]) >= 5
-            ld1 = sum([cd1, cs0, cs1, ls0, ls1, lb]) >= 5
-            ld2 = sum([cd2, cs1, cs2, ls1, ls2, lb]) >= 5
-            ld3 = sum([cd3, cs2, cs3, ls2, ls3, lb]) >= 5
+            ld0 = sum([cs0, cd0, cs1, ls0, ls1, lb]) >= 5
+            ld1 = sum([cs1, cd1, cs2, ls1, ls2, lb]) >= 5
+            ld2 = sum([cs2, cd2, cs3, ls2, ls3, lb]) >= 5
+            ld3 = sum([cs3, cd3, cs0, ls3, ls0, lb]) >= 5
 
         elif diagonal_movement == DiagonalMovement.always:
             ud0 = ud1 = ud2 = ud3 = True
             ld0 = ld1 = ld2 = ld3 = True
 
-        # +x +y +z
-        if ud2 and self.walkable(x + 1, y + 1, z + 1):
-            neighbors.append(self.nodes[x + 1][y + 1][z + 1])
-
-        # +x +y -z
-        if ld2 and self.walkable(x + 1, y + 1, z - 1):
-            neighbors.append(self.nodes[x + 1][y + 1][z - 1])
-
         # +x -y +z
-        if ud1 and self.walkable(x + 1, y - 1, z + 1):
+        if ud0 and self.walkable(x + 1, y - 1, z + 1):
             neighbors.append(self.nodes[x + 1][y - 1][z + 1])
 
-        # +x -y -z
-        if ld1 and self.walkable(x + 1, y - 1, z - 1):
-            neighbors.append(self.nodes[x + 1][y - 1][z - 1])
+        # +x +y +z
+        if ud1 and self.walkable(x + 1, y + 1, z + 1):
+            neighbors.append(self.nodes[x + 1][y + 1][z + 1])
 
         # -x +y +z
-        if ud3 and self.walkable(x - 1, y + 1, z + 1):
+        if ud2 and self.walkable(x - 1, y + 1, z + 1):
             neighbors.append(self.nodes[x - 1][y + 1][z + 1])
 
-        # -x +y -z
-        if ld3 and self.walkable(x - 1, y + 1, z - 1):
-            neighbors.append(self.nodes[x - 1][y + 1][z - 1])
-
         # -x -y +z
-        if ud0 and self.walkable(x - 1, y - 1, z + 1):
+        if ud3 and self.walkable(x - 1, y - 1, z + 1):
             neighbors.append(self.nodes[x - 1][y - 1][z + 1])
 
+        # +x -y -z
+        if ld0 and self.walkable(x + 1, y - 1, z - 1):
+            neighbors.append(self.nodes[x + 1][y - 1][z - 1])
+
+        # +x +y -z
+        if ld1 and self.walkable(x + 1, y + 1, z - 1):
+            neighbors.append(self.nodes[x + 1][y + 1][z - 1])
+
+        # -x +y -z
+        if ld2 and self.walkable(x - 1, y + 1, z - 1):
+            neighbors.append(self.nodes[x - 1][y + 1][z - 1])
+
         # -x -y -z
-        if ld0 and self.walkable(x - 1, y - 1, z - 1):
+        if ld3 and self.walkable(x - 1, y - 1, z - 1):
             neighbors.append(self.nodes[x - 1][y - 1][z - 1])
 
         return neighbors

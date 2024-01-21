@@ -1,5 +1,10 @@
 # Installation
 
+## Requirements
+
+- python - 3.8 or higher
+- numpy
+
 ## PyPI
 
 The package is available on pypi, so you can install it with pip:
@@ -8,10 +13,11 @@ The package is available on pypi, so you can install it with pip:
 pip install pathfinding3d
 ```
 
-## For development purpose use editable mode
+## For development purposes please use editable mode
 
 ```bash
 git clone https://github.com/harisankar95/pathfinding3D
 cd pathfinding3D
 pip install -e .[dev]
+git checkout -b <branch_name>
 ```

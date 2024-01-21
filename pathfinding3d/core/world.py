@@ -27,13 +27,9 @@ class World:
             neighbors of the given node
         """
 
-        return self.grids[node.grid_id].neighbors(
-            node, diagonal_movement=diagonal_movement
-        )
+        return self.grids[node.grid_id].neighbors(node, diagonal_movement=diagonal_movement)
 
-    def calc_cost(
-        self, node_a: GridNode, node_b: GridNode, weighted: bool = False
-    ) -> float:
+    def calc_cost(self, node_a: GridNode, node_b: GridNode, weighted: bool = False) -> float:
         """
         Calculate the cost between two nodes.
 
