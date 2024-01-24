@@ -1,4 +1,5 @@
 import math
+from functools import lru_cache
 from typing import List, Optional, Union
 
 import numpy as np
@@ -176,6 +177,27 @@ class Grid:
         """
         return self.inside(x, y, z) and self.nodes[x][y][z].walkable
 
+    @lru_cache(maxsize=128)
+    def _calc_cost(self, dx: int, dy: int, dz: int) -> float:
+        """
+        Get the distance between current node and the neighbor (cost)
+
+        Parameters
+        ----------
+        dx : int
+            x distance
+        dy : int
+            y distance
+        dz : int
+            z distance
+
+        Returns
+        -------
+        float
+            distance between current node and the neighbor (cost)
+        """
+        return math.sqrt(dx * dx + dy * dy + dz * dz)
+
     def calc_cost(self, node_a: GridNode, node_b: GridNode, weighted: bool = False) -> float:
         """
         Get the distance between current node and the neighbor (cost)
@@ -199,7 +221,7 @@ class Grid:
         dy = node_b.y - node_a.y
         dz = node_b.z - node_a.z
 
-        ng = math.sqrt(dx * dx + dy * dy + dz * dz)
+        ng = self._calc_cost(dx, dy, dz)
 
         # weight for weighted algorithms
         if weighted:
