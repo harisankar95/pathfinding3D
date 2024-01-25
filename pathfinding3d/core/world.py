@@ -6,7 +6,18 @@ from .node import GridNode
 
 # a world connects grids but can have multiple grids.
 class World:
+    """
+    A world connects grids but can have multiple grids.
+    """
     def __init__(self, grids: Dict[int, Grid]):
+        """
+        Initialize a new world.
+
+        Parameters
+        ----------
+        grids : Dict[int, Grid]
+            grids in this world
+        """
         self.grids = grids
 
     def neighbors(self, node: GridNode, diagonal_movement: int) -> List[GridNode]:
