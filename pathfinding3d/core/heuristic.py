@@ -1,5 +1,4 @@
 import math
-from functools import lru_cache
 from typing import Union
 
 from .util import SQRT2_MINUS_1, SQRT3_MINUS_SQRT2
@@ -49,7 +48,6 @@ def manhattan(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float
     return dx + dy + dz
 
 
-@lru_cache(maxsize=128)
 def euclidean(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
     """Euclidean distance heuristics
 
@@ -90,7 +88,6 @@ def chebyshev(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float
     return max(dx, dy, dz)
 
 
-@lru_cache(maxsize=128)
 def octile(dx: Union[int, float], dy: Union[int, float], dz: Union[int, float]) -> float:
     """Octile distance.
 
