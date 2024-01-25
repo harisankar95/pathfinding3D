@@ -1,4 +1,5 @@
 import math
+from functools import lru_cache
 from typing import List, Optional, Union
 
 import numpy as np
@@ -41,7 +42,7 @@ def build_nodes(
 
     Returns
     -------
-    List
+    List[List[List[GridNode]]]
         A list of list of lists containing the nodes in the grid.
     """
     nodes: List = []
@@ -66,6 +67,9 @@ def build_nodes(
 
 
 class Grid:
+    """
+    A grid represents the map (as 3d-list of nodes).
+    """
     def __init__(
         self,
         width: int = 0,
@@ -76,7 +80,7 @@ class Grid:
         inverse: bool = False,
     ):
         """
-        A grid represents the map (as 3d-list of nodes).
+        Create a new grid.
 
         Parameters
         ----------
@@ -114,6 +118,14 @@ class Grid:
         return width, height, depth
 
     def is_valid_grid(self) -> bool:
+        """
+        Check if grid is valid
+
+        Returns
+        -------
+        bool
+            True, if grid is valid
+        """
         return self.width > 0 and self.height > 0 and self.depth > 0
 
     def node(self, x: int, y: int, z: int) -> Optional[GridNode]:
@@ -176,6 +188,27 @@ class Grid:
         """
         return self.inside(x, y, z) and self.nodes[x][y][z].walkable
 
+    @lru_cache(maxsize=128)
+    def _calc_cost(self, dx: int, dy: int, dz: int) -> float:
+        """
+        Get the distance between current node and the neighbor (cost)
+
+        Parameters
+        ----------
+        dx : int
+            x distance
+        dy : int
+            y distance
+        dz : int
+            z distance
+
+        Returns
+        -------
+        float
+            distance between current node and the neighbor (cost)
+        """
+        return math.sqrt(dx * dx + dy * dy + dz * dz)
+
     def calc_cost(self, node_a: GridNode, node_b: GridNode, weighted: bool = False) -> float:
         """
         Get the distance between current node and the neighbor (cost)
@@ -199,7 +232,7 @@ class Grid:
         dy = node_b.y - node_a.y
         dz = node_b.z - node_a.z
 
-        ng = math.sqrt(dx * dx + dy * dy + dz * dz)
+        ng = self._calc_cost(dx, dy, dz)
 
         # weight for weighted algorithms
         if weighted:
@@ -225,8 +258,8 @@ class Grid:
 
         Returns
         -------
-        list
-            list of neighbor nodes
+        List[GridNode]
+            list of all neighbors
         """
         x, y, z = node.x, node.y, node.z
 

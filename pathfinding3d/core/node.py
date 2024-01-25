@@ -4,6 +4,28 @@ from typing import List, Optional, Tuple
 
 @dataclasses.dataclass
 class Node:
+    """
+    Basic node class, saves calculated values for pathfinding
+
+    Attributes
+    ----------
+    h : float
+        The cost from this node to the goal (for A* including the heuristic).
+    g : float
+        The cost from the start node to this node.
+    f : float
+        The overall cost for a path using this node (f = g + h).
+    opened : int
+        The number of times this node has been opened.
+    closed : bool
+        Whether this node is closed.
+    parent : Optional[Node]
+        The parent node of this node.
+    retain_count : int
+        Used for recursion tracking of IDA*.
+    tested : bool
+        Used for IDA* and Jump-Point-Search.
+    """
     __slots__ = ["h", "g", "f", "opened", "closed", "parent", "retain_count", "tested"]
 
     def __init__(self):
@@ -41,8 +63,24 @@ class Node:
 @dataclasses.dataclass
 class GridNode(Node):
     """
-    basic node, saves X, Y and Z coordinates on some grid and determine if
-    it is walkable.
+    Basic node in a grid.
+
+    Attributes
+    ----------
+    x : int
+        The x coordinate of the node.
+    y : int
+        The y coordinate of the node.
+    z : int
+        The z coordinate of the node.
+    walkable : bool
+        Whether this node can be walked through.
+    weight : float
+        The weight of the node.
+    grid_id : Optional[int]
+        The id of the grid this node belongs to.
+    connections : Optional[List]
+        The connections of this node.
     """
 
     # Coordinates
@@ -64,8 +102,6 @@ class GridNode(Node):
 
     connections: Optional[List] = None
 
-    identifier: Optional[Tuple] = None
-
     def __post_init__(self):
         super().__init__()
         # for heap
@@ -81,6 +117,14 @@ class GridNode(Node):
             yield self.grid_id
 
     def connect(self, other_node: "GridNode"):
+        """
+        Connect this node to another node.
+
+        Parameters
+        ----------
+        other_node : GridNode
+            The node to connect to.
+        """
         if not self.connections:
             self.connections = [other_node]
         else:
