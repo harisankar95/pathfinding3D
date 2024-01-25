@@ -54,7 +54,7 @@ print(f"path: {path}")
 
 # visualize path in open3d
 if USE_OPEN3D:
-    # Identifying obstacles and representing them in blu
+    # Identifying obstacles and representing them in blue
     obstacle_indices = np.where(matrix == 0)
     xyz_pt = np.stack(obstacle_indices, axis=-1).astype(float)
     colors = np.zeros((xyz_pt.shape[0], 3))

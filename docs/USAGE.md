@@ -211,3 +211,138 @@ Let's consider an example where we want to connect the second storey of two adja
     print("path through world 0:", path0)
     print("path through world 1:", path1)
     ```
+
+## Visualizing the Path
+
+Sometimes it is helpful to visualize the path to better understand the algorithm. Here is a simple example using the `open3d` library for this purpose.
+
+### Prerequisites
+
+- Install the `open3d` library:
+
+    ```bash
+    pip install open3d
+    ```
+
+### Example with Open3D
+
+1. Import the required libraries:
+
+    ```python
+    import os
+
+    import numpy as np
+    import open3d as o3d
+
+    from pathfinding3d.core.diagonal_movement import DiagonalMovement
+    from pathfinding3d.core.grid import Grid
+    from pathfinding3d.finder.a_star import AStarFinder
+    ```
+
+2. Load the sample map:
+
+    ```python
+    # Load the map
+    matrix = np.load("sample_map.npy")
+    ```
+    `sample_map.npy` is a numpy array of shape (42, 42, 42), where each element indicates an obstacle or free space. This file can be downloaded from the provided [GitHub link](https://github.com/harisankar95/pathfinding3D/blob/main/examples/sample_map.npy).
+
+3. Create the Grid and define the start and end nodes:
+
+    ```python
+    # define start and end points as [x, y, z] coordinates
+    start_pt = [21, 21, 21]
+    end_pt = [5, 38, 33]
+
+    # create grid representation and start and end nodes
+    grid = Grid(matrix=matrix)
+    start = grid.node(*start_pt)
+    end = grid.node(*end_pt)
+    ```
+    Note: The `*` operator unpacks the list into individual arguments.
+    Here, we define the start and end points of our path and create a grid representation of our 3D space.
+
+4. Find the path:
+
+    ```python
+    # initialize A* finder with specified diagonal movement setting
+    finder = AStarFinder(diagonal_movement=DiagonalMovement.only_when_no_obstacle)
+
+    # use the finder to get the path
+    path, runs = finder.find_path(start, end, grid)
+
+    # print results
+    path_cost = end.g
+    print(f"path cost: {path_cost:.4f}, path length: {len(path)}, runs: {runs}")
+    ```
+    
+    This will output:
+
+    ```bash
+    path cost: 28.6130, path length: 20, runs: 458
+    ```
+
+    The path cost can be accessed from the `end` node's `g` attribute for A\*.
+
+5. Visualize the path:
+    - Find the obstacles and represent them in blue. The `colors` array is a numpy array of shape (n, 3) where n is the number of obstacles. The first column represents the red channel, the second column represents the green channel, and the third column represents the blue channel. The `xyz_pt` array is a numpy array of shape (n, 3) where n is the number of obstacles. The first column represents the x coordinate, the second column represents the y coordinate, and the third column represents the z coordinate. The `xyz_pt` array is used to create a `PointCloud` object which is then visualized using `draw_geometries`.
+
+        ```python
+        # Identifying obstacles and representing them in blue
+        obstacle_indices = np.where(matrix == 0)
+        xyz_pt = np.stack(obstacle_indices, axis=-1).astype(float)
+        colors = np.zeros((xyz_pt.shape[0], 3))
+        colors[:, 2] = obstacle_indices[2] / np.max(obstacle_indices[2])
+        ```
+
+    - The start point is represented in red and the end point is represented in green. The path is represented in grey. `path_colors` is a numpy array of shape (len(path) - 2, 3) where len(path) is the number of waypoints in the path. Since we already have the start and end points which are also part of the path, we subtract 2 from the length of the path to get the number of remaining waypoints.
+
+        ```python
+        # Prepare start and end colors
+        start_color = np.array([[1.0, 0, 0]])  # Red
+        end_color = np.array([[0, 1.0, 0]])  # Green
+        path_colors = np.full((len(path) - 2, 3), [0.7, 0.7, 0.7])  # Grey for the path
+        ```
+
+    - Now we can add the start and end points to the `xyz_pt` array along with the remaining waypoints in the path. Similarly the colors can be added to the `colors` array. For every point in the `xyz_pt` array, there is a corresponding color in the `colors` array.
+
+        ```python
+        # Combine points and colors for visualization
+        xyz_pt = np.concatenate((xyz_pt, [start_pt], [end_pt], path[1:-1]))
+        colors = np.concatenate((colors, start_color, end_color, path_colors))
+        ```
+
+    - Create a `PointCloud` object with the `xyz_pt` and `colors` arrays.
+
+        ```python
+        # Create the point cloud
+        pcd = o3d.geometry.PointCloud()
+        pcd.points = o3d.utility.Vector3dVector(xyz_pt)
+        pcd.colors = o3d.utility.Vector3dVector(colors)
+        ```
+
+    - Create a `VoxelGrid` object from the `PointCloud` object. This will generate a voxel grid from the point cloud. The `voxel_size` parameter determines the size of the voxels.
+
+        ```python
+        # Create the voxel grid from the point cloud
+        voxel_grid = o3d.geometry.VoxelGrid.create_from_point_cloud(pcd, voxel_size=1.0)
+        axes = o3d.geometry.TriangleMesh.create_coordinate_frame(size=15.0, origin=np.array([-3.0, -3.0, -3.0]))
+        ```
+
+        The axes is for reference and can be removed if not needed.
+
+    - Visualize the voxel grid. The `width` and `height` parameters determine the size of the window.
+
+        ```python
+        # Visualize the voxel grid
+        o3d.visualization.draw_geometries([axes, voxel_grid], window_name="Voxel Env", width=1024, height=768)
+        ```
+
+        You can rotate the voxel grid by clicking and dragging the mouse. You can also zoom in and out using the mouse wheel.
+
+    - The output should look like this:
+
+        ![voxel_grid](https://github.com/harisankar95/pathfinding3D/blob/main/examples/resources/open3d.png)
+
+
+The full code is available [here](https://github.com/harisankar95/pathfinding3D/blob/main/examples/03_view_map.py)
