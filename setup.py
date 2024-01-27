@@ -9,12 +9,12 @@ with open(os.path.join("pathfinding3d", "version.txt"), encoding="utf-8") as fil
 
 setup(
     name="pathfinding3d",
-    description="Pathfinding algorithms in 3D (based on python-pathfinding)",
+    description="Pathfinding algorithms in 3D grids (based on python-pathfinding)",
     url="https://github.com/harisankar95/pathfinding3D",
     version=__version__,
     license="MIT",
     author="Harisankar Babu",
-    keywords=["pathfinding", "pathplanning", "python", "3D", "A*", "Dijkstra"],
+    keywords=["pathfinding", "pathplanning", "python", "3D", "A*", "Dijkstra", "Theta*"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: MIT License",

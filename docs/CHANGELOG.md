@@ -1,5 +1,11 @@
 # Version History
 
+## 0.6.0
+
+- Theta* algorithm added
+- Line of sight algorithm added
+- Minor improvements in code quality
+
 ## 0.5.1
 
 - Minor bug fixes

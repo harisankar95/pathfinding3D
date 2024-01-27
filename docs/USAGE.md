@@ -95,6 +95,8 @@ Here is the whole example which you can copy-and-paste to play with it:
 
 ```
 
+---
+
 ## Steps/Portals/Bridges
 
 With *pathfinding3d*, you can seamlessly connect multiple grids. This feature is invaluable for simulating multi-story structures connected by staircases, bridges between different buildings, or even magical portals linking disparate locations.
@@ -212,6 +214,8 @@ Let's consider an example where we want to connect the second storey of two adja
     print("path through world 1:", path1)
     ```
 
+---
+
 ## Visualizing the Path
 
 Sometimes it is helpful to visualize the path to better understand the algorithm. Here is a simple example using the `open3d` library for this purpose.
@@ -245,6 +249,7 @@ Sometimes it is helpful to visualize the path to better understand the algorithm
     # Load the map
     matrix = np.load("sample_map.npy")
     ```
+
     `sample_map.npy` is a numpy array of shape (42, 42, 42), where each element indicates an obstacle or free space. This file can be downloaded from the provided [GitHub link](https://github.com/harisankar95/pathfinding3D/blob/main/examples/sample_map.npy).
 
 3. Create the Grid and define the start and end nodes:
@@ -259,6 +264,7 @@ Sometimes it is helpful to visualize the path to better understand the algorithm
     start = grid.node(*start_pt)
     end = grid.node(*end_pt)
     ```
+
     Note: The `*` operator unpacks the list into individual arguments.
     Here, we define the start and end points of our path and create a grid representation of our 3D space.
 
@@ -275,7 +281,7 @@ Sometimes it is helpful to visualize the path to better understand the algorithm
     path_cost = end.g
     print(f"path cost: {path_cost:.4f}, path length: {len(path)}, runs: {runs}")
     ```
-    
+
     This will output:
 
     ```bash
@@ -344,5 +350,233 @@ Sometimes it is helpful to visualize the path to better understand the algorithm
 
         ![voxel_grid](https://github.com/harisankar95/pathfinding3D/blob/main/examples/resources/open3d.png)
 
-
 The full code is available [here](https://github.com/harisankar95/pathfinding3D/blob/main/examples/03_view_map.py)
+
+---
+
+### Example with any angle of movement
+
+Often, it is desirable to allow movement in any direction rather than being restricted to the 26 directions in a 3D grid. This can be achieved by using the `ThetaStarFinder` class. The `ThetaStarFinder` class is a subclass of the `AStarFinder` class and can be used in the same way.
+
+Let's cut to the chase and see how it works:
+
+1. As usual, import the required libraries:
+
+    ```python
+    import numpy as np
+
+    from pathfinding3d.core.grid import Grid
+    from pathfinding3d.finder.theta_star import ThetaStarFinder
+    ```
+
+2. For this example, we will use a simple 3D grid with a single obstacle in the middle. The start point is at the bottom left corner and the end point is at the top right corner.
+
+    ```python
+    # Define the 3D grid 
+    matrix = np.ones((10, 10, 10), dtype=np.int8)
+    matrix[5, 5, 5] = 0  # Setting an obstacle at the center
+
+    # Create the grid representation
+    grid = Grid(matrix=matrix)
+    
+    # Define start and end points
+    start = grid.node(0, 0, 0) # Bottom left corner
+    end = grid.node(9, 9, 9) # Top right corner
+    ```
+
+3. Instantiate the `ThetaStarFinder` class and find the path:
+
+    ```python
+    # Instantiate the finder
+    finder = ThetaStarFinder()
+    path, runs = finder.find_path(start, end, grid)
+    # Convert the path to a list of coordinate tuples
+    path = [p.identifier for p in path]
+    ```
+
+    Note: The `ThetaStarFinder` will always have diagonal movements enabled.
+
+4. Output the results:
+
+    ```python
+    # Output the results
+    print("operations:", runs, "path length:", len(path))
+    print("path:", path)
+    ```
+
+    This will output:
+
+    ```bash
+    operations: 12 path length: 3
+    path: [(0, 0, 0), (9, 8, 8), (9, 9, 9)]
+    ```
+
+    You will notice that the path does not have all the waypoints as other algorithms. This is because the `ThetaStarFinder` algorithm will smooth the path by checking whether there is a direct path between two waypoints. If there is a direct path, the intermediate waypoints are removed. This is useful for applications where the path needs to be traversed by a vehicle. The vehicle can move in any direction and does not need to follow a grid. The path can be smoothed to reduce the number of waypoints to be traversed.
+
+5. For a quantitative analysis let's compare the number of waypoints in the path for the `AStarFinder` and `ThetaStarFinder` algorithms:
+
+    ```python
+    from pathfinding3d.finder.a_star import AStarFinder
+
+    # Instantiate the finder
+    finder = AStarFinder()
+    # Cleanup the grid
+    grid.cleanup()
+    # Find the path using AStarFinder
+    astar_path, runs = finder.find_path(start, end, grid)
+    # Convert the path to a list of coordinate tuples
+    astar_path = [p.identifier for p in astar_path]
+    print("AStarFinder operations:", runs, "AStarFinder path length:", len(path))
+    print("AStarFinder path:", path)
+    ```
+
+    This will output:
+
+    ```bash
+    AStarFinder operations: 52 AStarFinder path length: 11
+    AStarFinder path: [(0, 0, 0), (1, 1, 1), (2, 2, 2), (3, 3, 3), (4, 4, 4), (5, 4, 4), (6, 5, 5), (7, 6, 6), (8, 7, 7), (9, 8, 8), (9, 9, 9)]
+    ```
+
+6. As you can see, the `AStarFinder` algorithm has 11 waypoints in the path. Let's compare the cost of the path for both algorithms:
+
+    ```python
+    # Function to calculate the cost of the path
+    def calculate_path_cost(path):
+        cost = 0
+        for pt, pt_next in zip(path[:-1], path[1:]):
+            dx, dy, dz = pt_next[0] - pt[0], pt_next[1] - pt[1], pt_next[2] - pt[2]
+            cost += (dx**2 + dy**2 + dz**2) ** 0.5
+        return cost
+
+    # Calculate the cost of the path for ThetaStarFinder
+    theta_star_cost = calculate_path_cost(path)
+    # Calculate the cost of the path for AStarFinder
+    astar_cost = calculate_path_cost(astar_path)
+
+    # Output the results
+    print("ThetaStarFinder path cost:", theta_star_cost, "\nAStarFinder path cost:", astar_cost)
+    ```
+
+    This will output:
+
+    ```bash
+    ThetaStarFinder path cost: 15.871045857174057
+    AStarFinder path cost: 16.27062002292411
+    ```
+
+    As you can see, the `ThetaStarFinder` algorithm has a lower cost than the `AStarFinder` algorithm. Thus the `ThetaStarFinder` algorithm can be more efficient for certain applications.
+
+7. We can visualize the paths using `plotly` this time:
+
+    ```python
+    import plotly.graph_objects as go
+
+    # Create a plotly figure to visualize the path
+    fig = go.Figure(
+        data=[
+            go.Scatter3d(
+                x=[pt[0] + 0.5 for pt in path],
+                y=[pt[1] + 0.5 for pt in path],
+                z=[pt[2] + 0.5 for pt in path],
+                mode="lines + markers",
+                line=dict(color="blue", width=4),
+                marker=dict(size=4, color="blue"),
+                name="Theta* path",
+                hovertext=["Theta* path point"] * len(path),
+            ),
+            go.Scatter3d(
+                x=[pt[0] + 0.5 for pt in astar_path],
+                y=[pt[1] + 0.5 for pt in astar_path],
+                z=[pt[2] + 0.5 for pt in astar_path],
+                mode="lines + markers",
+                line=dict(color="red", width=4),
+                marker=dict(size=4, color="red"),
+                name="A* path",
+                hovertext=["A* path point"] * len(astar_path),
+            ),
+            go.Scatter3d(
+                x=[5.5],
+                y=[5.5],
+                z=[5.5],
+                mode="markers",
+                marker=dict(color="black", size=7.5),
+                name="Obstacle",
+                hovertext=["Obstacle point"],
+            ),
+            go.Scatter3d(
+                x=[0.5],
+                y=[0.5],
+                z=[0.5],
+                mode="markers",
+                marker=dict(color="green", size=7.5),
+                name="Start",
+                hovertext=["Start point"],
+            ),
+            go.Scatter3d(
+                x=[9.5],
+                y=[9.5],
+                z=[9.5],
+                mode="markers",
+                marker=dict(color="orange", size=7.5),
+                name="End",
+                hovertext=["End point"],
+            ),
+        ]
+    )
+
+    # Define the camera position
+    camera = {
+        "up": {"x": 0, "y": 0, "z": 1},
+        "center": {"x": 0.1479269806756467, "y": 0.06501594452841505, "z": -0.0907033779622012},
+        "eye": {"x": 1.3097359159706334, "y": 0.4710974884501846, "z": 2.095154166796815},
+        "projection": {"type": "perspective"},
+    }
+
+    # Update the layout of the figure
+    fig.update_layout(
+        scene=dict(
+            xaxis=dict(
+                title="x - axis",
+                backgroundcolor="white",
+                gridcolor="lightgrey",
+                showbackground=True,
+                zerolinecolor="white",
+            ),
+            yaxis=dict(
+                title="y - axis",
+                backgroundcolor="white",
+                gridcolor="lightgrey",
+                showbackground=True,
+                zerolinecolor="white",
+            ),
+            zaxis=dict(
+                title="z - axis",
+                backgroundcolor="white",
+                gridcolor="lightgrey",
+                showbackground=True,
+                zerolinecolor="white",
+            ),
+        ),
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01,
+            bgcolor="rgba(255, 255, 255, 0.7)",
+        ),
+        title=dict(text="Theta* vs A*"),
+        scene_camera=camera,
+    )
+
+    # Save the figure as a html file
+    fig.write_html("theta_star.html")
+    # Show the figure in a new tab
+    fig.show()
+    ```
+
+    This will open a new tab in your browser with the following visualization:
+    <iframe src="https://github.com/harisankar95/pathfinding3D/blob/main/docs/theta_star.html" width="100%" height="600px"></iframe>
+
+    You can rotate the figure by clicking and dragging the mouse. You can also zoom in and out using the mouse wheel.
+
+The full code is available [here](https://github.com/harisankar95/pathfinding3D/blob/main/examples/04_theta_star.py)
