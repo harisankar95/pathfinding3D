@@ -9,6 +9,7 @@ class World:
     """
     A world connects grids but can have multiple grids.
     """
+
     def __init__(self, grids: Dict[int, Grid]):
         """
         Initialize a new world.
