@@ -2,7 +2,13 @@ import pytest
 
 from pathfinding3d.core.grid import Grid
 from pathfinding3d.core.node import GridNode
-from pathfinding3d.core.util import bresenham, expand_path, line_of_sight, raytrace, smoothen_path
+from pathfinding3d.core.util import (
+    bresenham,
+    expand_path,
+    line_of_sight,
+    raytrace,
+    smoothen_path,
+)
 
 
 def test_bresenham():

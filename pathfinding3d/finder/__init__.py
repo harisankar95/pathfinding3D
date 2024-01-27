@@ -7,4 +7,5 @@ __all__ = [
     "finder",
     "ida_star",
     "msp",
+    "theta_star",
 ]
