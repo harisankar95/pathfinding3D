@@ -32,7 +32,6 @@ weighted_finders = [
     BiAStarFinder,
     DijkstraFinder,
     MinimumSpanningTree,
-    ThetaStarFinder,
 ]
 
 SIMPLE_MATRIX = np.zeros((5, 5, 5))
@@ -90,8 +89,6 @@ def test_weighted_path():
     start = grid.node(0, 0, 0)
     end = grid.node(4, 4, 0)
     for find in weighted_finders:
-        if find == ThetaStarFinder:
-            continue
         grid.cleanup()
         finder = find(time_limit=TIME_LIMIT)
         path_, runs = finder.find_path(start, end, grid)
@@ -171,3 +168,17 @@ def test_msp():
 
     finder = MinimumSpanningTree()
     assert finder.tree(grid, start).sort() == [node for row in grid.nodes for col in row for node in col].sort()
+
+
+def test_theta_star(caplog):
+    """
+    Test that the theta star finder returns the correct path.
+    """
+    caplog.set_level("WARNING")
+    grid = Grid(matrix=WEIGHTED_SIMPLE_MATRIX)
+    start = grid.node(0, 0, 0)
+    end = grid.node(4, 4, 0)
+
+    finder = ThetaStarFinder(diagonal_movement=DiagonalMovement.never, time_limit=TIME_LIMIT)
+    assert finder.diagonal_movement == DiagonalMovement.always
+    assert "Diagonal movement is forced to always" in caplog.text

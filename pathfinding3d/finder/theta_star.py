@@ -20,7 +20,7 @@ class ThetaStarFinder(AStarFinder):
     ):
         """
         Find shortest path using Theta* algorithm
-        Diagonal movement is forced to always.
+        Diagonal movement is forced to always. Not weighted.
 
         Parameters
         ----------
@@ -51,6 +51,8 @@ class ThetaStarFinder(AStarFinder):
             time_limit=time_limit,
             max_runs=max_runs,
         )
+
+        self.weighted = False
 
     def process_node(
         self,
