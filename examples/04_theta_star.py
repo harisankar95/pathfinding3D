@@ -158,6 +158,6 @@ fig.update_layout(
 )
 
 # Save the figure as a html file
-fig.write_html("theta_star.html")
+# fig.write_html("theta_star.html", full_html=False, include_plotlyjs="cdn")
 # Show the figure in a new tab
 fig.show()

@@ -250,7 +250,7 @@ Sometimes it is helpful to visualize the path to better understand the algorithm
     matrix = np.load("sample_map.npy")
     ```
 
-    `sample_map.npy` is a numpy array of shape (42, 42, 42), where each element indicates an obstacle or free space. This file can be downloaded from the provided [GitHub link](https://github.com/harisankar95/pathfinding3D/blob/main/examples/sample_map.npy).
+    `sample_map.npy` is a numpy array of shape (42, 42, 42), where each element indicates an obstacle or free space. This file can be downloaded from the provided [Github link](https://github.com/harisankar95/pathfinding3D/blob/main/examples/sample_map.npy).
 
 3. Create the Grid and define the start and end nodes:
 
@@ -348,13 +348,13 @@ Sometimes it is helpful to visualize the path to better understand the algorithm
 
     - The output should look like this:
 
-        ![voxel_grid](https://github.com/harisankar95/pathfinding3D/blob/main/examples/resources/open3d.png)
+        ![voxel_grid](https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/examples/resources/open3d.png)
 
 The full code is available [here](https://github.com/harisankar95/pathfinding3D/blob/main/examples/03_view_map.py)
 
 ---
 
-### Example with any angle of movement
+## Example with any angle of movement
 
 Often, it is desirable to allow movement in any direction rather than being restricted to the 26 directions in a 3D grid. This can be achieved by using the `ThetaStarFinder` class. The `ThetaStarFinder` class is a subclass of the `AStarFinder` class and can be used in the same way.
 
@@ -568,14 +568,25 @@ Let's cut to the chase and see how it works:
         scene_camera=camera,
     )
 
-    # Save the figure as a html file
-    fig.write_html("theta_star.html")
     # Show the figure in a new tab
     fig.show()
     ```
 
     This will open a new tab in your browser with the following visualization:
-    <iframe src="https://github.com/harisankar95/pathfinding3D/blob/main/docs/theta_star.html" width="100%" height="600px"></iframe>
+    <style>
+        iframe {
+            width: 100%;
+            height: 600px;
+            background-color: #B6C8DB; /* Light blue background */
+            border: 2px solid #6DB59F; /* Green border */
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+            opacity: 0.9;
+            margin: 20px;
+            padding: 10px;
+        }
+    </style>
+    <iframe src="theta_star.html"></iframe>
 
     You can rotate the figure by clicking and dragging the mouse. You can also zoom in and out using the mouse wheel.
 

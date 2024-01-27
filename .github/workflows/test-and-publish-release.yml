@@ -47,6 +47,7 @@ jobs:
         run: |
           pip install sphinx sphinx_rtd_theme recommonmark sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-autodoc-annotation
           sphinx-build -b html docs/ ./public
+          cp -r docs/additional_resources/* ./public/
 
       - name: Deploy docs
         uses: peaceiris/actions-gh-pages@v3

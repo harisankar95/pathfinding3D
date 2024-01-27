@@ -2,7 +2,7 @@
 
 ## 0.6.0
 
-- Theta* algorithm added
+- Theta\* algorithm added
 - Line of sight algorithm added
 - Minor improvements in code quality
 
