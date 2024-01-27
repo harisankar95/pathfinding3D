@@ -70,6 +70,7 @@ class Grid:
     """
     A grid represents the map (as 3d-list of nodes).
     """
+
     def __init__(
         self,
         width: int = 0,

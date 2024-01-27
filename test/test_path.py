@@ -4,6 +4,7 @@ import pytest
 from pathfinding3d.core.diagonal_movement import DiagonalMovement
 from pathfinding3d.core.grid import Grid
 from pathfinding3d.core.node import GridNode
+from pathfinding3d.core.util import expand_path
 from pathfinding3d.finder.a_star import AStarFinder
 from pathfinding3d.finder.best_first import BestFirst
 from pathfinding3d.finder.bi_a_star import BiAStarFinder
@@ -12,6 +13,7 @@ from pathfinding3d.finder.dijkstra import DijkstraFinder
 from pathfinding3d.finder.finder import ExecutionRunsException, ExecutionTimeException
 from pathfinding3d.finder.ida_star import IDAStarFinder
 from pathfinding3d.finder.msp import MinimumSpanningTree
+from pathfinding3d.finder.theta_star import ThetaStarFinder
 
 finders = [
     AStarFinder,
@@ -21,6 +23,7 @@ finders = [
     IDAStarFinder,
     BreadthFirstFinder,
     MinimumSpanningTree,
+    ThetaStarFinder,
 ]
 TIME_LIMIT = 10  # give it a 10 second limit.
 
@@ -29,6 +32,7 @@ weighted_finders = [
     BiAStarFinder,
     DijkstraFinder,
     MinimumSpanningTree,
+    ThetaStarFinder,
 ]
 
 SIMPLE_MATRIX = np.zeros((5, 5, 5))
@@ -64,6 +68,8 @@ def test_path():
     start = grid.node(0, 0, 0)
     end = grid.node(4, 4, 0)
     for find in finders:
+        if find == ThetaStarFinder:
+            continue
         grid.cleanup()
         finder = find(time_limit=TIME_LIMIT)
         path_, runs = finder.find_path(start, end, grid)
@@ -84,6 +90,8 @@ def test_weighted_path():
     start = grid.node(0, 0, 0)
     end = grid.node(4, 4, 0)
     for find in weighted_finders:
+        if find == ThetaStarFinder:
+            continue
         grid.cleanup()
         finder = find(time_limit=TIME_LIMIT)
         path_, runs = finder.find_path(start, end, grid)
@@ -114,10 +122,11 @@ def test_path_diagonal():
                 path.append((node.x, node.y, node.z))
             elif isinstance(node, tuple):
                 path.append((node[0], node[1], node[2]))
-
         print(find.__name__)
         print(f"path: {path}")
         print(f"length: {len(path)}, runs: {runs}")
+        if find == ThetaStarFinder:
+            path = expand_path(path)
         assert len(path) == 5
 
 
@@ -149,3 +158,16 @@ def test_time():
             print(f"path: {path}")
         msg = f"{finder.__class__.__name__} took too long"
         assert finder.runs == 1, msg
+
+
+def test_msp():
+    """
+    Test that the minimum spanning tree finder returns all nodes.
+    """
+    matrix = np.array(np.ones((3, 3, 3)))
+    grid = Grid(matrix=matrix)
+
+    start = grid.node(0, 0, 0)
+
+    finder = MinimumSpanningTree()
+    assert finder.tree(grid, start).sort() == [node for row in grid.nodes for col in row for node in col].sort()

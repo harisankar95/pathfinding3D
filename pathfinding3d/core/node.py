@@ -26,6 +26,7 @@ class Node:
     tested : bool
         Used for IDA* and Jump-Point-Search.
     """
+
     __slots__ = ["h", "g", "f", "opened", "closed", "parent", "retain_count", "tested"]
 
     def __init__(self):

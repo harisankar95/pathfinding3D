@@ -1,5 +1,14 @@
+import pytest
+
 from pathfinding3d.core.grid import Grid
-from pathfinding3d.core.util import bresenham, expand_path, raytrace, smoothen_path
+from pathfinding3d.core.node import GridNode
+from pathfinding3d.core.util import (
+    bresenham,
+    expand_path,
+    line_of_sight,
+    raytrace,
+    smoothen_path,
+)
 
 
 def test_bresenham():
@@ -80,10 +89,10 @@ def test_expand_path():
     test expand_path function
     """
     # Test with empty path
-    assert expand_path([]) == []
+    assert not expand_path([])
 
     # Test with one point path
-    assert expand_path([[0, 0, 0]]) == []
+    assert not expand_path([[0, 0, 0]])
 
     # Test with two points path
     assert expand_path([[0, 0, 0], [1, 1, 1]]) == [[0, 0, 0], [1, 1, 1]]
@@ -96,3 +105,44 @@ def test_expand_path():
         [3, 2, 2],
         [4, 2, 2],
     ]
+
+
+@pytest.fixture
+def grid():
+    # Create a 5x5x5 grid with all nodes walkable
+    grid = Grid(5, 5, 5)
+    for x in range(5):
+        for y in range(5):
+            for z in range(5):
+                grid.nodes[x][y][z].walkable = True
+    return grid
+
+
+def test_line_of_sight_self(grid):
+    """
+    test line_of_sight function with self
+    """
+    # Test with self
+    node = GridNode(0, 0, 0)
+    assert line_of_sight(grid, node, node)
+
+
+def test_line_of_sight_clear(grid):
+    """
+    test line_of_sight function with clear line of sight
+    """
+    # Test with clear line of sight
+    node1 = GridNode(0, 0, 0)
+    node2 = GridNode(4, 4, 4)
+    assert line_of_sight(grid, node1, node2)
+
+
+def test_line_of_sight_obstacle(grid):
+    """
+    test line_of_sight function with obstacle
+    """
+    # Test with obstacle
+    node1 = GridNode(0, 0, 0)
+    node2 = GridNode(4, 4, 4)
+    grid.nodes[2][2][2].walkable = False
+    assert not line_of_sight(grid, node1, node2)

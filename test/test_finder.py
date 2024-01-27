@@ -20,16 +20,3 @@ def test_check_neighbors_raises_exception():
 
     with pytest.raises(NotImplementedError):
         finder.check_neighbors(start, end, grid, open_list)
-
-
-def test_msp():
-    """
-    Test that the minimum spanning tree finder returns all nodes.
-    """
-    matrix = np.array(np.ones((3, 3, 3)))
-    grid = Grid(matrix=matrix)
-
-    start = grid.node(0, 0, 0)
-
-    finder = MinimumSpanningTree()
-    assert finder.tree(grid, start).sort() == [node for row in grid.nodes for col in row for node in col].sort()

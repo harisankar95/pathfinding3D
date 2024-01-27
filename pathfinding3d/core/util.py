@@ -263,3 +263,85 @@ def smoothen_path(grid: Grid, path: List[Coords], use_raytrace: bool = False) ->
 
     new_path.append(path[-1])
     return new_path
+
+
+def line_of_sight(grid: Grid, node1: GridNode, node2: GridNode) -> bool:
+    """
+    Check if there is a line of sight between two nodes using Bresenham's algorithm
+
+    Parameters
+    ----------
+    grid : Grid
+        The grid on which the nodes exist
+    node1 : GridNode
+        The first node
+    node2 : GridNode
+        The second node
+
+    Returns
+    -------
+    bool
+        True if there is a line of sight between the two nodes, False otherwise
+    """
+    x0, y0, z0 = node1.x, node1.y, node1.z
+    x1, y1, z1 = node2.x, node2.y, node2.z
+
+    dx = abs(x1 - x0)
+    dy = abs(y1 - y0)
+    dz = abs(z1 - z0)
+    sx = 1 if x0 < x1 else -1
+    sy = 1 if y0 < y1 else -1
+    sz = 1 if z0 < z1 else -1
+
+    # Driving axis is X-axis
+    if dx >= dy and dx >= dz:
+        err_1 = 2 * dy - dx
+        err_2 = 2 * dz - dx
+        while x0 != x1:
+            x0 += sx
+            if err_1 > 0:
+                y0 += sy
+                err_1 -= 2 * dx
+            if err_2 > 0:
+                z0 += sz
+                err_2 -= 2 * dx
+            err_1 += 2 * dy
+            err_2 += 2 * dz
+            if not grid.walkable(x0, y0, z0):
+                return False
+
+    # Driving axis is Y-axis
+    elif dy >= dx and dy >= dz:
+        err_1 = 2 * dx - dy
+        err_2 = 2 * dz - dy
+        while y0 != y1:
+            y0 += sy
+            if err_1 > 0:
+                x0 += sx
+                err_1 -= 2 * dy
+            if err_2 > 0:
+                z0 += sz
+                err_2 -= 2 * dy
+            err_1 += 2 * dx
+            err_2 += 2 * dz
+            if not grid.walkable(x0, y0, z0):
+                return False
+
+    # Driving axis is Z-axis
+    else:
+        err_1 = 2 * dy - dz
+        err_2 = 2 * dx - dz
+        while z0 != z1:
+            z0 += sz
+            if err_1 > 0:
+                y0 += sy
+                err_1 -= 2 * dz
+            if err_2 > 0:
+                x0 += sx
+                err_2 -= 2 * dz
+            err_1 += 2 * dy
+            err_2 += 2 * dx
+            if not grid.walkable(x0, y0, z0):
+                return False
+
+    return True
