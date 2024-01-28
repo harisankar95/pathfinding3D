@@ -9,58 +9,13 @@ pathfinding3d.core package
 Submodules
 ----------
 
-pathfinding3d.core.diagonal\_movement module
---------------------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: pathfinding3d.core.diagonal_movement
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pathfinding3d.core.grid module
-------------------------------
-
-.. automodule:: pathfinding3d.core.grid
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pathfinding3d.core.heap module
-------------------------------
-
-.. automodule:: pathfinding3d.core.heap
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pathfinding3d.core.heuristic module
------------------------------------
-
-.. automodule:: pathfinding3d.core.heuristic
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pathfinding3d.core.node module
-------------------------------
-
-.. automodule:: pathfinding3d.core.node
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pathfinding3d.core.util module
-------------------------------
-
-.. automodule:: pathfinding3d.core.util
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-pathfinding3d.core.world module
--------------------------------
-
-.. automodule:: pathfinding3d.core.world
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   pathfinding3d.core.diagonal_movement
+   pathfinding3d.core.grid
+   pathfinding3d.core.heap
+   pathfinding3d.core.heuristic
+   pathfinding3d.core.node
+   pathfinding3d.core.util
+   pathfinding3d.core.world
