@@ -130,6 +130,8 @@ fig.update_layout(
             gridcolor="lightgrey",
             showbackground=True,
             zerolinecolor="white",
+            range=[0, 10],
+            dtick=1,
         ),
         yaxis=dict(
             title="y - axis",
@@ -137,6 +139,8 @@ fig.update_layout(
             gridcolor="lightgrey",
             showbackground=True,
             zerolinecolor="white",
+            range=[0, 10],
+            dtick=1,
         ),
         zaxis=dict(
             title="z - axis",
@@ -144,6 +148,8 @@ fig.update_layout(
             gridcolor="lightgrey",
             showbackground=True,
             zerolinecolor="white",
+            range=[0, 10],
+            dtick=1,
         ),
     ),
     legend=dict(

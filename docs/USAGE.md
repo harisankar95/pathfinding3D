@@ -350,13 +350,13 @@ Sometimes it is helpful to visualize the path to better understand the algorithm
 
         ![voxel_grid](https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/examples/resources/open3d.png)
 
-The full code is available [here](https://github.com/harisankar95/pathfinding3D/blob/main/examples/03_view_map.py)
+The full code is available here: [03_view_map](https://github.com/harisankar95/pathfinding3D/blob/main/examples/03_view_map.py)
 
 ---
 
 ## Example with any angle of movement
 
-Often, it is desirable to allow movement in any direction rather than being restricted to the 26 directions in a 3D grid. This can be achieved by using the `ThetaStarFinder` class. The `ThetaStarFinder` class is a subclass of the `AStarFinder` class and can be used in the same way.
+Often, it is desirable to allow movement in any direction rather than being restricted to the 26 discrete directions in a 3D grid. This can be achieved by using the `ThetaStarFinder` class. The `ThetaStarFinder` class is a subclass of the `AStarFinder` class and can be used in the same way.
 
 Let's cut to the chase and see how it works:
 
@@ -411,7 +411,7 @@ Let's cut to the chase and see how it works:
     path: [(0, 0, 0), (9, 8, 8), (9, 9, 9)]
     ```
 
-    You will notice that the path does not have all the waypoints as other algorithms. This is because the `ThetaStarFinder` algorithm will smooth the path by checking whether there is a direct path between two waypoints. If there is a direct path, the intermediate waypoints are removed. This is useful for applications where the path needs to be traversed by a vehicle. The vehicle can move in any direction and does not need to follow a grid. The path can be smoothed to reduce the number of waypoints to be traversed.
+    You will notice that the path does not have all the waypoints as other algorithms. This is because the `ThetaStarFinder` algorithm will smooth the path by checking whether there is a direct path between two waypoints (**Line of Sight**). If there is a direct path, the intermediate waypoints are removed. This is useful for applications where the path needs to be traversed by a vehicle. The vehicle can move in any direction and does not need to follow a grid. The path can be smoothed to reduce the number of waypoints to be traversed.
 
 5. For a quantitative analysis let's compare the number of waypoints in the path for the `AStarFinder` and `ThetaStarFinder` algorithms:
 
@@ -464,7 +464,7 @@ Let's cut to the chase and see how it works:
     AStarFinder path cost: 16.27062002292411
     ```
 
-    As you can see, the `ThetaStarFinder` algorithm has a lower cost than the `AStarFinder` algorithm. Thus the `ThetaStarFinder` algorithm can be more efficient for certain applications.
+    As you can see, the `ThetaStarFinder` algorithm has a lower cost than the `AStarFinder` algorithm. Thus the `ThetaStarFinder` algorithm can be more efficient for applications with any angle of movement.
 
 7. We can visualize the paths using `plotly` this time:
 
@@ -541,6 +541,8 @@ Let's cut to the chase and see how it works:
                 gridcolor="lightgrey",
                 showbackground=True,
                 zerolinecolor="white",
+                range=[0, 10],
+                dtick=1,
             ),
             yaxis=dict(
                 title="y - axis",
@@ -548,6 +550,8 @@ Let's cut to the chase and see how it works:
                 gridcolor="lightgrey",
                 showbackground=True,
                 zerolinecolor="white",
+                range=[0, 10],
+                dtick=1,
             ),
             zaxis=dict(
                 title="z - axis",
@@ -555,6 +559,8 @@ Let's cut to the chase and see how it works:
                 gridcolor="lightgrey",
                 showbackground=True,
                 zerolinecolor="white",
+                range=[0, 10],
+                dtick=1,
             ),
         ),
         legend=dict(
@@ -590,4 +596,4 @@ Let's cut to the chase and see how it works:
 
     You can rotate the figure by clicking and dragging the mouse. You can also zoom in and out using the mouse wheel.
 
-The full code is available [here](https://github.com/harisankar95/pathfinding3D/blob/main/examples/04_theta_star.py)
+The full code is available here: [04_theta_star](https://github.com/harisankar95/pathfinding3D/blob/main/examples/04_theta_star.py).
