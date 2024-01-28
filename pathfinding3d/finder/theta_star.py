@@ -1,12 +1,12 @@
 import logging
 from typing import Callable, List, Union
 
-from pathfinding3d.core.diagonal_movement import DiagonalMovement
-from pathfinding3d.core.grid import Grid
-from pathfinding3d.core.node import GridNode
-from pathfinding3d.core.util import line_of_sight
-from pathfinding3d.finder.a_star import AStarFinder
-from pathfinding3d.finder.finder import MAX_RUNS, TIME_LIMIT
+from ..core.diagonal_movement import DiagonalMovement
+from ..core.grid import Grid
+from ..core.node import GridNode
+from ..core.util import line_of_sight
+from .a_star import AStarFinder
+from .finder import MAX_RUNS, TIME_LIMIT
 
 
 class ThetaStarFinder(AStarFinder):
@@ -84,19 +84,23 @@ class ThetaStarFinder(AStarFinder):
             else than True (used for bi-directional algorithms)
         """
         # Check for line of sight to the grandparent
-        if parent and parent.parent and line_of_sight(grid, node, parent.parent):
-            ng = parent.parent.g + grid.calc_cost(parent.parent, node, self.weighted)
-            if not node.opened or ng < node.g:
-                old_f = node.f
-                node.g = ng
-                node.h = node.h or self.apply_heuristic(node, end)
-                node.f = node.g + node.h
-                node.parent = parent.parent
-                if not node.opened:
-                    open_list.push_node(node)
-                    node.opened = open_value
-                else:
-                    open_list.remove_node(node, old_f)
-                    open_list.push_node(node)
+        if parent and parent.parent and parent.parent.grid_id == node.grid_id:
+            grid_to_use = grid.grids[node.grid_id] if hasattr(grid, "grids") else grid
+            if line_of_sight(grid_to_use, node, parent.parent):
+                ng = parent.parent.g + grid.calc_cost(parent.parent, node, self.weighted)
+                if not node.opened or ng < node.g:
+                    old_f = node.f
+                    node.g = ng
+                    node.h = node.h or self.apply_heuristic(node, end)
+                    node.f = node.g + node.h
+                    node.parent = parent.parent
+                    if not node.opened:
+                        open_list.push_node(node)
+                        node.opened = open_value
+                    else:
+                        open_list.remove_node(node, old_f)
+                        open_list.push_node(node)
+            else:
+                super().process_node(grid, node, parent, end, open_list)
         else:
             super().process_node(grid, node, parent, end, open_list)

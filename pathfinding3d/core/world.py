@@ -62,3 +62,10 @@ class World:
         # TODO: if node_a.grid_id != node_b.grid_id calculate distance between
         # grids as well, for now we ignore switching grids
         return self.grids[node_a.grid_id].calc_cost(node_a, node_b, weighted=weighted)
+
+    def cleanup(self):
+        """
+        Cleanup all grids in this world.
+        """
+        for grid in self.grids.values():
+            grid.cleanup()
