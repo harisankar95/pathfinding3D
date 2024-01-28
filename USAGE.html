@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Examples &mdash; pathfinding3d 0.6.0 documentation</title>
+  <title>Examples &mdash; pathfinding3d 0.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
@@ -18,7 +18,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=28dd9a85"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=4c124ac1"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -42,7 +42,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.6.0
+                0.6.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -79,15 +79,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Change Log</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id1">0.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id2">0.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id3">0.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id4">0.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id5">0.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id6">0.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id7">0.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id8">0.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id9">0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id1">0.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id2">0.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id3">0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id4">0.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id5">0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id6">0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id7">0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id8">0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id9">0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id10">0.1</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">pathfinding3d</a><ul>
@@ -466,13 +467,13 @@ Here, we define the start and end points of our path and create a grid represent
 </ul>
 </li>
 </ol>
-<p>The full code is available <a class="reference external" href="https://github.com/harisankar95/pathfinding3D/blob/main/examples/03_view_map.py">here</a></p>
+<p>The full code is available here: <a class="reference external" href="https://github.com/harisankar95/pathfinding3D/blob/main/examples/03_view_map.py">03_view_map</a></p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="example-with-any-angle-of-movement">
 <h2>Example with any angle of movement<a class="headerlink" href="#example-with-any-angle-of-movement" title="Permalink to this heading"></a></h2>
-<p>Often, it is desirable to allow movement in any direction rather than being restricted to the 26 directions in a 3D grid. This can be achieved by using the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> class. The <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> class is a subclass of the <code class="docutils literal notranslate"><span class="pre">AStarFinder</span></code> class and can be used in the same way.</p>
+<p>Often, it is desirable to allow movement in any direction rather than being restricted to the 26 discrete directions in a 3D grid. This can be achieved by using the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> class. The <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> class is a subclass of the <code class="docutils literal notranslate"><span class="pre">AStarFinder</span></code> class and can be used in the same way.</p>
 <p>Let’s cut to the chase and see how it works:</p>
 <ol>
 <li><p>As usual, import the required libraries:</p>
@@ -518,7 +519,7 @@ Here, we define the start and end points of our path and create a grid represent
 path:<span class="w"> </span><span class="o">[(</span><span class="m">0</span>,<span class="w"> </span><span class="m">0</span>,<span class="w"> </span><span class="m">0</span><span class="o">)</span>,<span class="w"> </span><span class="o">(</span><span class="m">9</span>,<span class="w"> </span><span class="m">8</span>,<span class="w"> </span><span class="m">8</span><span class="o">)</span>,<span class="w"> </span><span class="o">(</span><span class="m">9</span>,<span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">9</span><span class="o">)]</span>
 </pre></div>
 </div>
-<p>You will notice that the path does not have all the waypoints as other algorithms. This is because the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> algorithm will smooth the path by checking whether there is a direct path between two waypoints. If there is a direct path, the intermediate waypoints are removed. This is useful for applications where the path needs to be traversed by a vehicle. The vehicle can move in any direction and does not need to follow a grid. The path can be smoothed to reduce the number of waypoints to be traversed.</p>
+<p>You will notice that the path does not have all the waypoints as other algorithms. This is because the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> algorithm will smooth the path by checking whether there is a direct path between two waypoints (<strong>Line of Sight</strong>). If there is a direct path, the intermediate waypoints are removed. This is useful for applications where the path needs to be traversed by a vehicle. The vehicle can move in any direction and does not need to follow a grid. The path can be smoothed to reduce the number of waypoints to be traversed.</p>
 </li>
 <li><p>For a quantitative analysis let’s compare the number of waypoints in the path for the <code class="docutils literal notranslate"><span class="pre">AStarFinder</span></code> and <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> algorithms:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathfinding3d.finder.a_star</span> <span class="kn">import</span> <span class="n">AStarFinder</span>
@@ -564,7 +565,7 @@ AStarFinder<span class="w"> </span>path:<span class="w"> </span><span class="o">
 AStarFinder<span class="w"> </span>path<span class="w"> </span>cost:<span class="w"> </span><span class="m">16</span>.27062002292411
 </pre></div>
 </div>
-<p>As you can see, the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> algorithm has a lower cost than the <code class="docutils literal notranslate"><span class="pre">AStarFinder</span></code> algorithm. Thus the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> algorithm can be more efficient for certain applications.</p>
+<p>As you can see, the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> algorithm has a lower cost than the <code class="docutils literal notranslate"><span class="pre">AStarFinder</span></code> algorithm. Thus the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> algorithm can be more efficient for applications with any angle of movement.</p>
 </li>
 <li><p>We can visualize the paths using <code class="docutils literal notranslate"><span class="pre">plotly</span></code> this time:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
@@ -639,6 +640,8 @@ AStarFinder<span class="w"> </span>path<span class="w"> </span>cost:<span class=
             <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span>
             <span class="n">showbackground</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">zerolinecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+            <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+            <span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">title</span><span class="o">=</span><span class="s2">&quot;y - axis&quot;</span><span class="p">,</span>
@@ -646,6 +649,8 @@ AStarFinder<span class="w"> </span>path<span class="w"> </span>cost:<span class=
             <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span>
             <span class="n">showbackground</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">zerolinecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+            <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+            <span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">zaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">title</span><span class="o">=</span><span class="s2">&quot;z - axis&quot;</span><span class="p">,</span>
@@ -653,6 +658,8 @@ AStarFinder<span class="w"> </span>path<span class="w"> </span>cost:<span class=
             <span class="n">gridcolor</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span>
             <span class="n">showbackground</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">zerolinecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+            <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+            <span class="n">dtick</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">),</span>
     <span class="n">legend</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
@@ -686,7 +693,7 @@ AStarFinder<span class="w"> </span>path<span class="w"> </span>cost:<span class=
  </style> <iframe src="theta_star.html"></iframe><p>You can rotate the figure by clicking and dragging the mouse. You can also zoom in and out using the mouse wheel.</p>
 </li>
 </ol>
-<p>The full code is available <a class="reference external" href="https://github.com/harisankar95/pathfinding3D/blob/main/examples/04_theta_star.py">here</a></p>
+<p>The full code is available here: <a class="reference external" href="https://github.com/harisankar95/pathfinding3D/blob/main/examples/04_theta_star.py">04_theta_star</a>.</p>
 </section>
 </section>
 
