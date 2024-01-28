@@ -53,13 +53,18 @@ html_sidebars = {
     ],
 }
 
+# sphinx-notfound-page
 notfound_context = {
-    "body": (
-        "<h1>Page not found.</h1>\n\n"
-        "<p>Unfortunately, the page <tt>{{ pagename }}</tt> wasn't found.</p>\n\n"
-        "<p>Try going back to the <a href='https://harisankar95.github.io/pathfinding3D/'>homepage</a>.</p>\n\n"
-    ),
+    "title": "Page Not Found",
+    "body": """
+<h1>Page Not Found</h1>
+
+<p>Sorry, we couldn't find that page.</p>
+
+<p>Try using the search box or go to the homepage.</p>
+""",
 }
+notfound_urls_prefix = "/pathfinding3D/"
 
 # source suffix
 source_suffix = [".rst", ".md"]
