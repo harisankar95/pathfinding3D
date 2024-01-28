@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2
+
+- Sphinx documentation updated
+
 ## 0.6.1
 
 - Fixed a bug in the `ThetaStarFinder` algorithm when used with `World` (connected grid), see issue [#12](https://github.com/harisankar95/pathfinding3D/issues/12)
