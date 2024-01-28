@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pathfinding3d.finder.dijkstra module &mdash; pathfinding3d 0.6.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4d8c61bb" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=e1423a0d"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pathfinding3d.finder.finder module" href="pathfinding3d.finder.finder.html" />
+    <link rel="prev" title="pathfinding3d.finder.breadth_first module" href="pathfinding3d.finder.breadth_first.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pathfinding3d
+          </a>
+              <div class="version">
+                0.6.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="INTRO.html">Pathfinding3D</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="INTRO.html#introduction">Introduction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="INSTALL.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="INSTALL.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="INSTALL.html#pypi">PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="INSTALL.html#for-development-purposes-please-use-editable-mode">For development purposes please use editable mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="USAGE.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html#basic-usage">Basic usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html#steps-portals-bridges">Steps/Portals/Bridges</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="USAGE.html#toy-example-connecting-two-building-storeys-with-a-bridge">Toy Example: Connecting Two Building Storeys with a Bridge</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html#visualizing-the-path">Visualizing the Path</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="USAGE.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="USAGE.html#example-with-open3d">Example with Open3D</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="USAGE.html#example-with-any-angle-of-movement">Example with any angle of movement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Change Log</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id1">0.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id2">0.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id3">0.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id4">0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id5">0.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id6">0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id7">0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id8">0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id9">0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id10">0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id11">0.1</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pathfinding3d</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pathfinding3d.html">pathfinding3d package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pathfinding3d.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pathfinding3d.core.html">pathfinding3d.core package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="pathfinding3d.finder.html">pathfinding3d.finder package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: white" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pathfinding3d</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">pathfinding3d</a></li>
+          <li class="breadcrumb-item"><a href="pathfinding3d.html">pathfinding3d package</a></li>
+          <li class="breadcrumb-item"><a href="pathfinding3d.finder.html">pathfinding3d.finder package</a></li>
+      <li class="breadcrumb-item active">pathfinding3d.finder.dijkstra module</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pathfinding3d.finder.dijkstra">
+<span id="pathfinding3d-finder-dijkstra-module"></span><h1>pathfinding3d.finder.dijkstra module<a class="headerlink" href="#module-pathfinding3d.finder.dijkstra" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.finder.dijkstra.</span></span><span class="sig-name descname"><span class="pre">DijkstraFinder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagonal_movement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DiagonalMovement.never</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">TIME_LIMIT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MAX_RUNS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/dijkstra.html#DijkstraFinder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="pathfinding3d.finder.a_star.html#pathfinding3d.finder.a_star.AStarFinder" title="pathfinding3d.finder.a_star.AStarFinder"><code class="xref py py-class docutils literal notranslate"><span class="pre">AStarFinder</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight</strong> (<em>int</em>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
+<li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
+<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagonal_movement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DiagonalMovement.never</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">TIME_LIMIT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_runs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MAX_RUNS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/dijkstra.html#DijkstraFinder.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Find shortest path using Dijkstra algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
+(see enum in diagonal_movement)</p></li>
+<li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
+<li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
+(optional, only if we enter huge grids and have time constrains)
+&lt;=0 means there are no constrains and the code might run on any
+large map.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder.apply_heuristic">
+<span class="sig-name descname"><span class="pre">apply_heuristic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heuristic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/finder/dijkstra.html#DijkstraFinder.apply_heuristic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder.apply_heuristic" title="Permalink to this definition"></a></dt>
+<dd><p>Helper function to apply heuristic</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_a</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – first node</p></li>
+<li><p><strong>node_b</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><em>Node</em></a>) – second node</p></li>
+<li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0.0</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder.check_neighbors">
+<span class="sig-name descname"><span class="pre">check_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backtrace_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder.check_neighbors" title="Permalink to this definition"></a></dt>
+<dd><p>Find next path segment based on given node
+(or return path if we found the end)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
+<li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
+<li><p><strong>open_list</strong> (<em>List</em>) – stores nodes that will be processed next</p></li>
+<li><p><strong>open_value</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>path</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[List[<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder.find_neighbors">
+<span class="sig-name descname"><span class="pre">find_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagonal_movement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder.find_neighbors" title="Permalink to this definition"></a></dt>
+<dd><p>Find neighbor, same for Djikstra, A*, Bi-A*, IDA*</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to find neighbors for</p></li>
+<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
+(see enum in diagonal_movement)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of neighbors</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder.find_path">
+<span class="sig-name descname"><span class="pre">find_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder.find_path" title="Permalink to this definition"></a></dt>
+<dd><p>Find a path from start to end node on grid using the A* algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
+<li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>path, number of iterations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[List, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder.keep_running">
+<span class="sig-name descname"><span class="pre">keep_running</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder.keep_running" title="Permalink to this definition"></a></dt>
+<dd><p>Check, if we run into time or iteration constrains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="pathfinding3d.finder.finder.html#pathfinding3d.finder.finder.ExecutionTimeException" title="pathfinding3d.finder.finder.ExecutionTimeException"><strong>ExecutionTimeException</strong></a> – if we run into a time constrain</p></li>
+<li><p><a class="reference internal" href="pathfinding3d.finder.finder.html#pathfinding3d.finder.finder.ExecutionRunsException" title="pathfinding3d.finder.finder.ExecutionRunsException"><strong>ExecutionRunsException</strong></a> – if we run into a iteration constrain</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pathfinding3d.finder.dijkstra.DijkstraFinder.process_node">
+<span class="sig-name descname"><span class="pre">process_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pathfinding3d.finder.dijkstra.DijkstraFinder.process_node" title="Permalink to this definition"></a></dt>
+<dd><p>We check if the given node is part of the path by calculating its
+cost and add or remove it from our path</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
+<li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the node we like to test
+(the neighbor in A* or jump-node in JumpPointSearch)</p></li>
+<li><p><strong>parent</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the parent node (of the current node we like to test)</p></li>
+<li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the end point to calculate the cost of the path</p></li>
+<li><p><strong>open_list</strong> (<em>List</em>) – the list that keeps track of our current path</p></li>
+<li><p><strong>open_value</strong> (<em>bool</em>) – needed if we like to set the open list to something
+else than True (used for bi-directional algorithms)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pathfinding3d.finder.breadth_first.html" class="btn btn-neutral float-left" title="pathfinding3d.finder.breadth_first module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pathfinding3d.finder.finder.html" class="btn btn-neutral float-right" title="pathfinding3d.finder.finder module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Harisankar Babu.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

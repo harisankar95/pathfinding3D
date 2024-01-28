@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pathfinding3d.core package &mdash; pathfinding3d 0.6.1 documentation</title>
+  <title>pathfinding3d.core package &mdash; pathfinding3d 0.6.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
@@ -18,7 +18,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=4c124ac1"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=e1423a0d"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
         <script src="_static/sphinx_highlight.js?v=4825356b"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -26,7 +26,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pathfinding3d.finder package" href="pathfinding3d.finder.html" />
+    <link rel="next" title="pathfinding3d.core.diagonal_movement module" href="pathfinding3d.core.diagonal_movement.html" />
     <link rel="prev" title="pathfinding3d package" href="pathfinding3d.html" /> 
 </head>
 
@@ -42,7 +42,7 @@
             pathfinding3d
           </a>
               <div class="version">
-                0.6.1
+                0.6.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -79,16 +79,17 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Change Log</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id1">0.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id2">0.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id3">0.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id4">0.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id5">0.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id6">0.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id7">0.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id8">0.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id9">0.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id10">0.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id1">0.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id2">0.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id3">0.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id4">0.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id5">0.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id6">0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id7">0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id8">0.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id9">0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id10">0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="CHANGELOG.html#id11">0.1</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pathfinding3d</a><ul class="current">
@@ -133,1071 +134,129 @@
 <span id="pathfinding3d-core-package"></span><h1>pathfinding3d.core package<a class="headerlink" href="#module-pathfinding3d.core" title="Permalink to this heading"></a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
-</section>
-<section id="module-pathfinding3d.core.diagonal_movement">
-<span id="pathfinding3d-core-diagonal-movement-module"></span><h2>pathfinding3d.core.diagonal_movement module<a class="headerlink" href="#module-pathfinding3d.core.diagonal_movement" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pathfinding3d.core.diagonal_movement.DiagonalMovement">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.diagonal_movement.</span></span><span class="sig-name descname"><span class="pre">DiagonalMovement</span></span><a class="reference internal" href="_modules/pathfinding3d/core/diagonal_movement.html#DiagonalMovement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.diagonal_movement.DiagonalMovement" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Enum for diagonal movement</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.diagonal_movement.DiagonalMovement.always">
-<span class="sig-name descname"><span class="pre">always</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#pathfinding3d.core.diagonal_movement.DiagonalMovement.always" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.diagonal_movement.DiagonalMovement.never">
-<span class="sig-name descname"><span class="pre">never</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#pathfinding3d.core.diagonal_movement.DiagonalMovement.never" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.diagonal_movement.DiagonalMovement.if_at_most_one_obstacle">
-<span class="sig-name descname"><span class="pre">if_at_most_one_obstacle</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#pathfinding3d.core.diagonal_movement.DiagonalMovement.if_at_most_one_obstacle" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.diagonal_movement.DiagonalMovement.only_when_no_obstacle">
-<span class="sig-name descname"><span class="pre">only_when_no_obstacle</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#pathfinding3d.core.diagonal_movement.DiagonalMovement.only_when_no_obstacle" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-pathfinding3d.core.grid">
-<span id="pathfinding3d-core-grid-module"></span><h2>pathfinding3d.core.grid module<a class="headerlink" href="#module-pathfinding3d.core.grid" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.build_nodes">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.grid.</span></span><span class="sig-name descname"><span class="pre">build_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#build_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.build_nodes" title="Permalink to this definition"></a></dt>
-<dd><p>Create nodes according to grid size. If a matrix is given it
-will be used to determine what nodes are walkable.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em>) – The width of the grid.</p></li>
-<li><p><strong>height</strong> (<em>int</em>) – The height of the grid.</p></li>
-<li><p><strong>depth</strong> (<em>int</em>) – The depth of the grid.</p></li>
-<li><p><strong>matrix</strong> (<em>MatrixType</em>) – A 3D array of values (numbers or objects specifying weight)
-that determine how nodes are connected and if they are walkable.
-If no matrix is given, all nodes will be walkable.</p></li>
-<li><p><strong>inverse</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, all values in the matrix that are not 0 will be considered
-walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em>, </em><em>optional</em>) – The id of the grid.</p></li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pathfinding3d.core.diagonal_movement.html">pathfinding3d.core.diagonal_movement module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.diagonal_movement.html#pathfinding3d.core.diagonal_movement.DiagonalMovement"><code class="docutils literal notranslate"><span class="pre">DiagonalMovement</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.diagonal_movement.html#pathfinding3d.core.diagonal_movement.DiagonalMovement.always"><code class="docutils literal notranslate"><span class="pre">DiagonalMovement.always</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.diagonal_movement.html#pathfinding3d.core.diagonal_movement.DiagonalMovement.never"><code class="docutils literal notranslate"><span class="pre">DiagonalMovement.never</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.diagonal_movement.html#pathfinding3d.core.diagonal_movement.DiagonalMovement.if_at_most_one_obstacle"><code class="docutils literal notranslate"><span class="pre">DiagonalMovement.if_at_most_one_obstacle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.diagonal_movement.html#pathfinding3d.core.diagonal_movement.DiagonalMovement.only_when_no_obstacle"><code class="docutils literal notranslate"><span class="pre">DiagonalMovement.only_when_no_obstacle</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of list of lists containing the nodes in the grid.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[List[List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.grid.</span></span><span class="sig-name descname"><span class="pre">Grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A grid represents the map (as 3d-list of nodes).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em>) – </p></li>
-<li><p><strong>height</strong> (<em>int</em>) – </p></li>
-<li><p><strong>depth</strong> (<em>int</em>) – </p></li>
-<li><p><strong>matrix</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em><em>] </em><em>| </em><em>ndarray</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>inverse</strong> (<em>bool</em>) – </p></li>
+</li>
 </ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>Create a new grid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em><em>, </em><em>optional</em>) – The width of the grid.</p></li>
-<li><p><strong>height</strong> (<em>int</em><em>, </em><em>optional</em>) – The height of the grid.</p></li>
-<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – The depth of the grid.</p></li>
-<li><p><strong>matrix</strong> (<em>MatrixType</em>) – A 3D array of values (numbers or objects specifying weight)
-that determine how nodes are connected and if they are walkable.
-If no matrix is given, all nodes will be walkable.</p></li>
-<li><p><strong>inverse</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, all values in the matrix that are not 0 will be considered
-walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathfinding3d.core.grid.html">pathfinding3d.core.grid module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.build_nodes"><code class="docutils literal notranslate"><span class="pre">build_nodes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid"><code class="docutils literal notranslate"><span class="pre">Grid</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.__init__"><code class="docutils literal notranslate"><span class="pre">Grid.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid._validate_dimensions"><code class="docutils literal notranslate"><span class="pre">Grid._validate_dimensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.is_valid_grid"><code class="docutils literal notranslate"><span class="pre">Grid.is_valid_grid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.node"><code class="docutils literal notranslate"><span class="pre">Grid.node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.inside"><code class="docutils literal notranslate"><span class="pre">Grid.inside()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.walkable"><code class="docutils literal notranslate"><span class="pre">Grid.walkable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid._calc_cost"><code class="docutils literal notranslate"><span class="pre">Grid._calc_cost()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.calc_cost"><code class="docutils literal notranslate"><span class="pre">Grid.calc_cost()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.neighbors"><code class="docutils literal notranslate"><span class="pre">Grid.neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid.cleanup"><code class="docutils literal notranslate"><span class="pre">Grid.cleanup()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid._validate_dimensions">
-<span class="sig-name descname"><span class="pre">_validate_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid._validate_dimensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid._validate_dimensions" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em>) – </p></li>
-<li><p><strong>height</strong> (<em>int</em>) – </p></li>
-<li><p><strong>depth</strong> (<em>int</em>) – </p></li>
-<li><p><strong>matrix</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em><em>] </em><em>| </em><em>ndarray</em><em> | </em><em>None</em>) – </p></li>
+</li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.is_valid_grid">
-<span class="sig-name descname"><span class="pre">is_valid_grid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.is_valid_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.is_valid_grid" title="Permalink to this definition"></a></dt>
-<dd><p>Check if grid is valid</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True, if grid is valid</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.node">
-<span class="sig-name descname"><span class="pre">node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.node" title="Permalink to this definition"></a></dt>
-<dd><p>Get node at position</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – x position</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – y position</p></li>
-<li><p><strong>z</strong> (<em>int</em>) – z position</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathfinding3d.core.heap.html">pathfinding3d.core.heap module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.heap.html#pathfinding3d.core.heap.SimpleHeap"><code class="docutils literal notranslate"><span class="pre">SimpleHeap</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.heap.html#pathfinding3d.core.heap.SimpleHeap.__init__"><code class="docutils literal notranslate"><span class="pre">SimpleHeap.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.heap.html#pathfinding3d.core.heap.SimpleHeap._determine_node_retrieval_function"><code class="docutils literal notranslate"><span class="pre">SimpleHeap._determine_node_retrieval_function()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.heap.html#pathfinding3d.core.heap.SimpleHeap._determine_node_function"><code class="docutils literal notranslate"><span class="pre">SimpleHeap._determine_node_function()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.heap.html#pathfinding3d.core.heap.SimpleHeap.pop_node"><code class="docutils literal notranslate"><span class="pre">SimpleHeap.pop_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.heap.html#pathfinding3d.core.heap.SimpleHeap.push_node"><code class="docutils literal notranslate"><span class="pre">SimpleHeap.push_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.heap.html#pathfinding3d.core.heap.SimpleHeap.remove_node"><code class="docutils literal notranslate"><span class="pre">SimpleHeap.remove_node()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>node at position</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.inside">
-<span class="sig-name descname"><span class="pre">inside</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.inside"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.inside" title="Permalink to this definition"></a></dt>
-<dd><p>Check, if field position is inside map</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – x position</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – y position</p></li>
-<li><p><strong>z</strong> (<em>int</em>) – z position</p></li>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True, if position is inside map</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.walkable">
-<span class="sig-name descname"><span class="pre">walkable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.walkable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.walkable" title="Permalink to this definition"></a></dt>
-<dd><p>Check, if the tile is inside grid and if it is set as walkable</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – x position</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – y position</p></li>
-<li><p><strong>z</strong> (<em>int</em>) – z position</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathfinding3d.core.heuristic.html">pathfinding3d.core.heuristic module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.heuristic.html#pathfinding3d.core.heuristic.null"><code class="docutils literal notranslate"><span class="pre">null()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.heuristic.html#pathfinding3d.core.heuristic.manhattan"><code class="docutils literal notranslate"><span class="pre">manhattan()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.heuristic.html#pathfinding3d.core.heuristic.euclidean"><code class="docutils literal notranslate"><span class="pre">euclidean()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.heuristic.html#pathfinding3d.core.heuristic.chebyshev"><code class="docutils literal notranslate"><span class="pre">chebyshev()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.heuristic.html#pathfinding3d.core.heuristic.octile"><code class="docutils literal notranslate"><span class="pre">octile()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True, if position is inside map and walkable</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid._calc_cost">
-<span class="sig-name descname"><span class="pre">_calc_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid._calc_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid._calc_cost" title="Permalink to this definition"></a></dt>
-<dd><p>Get the distance between current node and the neighbor (cost)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>int</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>int</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>int</em>) – z distance</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathfinding3d.core.node.html">pathfinding3d.core.node module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node"><code class="docutils literal notranslate"><span class="pre">Node</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.h"><code class="docutils literal notranslate"><span class="pre">Node.h</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.g"><code class="docutils literal notranslate"><span class="pre">Node.g</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.f"><code class="docutils literal notranslate"><span class="pre">Node.f</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.opened"><code class="docutils literal notranslate"><span class="pre">Node.opened</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.closed"><code class="docutils literal notranslate"><span class="pre">Node.closed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.parent"><code class="docutils literal notranslate"><span class="pre">Node.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.retain_count"><code class="docutils literal notranslate"><span class="pre">Node.retain_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.tested"><code class="docutils literal notranslate"><span class="pre">Node.tested</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.__init__"><code class="docutils literal notranslate"><span class="pre">Node.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.Node.cleanup"><code class="docutils literal notranslate"><span class="pre">Node.cleanup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id0"><code class="docutils literal notranslate"><span class="pre">Node.h</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id1"><code class="docutils literal notranslate"><span class="pre">Node.g</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id2"><code class="docutils literal notranslate"><span class="pre">Node.f</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id3"><code class="docutils literal notranslate"><span class="pre">Node.opened</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id4"><code class="docutils literal notranslate"><span class="pre">Node.closed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id5"><code class="docutils literal notranslate"><span class="pre">Node.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id6"><code class="docutils literal notranslate"><span class="pre">Node.retain_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id7"><code class="docutils literal notranslate"><span class="pre">Node.tested</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>distance between current node and the neighbor (cost)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.calc_cost">
-<span class="sig-name descname"><span class="pre">calc_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.calc_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.calc_cost" title="Permalink to this definition"></a></dt>
-<dd><p>Get the distance between current node and the neighbor (cost)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – current node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – neighbor node</p></li>
-<li><p><strong>weighted</strong> (<em>bool</em><em>, </em><em>optional</em>) – True, if weighted algorithm is used, by default False</p></li>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode"><code class="docutils literal notranslate"><span class="pre">GridNode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.x"><code class="docutils literal notranslate"><span class="pre">GridNode.x</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.y"><code class="docutils literal notranslate"><span class="pre">GridNode.y</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.z"><code class="docutils literal notranslate"><span class="pre">GridNode.z</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.walkable"><code class="docutils literal notranslate"><span class="pre">GridNode.walkable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.weight"><code class="docutils literal notranslate"><span class="pre">GridNode.weight</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.grid_id"><code class="docutils literal notranslate"><span class="pre">GridNode.grid_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.connections"><code class="docutils literal notranslate"><span class="pre">GridNode.connections</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id8"><code class="docutils literal notranslate"><span class="pre">GridNode.x</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id9"><code class="docutils literal notranslate"><span class="pre">GridNode.y</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id10"><code class="docutils literal notranslate"><span class="pre">GridNode.z</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id11"><code class="docutils literal notranslate"><span class="pre">GridNode.walkable</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id12"><code class="docutils literal notranslate"><span class="pre">GridNode.weight</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id13"><code class="docutils literal notranslate"><span class="pre">GridNode.grid_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#id14"><code class="docutils literal notranslate"><span class="pre">GridNode.connections</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.connect"><code class="docutils literal notranslate"><span class="pre">GridNode.connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.h"><code class="docutils literal notranslate"><span class="pre">GridNode.h</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.g"><code class="docutils literal notranslate"><span class="pre">GridNode.g</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.f"><code class="docutils literal notranslate"><span class="pre">GridNode.f</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.opened"><code class="docutils literal notranslate"><span class="pre">GridNode.opened</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.closed"><code class="docutils literal notranslate"><span class="pre">GridNode.closed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.parent"><code class="docutils literal notranslate"><span class="pre">GridNode.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.retain_count"><code class="docutils literal notranslate"><span class="pre">GridNode.retain_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.tested"><code class="docutils literal notranslate"><span class="pre">GridNode.tested</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.__init__"><code class="docutils literal notranslate"><span class="pre">GridNode.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode.cleanup"><code class="docutils literal notranslate"><span class="pre">GridNode.cleanup()</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>distance between current node and the neighbor (cost)</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.neighbors">
-<span class="sig-name descname"><span class="pre">neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagonal_movement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DiagonalMovement.never</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.neighbors" title="Permalink to this definition"></a></dt>
-<dd><p>Get all neighbors of one node</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to get neighbors from</p></li>
-<li><p><strong>diagonal_movement</strong> (<em>int</em><em>, </em><em>optional</em>) – if diagonal movement is allowed
-(see enum in diagonal_movement), by default DiagonalMovement.never</p></li>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of all neighbors</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid.cleanup">
-<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Cleanup grid</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-pathfinding3d.core.heap">
-<span id="pathfinding3d-core-heap-module"></span><h2>pathfinding3d.core.heap module<a class="headerlink" href="#module-pathfinding3d.core.heap" title="Permalink to this heading"></a></h2>
-<p>Simple heap with ordering and removal.
-Inspired from <a class="reference external" href="https://github.com/brean/python-pathfinding/pull/54">https://github.com/brean/python-pathfinding/pull/54</a>
-Original author: <a class="reference external" href="https://github.com/peterchenadded">https://github.com/peterchenadded</a></p>
-<dl class="py class">
-<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heap.</span></span><span class="sig-name descname"><span class="pre">SimpleHeap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A simple implementation of a heap data structure optimized for pathfinding.
-It maintains an open list of nodes, a status for each node, and a function to retrieve nodes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – </p></li>
-<li><p><strong>grid</strong> (<a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a><em> | </em><a class="reference internal" href="#pathfinding3d.core.world.World" title="pathfinding3d.core.world.World"><em>World</em></a>) – </p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathfinding3d.core.util.html">pathfinding3d.core.util module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.util.html#pathfinding3d.core.util.backtrace"><code class="docutils literal notranslate"><span class="pre">backtrace()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.util.html#pathfinding3d.core.util.bi_backtrace"><code class="docutils literal notranslate"><span class="pre">bi_backtrace()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.util.html#pathfinding3d.core.util.raytrace"><code class="docutils literal notranslate"><span class="pre">raytrace()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.util.html#pathfinding3d.core.util.bresenham"><code class="docutils literal notranslate"><span class="pre">bresenham()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.util.html#pathfinding3d.core.util.expand_path"><code class="docutils literal notranslate"><span class="pre">expand_path()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.util.html#pathfinding3d.core.util.smoothen_path"><code class="docutils literal notranslate"><span class="pre">smoothen_path()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.util.html#pathfinding3d.core.util.line_of_sight"><code class="docutils literal notranslate"><span class="pre">line_of_sight()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>Initializes the SimpleHeap with a given node and grid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The initial node to be added to the heap. This node should have an ‘f’ attribute representing its cost.</p></li>
-<li><p><strong>grid</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a><em>, </em><a class="reference internal" href="#pathfinding3d.core.world.World" title="pathfinding3d.core.world.World"><em>World</em></a><em>]</em>) – The grid in which the nodes are located.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pathfinding3d.core.world.html">pathfinding3d.core.world module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pathfinding3d.core.world.html#pathfinding3d.core.world.World"><code class="docutils literal notranslate"><span class="pre">World</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.world.html#pathfinding3d.core.world.World.__init__"><code class="docutils literal notranslate"><span class="pre">World.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.world.html#pathfinding3d.core.world.World.neighbors"><code class="docutils literal notranslate"><span class="pre">World.neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.world.html#pathfinding3d.core.world.World.calc_cost"><code class="docutils literal notranslate"><span class="pre">World.calc_cost()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pathfinding3d.core.world.html#pathfinding3d.core.world.World.cleanup"><code class="docutils literal notranslate"><span class="pre">World.cleanup()</span></code></a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap._determine_node_retrieval_function">
-<span class="sig-name descname"><span class="pre">_determine_node_retrieval_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap._determine_node_retrieval_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap._determine_node_retrieval_function" title="Permalink to this definition"></a></dt>
-<dd><p>Determines the node retrieval function based on the type of grid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A function that takes a node tuple and returns the corresponding node.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>function</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ValueError</strong> – If the grid is not of type Grid or World.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap._determine_node_function">
-<span class="sig-name descname"><span class="pre">_determine_node_function</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap._determine_node_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap._determine_node_function" title="Permalink to this definition"></a></dt>
-<dd><p>Determines the node function based on the type of grid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A function that takes a node tuple and returns the corresponding node.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>function</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ValueError</strong> – If the grid is not of type Grid or World.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.pop_node">
-<span class="sig-name descname"><span class="pre">pop_node</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.pop_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.pop_node" title="Permalink to this definition"></a></dt>
-<dd><p>Pops the node with the lowest cost from the heap.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The node with the lowest cost.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.push_node">
-<span class="sig-name descname"><span class="pre">push_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.push_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.push_node" title="Permalink to this definition"></a></dt>
-<dd><p>Pushes a node to the heap.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The node to be pushed to the heap.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.heap.SimpleHeap.remove_node">
-<span class="sig-name descname"><span class="pre">remove_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heap.html#SimpleHeap.remove_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heap.SimpleHeap.remove_node" title="Permalink to this definition"></a></dt>
-<dd><p>Remove the node from the heap.</p>
-<p>This just stores it in a set and we just ignore the node if it does
-get popped from the heap.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The node to be removed from the heap.</p></li>
-<li><p><strong>old_f</strong> (<em>float</em>) – The old cost of the node.</p></li>
+</li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-pathfinding3d.core.heuristic">
-<span id="pathfinding3d-core-heuristic-module"></span><h2>pathfinding3d.core.heuristic module<a class="headerlink" href="#module-pathfinding3d.core.heuristic" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.null">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">null</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#null"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.null" title="Permalink to this definition"></a></dt>
-<dd><p>Special heuristic for Dijkstra
-return 0, so node.h will always be calculated as 0,
-distance cost (node.f) is calculated only from
-start to current point (node.g)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
+</li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>0.0</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.manhattan">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">manhattan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#manhattan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.manhattan" title="Permalink to this definition"></a></dt>
-<dd><p>Manhattan heuristics</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>manhattan distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.euclidean">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#euclidean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.euclidean" title="Permalink to this definition"></a></dt>
-<dd><p>Euclidean distance heuristics</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>euclidean distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.chebyshev">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">chebyshev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#chebyshev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.chebyshev" title="Permalink to this definition"></a></dt>
-<dd><p>Chebyshev distance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>chebyshev distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.octile">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">octile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#octile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.octile" title="Permalink to this definition"></a></dt>
-<dd><p>Octile distance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>octile distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-pathfinding3d.core.node">
-<span id="pathfinding3d-core-node-module"></span><h2>pathfinding3d.core.node module<a class="headerlink" href="#module-pathfinding3d.core.node" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.node.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><a class="reference internal" href="_modules/pathfinding3d/core/node.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.node.Node" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Basic node class, saves calculated values for pathfinding</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.h">
-<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.h" title="Permalink to this definition"></a></dt>
-<dd><p>The cost from this node to the goal (for A* including the heuristic).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.g">
-<span class="sig-name descname"><span class="pre">g</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.g" title="Permalink to this definition"></a></dt>
-<dd><p>The cost from the start node to this node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.f">
-<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.f" title="Permalink to this definition"></a></dt>
-<dd><p>The overall cost for a path using this node (f = g + h).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.opened">
-<span class="sig-name descname"><span class="pre">opened</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.opened" title="Permalink to this definition"></a></dt>
-<dd><p>The number of times this node has been opened.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.closed">
-<span class="sig-name descname"><span class="pre">closed</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.closed" title="Permalink to this definition"></a></dt>
-<dd><p>Whether this node is closed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.parent">
-<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.parent" title="Permalink to this definition"></a></dt>
-<dd><p>The parent node of this node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[<a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node">Node</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.retain_count">
-<span class="sig-name descname"><span class="pre">retain_count</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.retain_count" title="Permalink to this definition"></a></dt>
-<dd><p>Used for recursion tracking of IDA*.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.tested">
-<span class="sig-name descname"><span class="pre">tested</span></span><a class="headerlink" href="#pathfinding3d.core.node.Node.tested" title="Permalink to this definition"></a></dt>
-<dd><p>Used for IDA* and Jump-Point-Search.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/node.html#Node.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.node.Node.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.Node.cleanup">
-<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/node.html#Node.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.node.Node.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Reset all calculated values, fresh start for pathfinding</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id0">
-<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id1">
-<span class="sig-name descname"><span class="pre">g</span></span><a class="headerlink" href="#id1" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id2">
-<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#id2" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id3">
-<span class="sig-name descname"><span class="pre">opened</span></span><a class="headerlink" href="#id3" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id4">
-<span class="sig-name descname"><span class="pre">closed</span></span><a class="headerlink" href="#id4" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id5">
-<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#id5" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id6">
-<span class="sig-name descname"><span class="pre">retain_count</span></span><a class="headerlink" href="#id6" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id7">
-<span class="sig-name descname"><span class="pre">tested</span></span><a class="headerlink" href="#id7" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.node.</span></span><span class="sig-name descname"><span class="pre">GridNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walkable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/node.html#GridNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.node.GridNode" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pathfinding3d.core.node.Node" title="pathfinding3d.core.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a></p>
-<p>Basic node in a grid.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – </p></li>
-<li><p><strong>y</strong> (<em>int</em>) – </p></li>
-<li><p><strong>z</strong> (<em>int</em>) – </p></li>
-<li><p><strong>walkable</strong> (<em>bool</em>) – </p></li>
-<li><p><strong>weight</strong> (<em>float</em>) – </p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>connections</strong> (<em>List</em><em> | </em><em>None</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.x">
-<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.x" title="Permalink to this definition"></a></dt>
-<dd><p>The x coordinate of the node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.y">
-<span class="sig-name descname"><span class="pre">y</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.y" title="Permalink to this definition"></a></dt>
-<dd><p>The y coordinate of the node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.z">
-<span class="sig-name descname"><span class="pre">z</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.z" title="Permalink to this definition"></a></dt>
-<dd><p>The z coordinate of the node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.walkable">
-<span class="sig-name descname"><span class="pre">walkable</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.walkable" title="Permalink to this definition"></a></dt>
-<dd><p>Whether this node can be walked through.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.weight">
-<span class="sig-name descname"><span class="pre">weight</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.weight" title="Permalink to this definition"></a></dt>
-<dd><p>The weight of the node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.grid_id">
-<span class="sig-name descname"><span class="pre">grid_id</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.grid_id" title="Permalink to this definition"></a></dt>
-<dd><p>The id of the grid this node belongs to.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[int]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.connections">
-<span class="sig-name descname"><span class="pre">connections</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.connections" title="Permalink to this definition"></a></dt>
-<dd><p>The connections of this node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional[List]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id8">
-<span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id8" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id9">
-<span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id9" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id10">
-<span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#id10" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id11">
-<span class="sig-name descname"><span class="pre">walkable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#id11" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id12">
-<span class="sig-name descname"><span class="pre">weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1.0</span></em><a class="headerlink" href="#id12" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id13">
-<span class="sig-name descname"><span class="pre">grid_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id13" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="id14">
-<span class="sig-name descname"><span class="pre">connections</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#id14" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.connect">
-<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/node.html#GridNode.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.node.GridNode.connect" title="Permalink to this definition"></a></dt>
-<dd><p>Connect this node to another node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other_node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The node to connect to.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.h">
-<span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.h" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.g">
-<span class="sig-name descname"><span class="pre">g</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.g" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.f">
-<span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.f" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.opened">
-<span class="sig-name descname"><span class="pre">opened</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.opened" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.closed">
-<span class="sig-name descname"><span class="pre">closed</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.closed" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.parent">
-<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.parent" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.retain_count">
-<span class="sig-name descname"><span class="pre">retain_count</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.retain_count" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.tested">
-<span class="sig-name descname"><span class="pre">tested</span></span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.tested" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walkable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connections</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.__init__" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – </p></li>
-<li><p><strong>y</strong> (<em>int</em>) – </p></li>
-<li><p><strong>z</strong> (<em>int</em>) – </p></li>
-<li><p><strong>walkable</strong> (<em>bool</em>) – </p></li>
-<li><p><strong>weight</strong> (<em>float</em>) – </p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>connections</strong> (<em>List</em><em> | </em><em>None</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.node.GridNode.cleanup">
-<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pathfinding3d.core.node.GridNode.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Reset all calculated values, fresh start for pathfinding</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-pathfinding3d.core.util">
-<span id="pathfinding3d-core-util-module"></span><h2>pathfinding3d.core.util module<a class="headerlink" href="#module-pathfinding3d.core.util" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.backtrace">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">backtrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.backtrace" title="Permalink to this definition"></a></dt>
-<dd><p>Backtrace according to the parent records and return the path.
-(including both start and end nodes)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to backtrace from</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.bi_backtrace">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">bi_backtrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#bi_backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.bi_backtrace" title="Permalink to this definition"></a></dt>
-<dd><p>Backtrace from start and end node, returns the path for bi-directional A*
-(including both start and end nodes)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.raytrace">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">raytrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords_b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#raytrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.raytrace" title="Permalink to this definition"></a></dt>
-<dd><p>Given the start and end coordinates, return all the coordinates lying
-on the line formed by these coordinates, based on ray tracing.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_a</strong> (<em>Coords</em>) – start coordinates</p></li>
-<li><p><strong>coords_b</strong> (<em>Coords</em>) – end coordinates</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of coordinates</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[List[float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.bresenham">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">bresenham</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords_b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#bresenham"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.bresenham" title="Permalink to this definition"></a></dt>
-<dd><p>Given the start and end coordinates, return all the coordinates lying
-on the line formed by these coordinates, based on Bresenham’s algorithm.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_a</strong> (<em>Coords</em>) – start coordinates</p></li>
-<li><p><strong>coords_b</strong> (<em>Coords</em>) – end coordinates</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of coordinates</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[List[float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.expand_path">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">expand_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#expand_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.expand_path" title="Permalink to this definition"></a></dt>
-<dd><p>Given a compressed path, return a new path that has all the segments
-in it interpolated.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>List</em><em>[</em><em>Coords</em><em>]</em>) – path to expand</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>expanded path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Coords]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.smoothen_path">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">smoothen_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raytrace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#smoothen_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.smoothen_path" title="Permalink to this definition"></a></dt>
-<dd><p>Given an uncompressed path, return a new path that has less
-turnings and looks more natural.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid</p></li>
-<li><p><strong>path</strong> (<em>List</em><em>[</em><em>Coords</em><em>]</em>) – path to smoothen</p></li>
-<li><p><strong>use_raytrace</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to use raytrace, by default False</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>smoothened path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[List[float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.line_of_sight">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">line_of_sight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#line_of_sight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.line_of_sight" title="Permalink to this definition"></a></dt>
-<dd><p>Check if there is a line of sight between two nodes using Bresenham’s algorithm</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – The grid on which the nodes exist</p></li>
-<li><p><strong>node1</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The first node</p></li>
-<li><p><strong>node2</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The second node</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if there is a line of sight between the two nodes, False otherwise</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-pathfinding3d.core.world">
-<span id="pathfinding3d-core-world-module"></span><h2>pathfinding3d.core.world module<a class="headerlink" href="#module-pathfinding3d.core.world" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pathfinding3d.core.world.World">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.world.</span></span><span class="sig-name descname"><span class="pre">World</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/world.html#World"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.world.World" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A world connects grids but can have multiple grids.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>grids</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a><em>]</em>) – </p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.world.World.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/world.html#World.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.world.World.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>Initialize a new world.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>grids</strong> (<em>Dict</em><em>[</em><em>int</em><em>, </em><a class="reference internal" href="#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a><em>]</em>) – grids in this world</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.world.World.neighbors">
-<span class="sig-name descname"><span class="pre">neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagonal_movement</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/world.html#World.neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.world.World.neighbors" title="Permalink to this definition"></a></dt>
-<dd><p>Get neighbors of the given node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to get neighbors from</p></li>
-<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
-(see enum in diagonal_movement)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>neighbors of the given node</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.world.World.calc_cost">
-<span class="sig-name descname"><span class="pre">calc_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weighted</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/world.html#World.calc_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.world.World.calc_cost" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate the cost between two nodes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – first node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – second node</p></li>
-<li><p><strong>weighted</strong> (<em>bool</em>) – wether to use weights or not</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>cost between the two nodes</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pathfinding3d.core.world.World.cleanup">
-<span class="sig-name descname"><span class="pre">cleanup</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/world.html#World.cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.world.World.cleanup" title="Permalink to this definition"></a></dt>
-<dd><p>Cleanup all grids in this world.</p>
-</dd></dl>
-
-</dd></dl>
-
+</div>
 </section>
 </section>
 
@@ -1206,7 +265,7 @@ turnings and looks more natural.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="pathfinding3d.html" class="btn btn-neutral float-left" title="pathfinding3d package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="pathfinding3d.finder.html" class="btn btn-neutral float-right" title="pathfinding3d.finder package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="pathfinding3d.core.diagonal_movement.html" class="btn btn-neutral float-right" title="pathfinding3d.core.diagonal_movement module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
