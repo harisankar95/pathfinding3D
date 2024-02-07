@@ -102,7 +102,7 @@ The path produced in the previous example can be visualized by adding the follow
 This will generate a visualization of the grid and the path and save it to the file `path_visualization.html` and also open it in your default browser.
 
 <p align="center">
-<img src="./assets/path_visualization.png" width="100%" title="Path visualization">
+<img src="https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/assets/path_visualization.png" width="100%" title="Path visualization">
 <p align="center">
 
 ## Rerun the Algorithm
