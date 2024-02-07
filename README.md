@@ -101,7 +101,9 @@ The path produced in the previous example can be visualized by adding the follow
 
 This will generate a visualization of the grid and the path and save it to the file `path_visualization.html` and also open it in your default browser.
 
-<iframe src="./assets/path_visualization.html" width="100%" height="500px"></iframe>
+<p align="center">
+<img src="./assets/path_visualization.png" width="100%" title="Path visualization">
+<p align="center">
 
 ## Rerun the Algorithm
 
