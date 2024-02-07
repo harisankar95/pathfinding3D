@@ -1,5 +1,9 @@
 # Version History
 
+## 0.7.0
+
+- Visualizations added for 3D grids, see PR [#16](https://github.com/harisankar95/pathfinding3D/commit/789863e6794807932af30313eacd2198a406f2fc)
+
 ## 0.6.2
 
 - Sphinx documentation updated
