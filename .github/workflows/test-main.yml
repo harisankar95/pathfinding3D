@@ -29,8 +29,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install numpy pytest coverage
-          pip install -e .
+          pip install numpy pytest coverage pytest-mock
+          pip install -e .[vis]
 
       - name: Run tests with pytest
         run: coverage run --source pathfinding3d -m pytest 
