@@ -77,6 +77,34 @@ For a quick start, here's a basic example:
 
 For usage examples with detailed descriptions take a look at the [examples](examples/) folder or at the [documentation](https://harisankar95.github.io/pathfinding3D/USAGE.html).
 
+## Visualization of the path
+
+You can visualize the grid along with the path by calling the `visualize` method of the `Grid` class. This method can take path as an optional argument and generate a plotly figure. You can install pathfinding3d with the `plotly`  to use this feature with the following command:
+
+  ```bash
+  pip install pathfinding3d[vis]
+  ```
+
+The path produced in the previous example can be visualized by adding the following code to the end of the example:
+
+  ```python
+  grid.visualize(
+    path=path,  # optionally visualize the path
+    start=start,
+    end=end,
+    visualize_weight=True,  # weights above 1 (default) will be visualized
+    save_html=True,  # save visualization to html file
+    save_to="path_visualization.html",  # specify the path to save the html file
+    always_show=True,  # always show the visualization in the browser
+  )
+  ```
+
+This will generate a visualization of the grid and the path and save it to the file `path_visualization.html` and also open it in your default browser.
+
+<p align="center">
+<img src="./assets/path_visualization.png" width="100%" title="Path visualization">
+<p align="center">
+
 ## Rerun the Algorithm
 
 When rerunning the algorithm, remember to clean the grid first using `Grid.cleanup`. This will reset the grid to its original state.

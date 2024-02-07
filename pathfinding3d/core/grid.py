@@ -1,11 +1,20 @@
 import math
+import warnings
 from functools import lru_cache
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 import numpy as np
 
 from .diagonal_movement import DiagonalMovement
 from .node import GridNode
+
+try:
+    import plotly.graph_objects as go
+
+    USE_PLOTLY = True
+except ImportError:
+    USE_PLOTLY = False
+
 
 MatrixType = Optional[Union[List[List[List[int]]], np.ndarray]]
 
@@ -487,3 +496,184 @@ class Grid:
             for y_nodes in x_nodes:
                 for z_node in y_nodes:
                     z_node.cleanup()
+
+    def visualize(
+        self,
+        path: Optional[List[Union[GridNode, Tuple]]] = None,
+        start: Optional[Union[GridNode, Tuple]] = None,
+        end: Optional[Union[GridNode, Tuple]] = None,
+        visualize_weight: bool = True,
+        save_html: bool = False,
+        save_to: str = "./pathfinding3d_visualization.html",
+        always_show: bool = False,
+    ):
+        """
+        Creates a 3D visualization of the grid, including optional path, start/end points,
+        and node weights using plotly. This method is designed to help visualize the
+        spatial layout, obstacles, and pathfinding results in three dimensions.
+
+        Parameters
+        ----------
+        path : Optional[List[Union[GridNode, Tuple]]], optional
+            The path to visualize, specified as a list of GridNode instances or coordinate tuples (x, y, z).
+            If omitted, the grid is visualized without a path. Defaults to None.
+        start : Optional[Union[GridNode, Tuple]], optional
+            The start node for the path, as either a GridNode or a tuple of coordinates.
+            If not provided and a path is given, the first node of the path is used. Defaults to None.
+        end : Optional[Union[GridNode, Tuple]], optional
+            The end node for the path, as either a GridNode or a tuple of coordinates.
+            If not provided and a path is given, the last node of the path is used. Defaults to None.
+        visualize_weight : bool, optional
+            Whether to visualize the weights of the nodes, enhancing the representation of node costs.
+            Defaults to True.
+        save_html : bool, optional
+            If True, the visualization is saved to an HTML file specified by `save_to` instead of being displayed.
+            Defaults to False.
+        save_to : str, optional
+            File path where the HTML visualization is saved if `save_html` is True.
+            Defaults to "./pathfinding3d_visualization.html".
+        always_show : bool, optional
+            If True, displays the visualization in the browser even when `save_html` is True.
+            Useful for immediate feedback while also saving the result. Defaults to False.
+
+        Raises
+        ------
+        Warning
+            If plotly is not installed, a warning is logged and the visualization is skipped.
+
+        Notes
+        -----
+        - Requires plotly for visualization. Install with `pip install plotly` if not already installed.
+        """
+        if not USE_PLOTLY:
+            warnings.warn("Plotly is not installed. Please install it to use this feature.")
+            return
+
+        # Extract obstacle and weight information directly from the grid
+        X, Y, Z, obstacle_values, weight_values = [], [], [], [], []
+        for x in range(self.width):
+            for y in range(self.height):
+                for z in range(self.depth):
+                    node = self.node(x, y, z)
+                    X.append(x)
+                    Y.append(y)
+                    Z.append(z)
+                    obstacle_values.append(0 if node.walkable else 1)
+                    weight_values.append(node.weight if node.walkable else 0)
+
+        # Create obstacle volume visualization
+        obstacle_vol = go.Volume(
+            x=np.array(X),
+            y=np.array(Y),
+            z=np.array(Z),
+            value=np.array(obstacle_values),
+            isomin=0.1,
+            isomax=1.0,
+            opacity=0.1,
+            surface_count=25,  # Increase for better visibility
+            colorscale="Greys",
+            showscale=False,
+            name="Obstacles",
+        )
+
+        # List of items to visualize
+        visualizations = [obstacle_vol]
+
+        # Create weight volume visualization
+        if visualize_weight:
+            weight_vol = go.Volume(
+                x=np.array(X),
+                y=np.array(Y),
+                z=np.array(Z),
+                value=np.array(weight_values),
+                isomin=1.01,  # Assuming default weight is 1, adjust as needed
+                isomax=max(weight_values) * 1.01,
+                opacity=0.5,  # Adjust for better visibility
+                surface_count=25,
+                colorscale="Viridis",  # A different colorscale for distinction
+                showscale=True,
+                colorbar=dict(title="Weight", ticks="outside"),
+            )
+            visualizations.append(weight_vol)
+
+        # Add path visualization if path is provided
+        if path:
+            # Convert path to coordinate tuples
+            path = [p.identifier if isinstance(p, GridNode) else p for p in path]
+
+            # Create path visualization
+            path_x, path_y, path_z = zip(*path)
+            path_trace = go.Scatter3d(
+                x=path_x,
+                y=path_y,
+                z=path_z,
+                mode="markers+lines",
+                marker=dict(size=6, color="red", opacity=0.9),
+                line=dict(color="red", width=3),
+                name="Path",
+                hovertext=[f"Step {i}: ({x}, {y}, {z})" for i, (x, y, z) in enumerate(path)],
+                hoverinfo="text",
+            )
+            visualizations.append(path_trace)
+
+            # Set start and end nodes if not provided
+            start = start or path[0]
+            end = end or path[-1]
+
+        # Add start and end node visualizations if available
+        if start:
+            start = start.identifier if isinstance(start, GridNode) else start
+            start_trace = go.Scatter3d(
+                x=[start[0]],
+                y=[start[1]],
+                z=[start[2]],
+                mode="markers",
+                marker=dict(size=8, color="green", symbol="diamond"),
+                name="Start",
+                hovertext=f"Start: {start}",
+                hoverinfo="text",
+            )
+            visualizations.append(start_trace)
+
+        if end:
+            end = end.identifier if isinstance(end, GridNode) else end
+            end_trace = go.Scatter3d(
+                x=[end[0]],
+                y=[end[1]],
+                z=[end[2]],
+                mode="markers",
+                marker=dict(size=8, color="blue", symbol="diamond"),
+                name="End",
+                hovertext=f"End: {end}",
+                hoverinfo="text",
+            )
+            visualizations.append(end_trace)
+
+        # Camera settings
+        # Set camera perpendicular to the z-axis
+        camera = dict(eye=dict(x=0.0, y=0.0, z=self.depth / 4))
+
+        # Specify layout
+        layout = go.Layout(
+            title="3D Pathfinding Visualization",
+            scene=dict(
+                xaxis=dict(title="X-axis", showbackground=True),
+                yaxis=dict(title="Y-axis", showbackground=True),
+                zaxis=dict(title="Z-axis", showbackground=True),
+                aspectmode="auto",
+            ),
+            legend=dict(yanchor="top", y=0.99, xanchor="left", x=0.01),
+            autosize=True,
+            scene_camera=camera,
+        )
+
+        # Create figure
+        fig = go.Figure(data=visualizations, layout=layout)
+
+        # Save visualization to HTML file if specified
+        if save_html:
+            fig.write_html(save_to, auto_open=False)
+            print(f"Visualization saved to: {save_to}")
+
+        if always_show or not save_html:
+            fig.show()

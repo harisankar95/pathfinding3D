@@ -29,6 +29,7 @@ setup(
         "dev": [
             "black",
             "pytest",
+            "pytest-mock",
             "coverage",
             "sphinx<=7.2.6",
             "sphinx_rtd_theme",
@@ -38,7 +39,8 @@ setup(
             "sphinx-prompt",
             "sphinx-notfound-page",
             "sphinx-autodoc-annotation",
-        ]
+        ],
+        "vis": ["plotly"],
     },
     tests_require=[
         "pytest",
