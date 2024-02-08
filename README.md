@@ -9,7 +9,7 @@
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Documentation](https://img.shields.io/badge/documentation-view-blue)](https://harisankar95.github.io/pathfinding3D/INTRO.html)
 
-<img src="https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/assets/logo.png" width="200" title="Pathfinding3D logo">
+<img src="https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/assets/logo.png" width="224" title="Pathfinding3D logo">
 
 </div>
 
