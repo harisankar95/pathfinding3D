@@ -1,3 +1,5 @@
+<div align="center">
+
 # Pathfinding3D
 
 [![MIT License](https://img.shields.io/github/license/harisankar95/pathfinding3d)](LICENSE)
@@ -7,7 +9,11 @@
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Documentation](https://img.shields.io/badge/documentation-view-blue)](https://harisankar95.github.io/pathfinding3D/INTRO.html)
 
-Pathfinding algorithms for python3 froked from [python-pathfinding](https://github.com/brean/python-pathfinding) by [@brean](https://github.com/brean).
+![Logo](https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/assets/logo.png)
+
+</div>
+
+Pathfinding algorithms in 3D for python3 born from the fork of [python-pathfinding](https://github.com/brean/python-pathfinding) by [@brean](https://github.com/brean).
 
 Pathfinding3D is a comprehensive library designed for 3D pathfinding applications.
 

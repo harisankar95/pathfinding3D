@@ -5,7 +5,7 @@
 
 ## Introduction
 
-Pathfinding algorithms for python3 froked from [python-pathfinding](https://github.com/brean/python-pathfinding) by [@brean](https://github.com/brean).
+Pathfinding algorithms in 3D for python3 born from the fork of [python-pathfinding](https://github.com/brean/python-pathfinding) by [@brean](https://github.com/brean).
 
 Pathfinding3D is a comprehensive library designed for 3D pathfinding applications.
 
