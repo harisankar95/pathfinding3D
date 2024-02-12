@@ -47,11 +47,6 @@ extensions = [
 ]
 
 templates_path = ["_templates"]
-html_sidebars = {
-    "**": [
-        "_templates/versions.html",
-    ],
-}
 
 # sphinx-notfound-page
 notfound_context = {
@@ -79,6 +74,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "**.ipynb_checkpoints"]
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
+
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
@@ -104,6 +100,11 @@ html_theme_options = {
     "includehidden": True,
     "titles_only": False,
 }
+
+
+def setup(app):
+    app.add_css_file("custom.css")
+
 
 # generate autosummary even if no references
 autosummary_generate = True
