@@ -108,7 +108,7 @@ The path produced in the previous example can be visualized by adding the follow
 This will generate a visualization of the grid and the path and save it to the file `path_visualization.html` and also open it in your default browser.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/assets/path_visualization.png" width="100%" title="Path visualization">
+<img src="https://raw.githubusercontent.com/harisankar95/pathfinding3D/main/assets/path_visualization.png" width="95%" title="Path visualization">
 <p align="center">
 
 ## Rerun the Algorithm
@@ -135,17 +135,23 @@ General Process:
 6. If none of the neighbors are walkable, the algorithm terminates. Otherwise, `check_neighbors` calls `process_node` on each neighbor. It calculates the cost `f` for each neighbor node. This involves computing `g` (the cost from the start node to the current node) and `h` (the estimated cost from the current node to the end node, calculated by `apply_heuristic`).
 7. Finally `process_node` updates the open list so `find_path` with new or updated nodes. This allows `find_path` to continue the process with the next node in the subsequent iteration.
 
-flow:
+The following diagram illustrates the process:
 
-```pseudo
-  find_path
-    init_find  # (re)set global values and open list
-    while open_list not empty:
-      check_neighbors  # for the node with min 'f' value in open list
-        pop_node  # node with min 'f' value
-        find_neighbors  # get neighbors
-        process_node  # calculate new cost for each neighbor
+<div align="center">
+
+```mermaid
+  graph TD;
+      find_path["find_path"] --> init_find["init_find (re)set global values and open list"];
+      init_find --> while_open_list_not_empty["while open_list not empty"];
+      while_open_list_not_empty --> check_neighbors["check_neighbors (for the node with min 'f' value in open list)"];
+      check_neighbors --> pop_node["pop_node (node with min 'f' value)"];
+      pop_node --> find_neighbors["find_neighbors (get neighbors)"];
+      find_neighbors --> process_node["process_node (calculate new cost for each neighbor)"];
+      process_node --> while_open_list_not_empty;
+      while_open_list_not_empty -- "open list empty" --> done["done"];
 ```
+
+</div>
 
 ## Testing
 
