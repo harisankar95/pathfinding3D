@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4d8c61bb" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=71f9a9e8" />
 
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -135,150 +135,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-pathfinding3d.core.util">
-<span id="pathfinding3d-core-util-module"></span><h1>pathfinding3d.core.util module<a class="headerlink" href="#module-pathfinding3d.core.util" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.backtrace">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">backtrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.backtrace" title="Permalink to this definition"></a></dt>
-<dd><p>Backtrace according to the parent records and return the path.
-(including both start and end nodes)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to backtrace from</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.bi_backtrace">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">bi_backtrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#bi_backtrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.bi_backtrace" title="Permalink to this definition"></a></dt>
-<dd><p>Backtrace from start and end node, returns the path for bi-directional A*
-(including both start and end nodes)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>node_a</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – start node</p></li>
-<li><p><strong>node_b</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode">GridNode</a>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.raytrace">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">raytrace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords_b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#raytrace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.raytrace" title="Permalink to this definition"></a></dt>
-<dd><p>Given the start and end coordinates, return all the coordinates lying
-on the line formed by these coordinates, based on ray tracing.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_a</strong> (<em>Coords</em>) – start coordinates</p></li>
-<li><p><strong>coords_b</strong> (<em>Coords</em>) – end coordinates</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of coordinates</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[List[float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.bresenham">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">bresenham</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords_b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#bresenham"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.bresenham" title="Permalink to this definition"></a></dt>
-<dd><p>Given the start and end coordinates, return all the coordinates lying
-on the line formed by these coordinates, based on Bresenham’s algorithm.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>coords_a</strong> (<em>Coords</em>) – start coordinates</p></li>
-<li><p><strong>coords_b</strong> (<em>Coords</em>) – end coordinates</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>list of coordinates</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[List[float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.expand_path">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">expand_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#expand_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.expand_path" title="Permalink to this definition"></a></dt>
-<dd><p>Given a compressed path, return a new path that has all the segments
-in it interpolated.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>List</em><em>[</em><em>Coords</em><em>]</em>) – path to expand</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>expanded path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Coords]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.smoothen_path">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">smoothen_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_raytrace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#smoothen_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.smoothen_path" title="Permalink to this definition"></a></dt>
-<dd><p>Given an uncompressed path, return a new path that has less
-turnings and looks more natural.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid</p></li>
-<li><p><strong>path</strong> (<em>List</em><em>[</em><em>Coords</em><em>]</em>) – path to smoothen</p></li>
-<li><p><strong>use_raytrace</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether to use raytrace, by default False</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>smoothened path</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[List[float]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.util.line_of_sight">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.util.</span></span><span class="sig-name descname"><span class="pre">line_of_sight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/util.html#line_of_sight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.util.line_of_sight" title="Permalink to this definition"></a></dt>
-<dd><p>Check if there is a line of sight between two nodes using Bresenham’s algorithm</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – The grid on which the nodes exist</p></li>
-<li><p><strong>node1</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The first node</p></li>
-<li><p><strong>node2</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – The second node</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>True if there is a line of sight between the two nodes, False otherwise</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="pathfinding3d-core-util-module">
+<h1>pathfinding3d.core.util module<a class="headerlink" href="#pathfinding3d-core-util-module" title="Permalink to this heading"></a></h1>
 </section>
 
 

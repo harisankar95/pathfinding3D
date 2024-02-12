@@ -9,7 +9,7 @@
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4d8c61bb" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=71f9a9e8" />
 
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -135,116 +135,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-pathfinding3d.core.heuristic">
-<span id="pathfinding3d-core-heuristic-module"></span><h1>pathfinding3d.core.heuristic module<a class="headerlink" href="#module-pathfinding3d.core.heuristic" title="Permalink to this heading"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.null">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">null</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#null"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.null" title="Permalink to this definition"></a></dt>
-<dd><p>Special heuristic for Dijkstra
-return 0, so node.h will always be calculated as 0,
-distance cost (node.f) is calculated only from
-start to current point (node.g)</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>0.0</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.manhattan">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">manhattan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#manhattan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.manhattan" title="Permalink to this definition"></a></dt>
-<dd><p>Manhattan heuristics</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>manhattan distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.euclidean">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">euclidean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#euclidean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.euclidean" title="Permalink to this definition"></a></dt>
-<dd><p>Euclidean distance heuristics</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>euclidean distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.chebyshev">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">chebyshev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#chebyshev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.chebyshev" title="Permalink to this definition"></a></dt>
-<dd><p>Chebyshev distance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>chebyshev distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pathfinding3d.core.heuristic.octile">
-<span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.heuristic.</span></span><span class="sig-name descname"><span class="pre">octile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/heuristic.html#octile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.heuristic.octile" title="Permalink to this definition"></a></dt>
-<dd><p>Octile distance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>float</em><em>]</em>) – z distance</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>octile distance</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="pathfinding3d-core-heuristic-module">
+<h1>pathfinding3d.core.heuristic module<a class="headerlink" href="#pathfinding3d-core-heuristic-module" title="Permalink to this heading"></a></h1>
 </section>
 
 
