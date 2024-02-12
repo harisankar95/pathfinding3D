@@ -1,0 +1,33 @@
+name: Build and deploy documentation to GitHub Pages 📃
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and deploy documentation to GitHub Pages 📃
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.8"
+
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Build docs
+        run: |
+          pip install sphinx sphinx_rtd_theme recommonmark sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-autodoc-annotation
+          sphinx-build -b html docs/ ./public
+          cp -r docs/additional_resources/* ./public/
+
+      - name: Deploy docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
