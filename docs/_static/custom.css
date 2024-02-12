@@ -4,51 +4,50 @@
 :root {
     --main-bg-color: #B6C8DB;
     --link-color: #6DB59F;
+    --font-family-headers: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    --font-family-body: "Open Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Header fonts y */
+/* Header fonts */
 h1,
 h2,
-.rst-content .toctree-wrapper p.caption,
 h3,
 h4,
 h5,
 h6,
+.rst-content .toctree-wrapper p.caption,
 legend,
 p.caption {
-    font-family: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
+    font-family: var(--font-family-headers);
 }
 
+/* Body text */
+body {
+    font-family: var(--font-family-body);
+    line-height: 1.6;
+}
 
 /* Docs background */
-.wy-side-nav-search {
-    background-color: var(--main-bg-color);
-}
-
-/* Mobile version */
+.wy-side-nav-search,
 .wy-nav-top {
     background-color: var(--main-bg-color);
 }
 
-/* Change link colors (except for the menu) */
+
+/* Link colors */
 a {
-    color: var(--link-color);
+    color: #5CA982;
 }
 
-a:hover {
-    color: #798EA9;
-}
-
-.wy-menu a {
-    color: #b3b3b3;
-}
-
+a:hover,
 .wy-menu a:hover {
-    color: #b3b3b3;
+    color: #507C6A;
 }
 
+.wy-menu a,
 a.icon.icon-home {
-    color: #b3b3b3;
+    color: var(--link-color);
 }
 
 .version {
@@ -56,22 +55,56 @@ a.icon.icon-home {
 }
 
 
-/* Make code blocks have a background */
+.wy-menu a:hover {
+    text-decoration: underline;
+    /* Adding underline on hover for better visibility */
+}
+
+
+/* Code blocks */
 .codeblock,
 pre.literal-block,
 .rst-content .literal-block,
 .rst-content pre.literal-block,
 div[class^='highlight'] {
-    background: #FFFFFF;
-    ;
+    background: #F0F0F0;
+    border-left: 3px solid var(--link-color);
+    padding: 0.5em;
 }
 
-/* Change style of types in the docstrings .rst-content .field-list */
+/* Docstrings */
 .field-list .xref.py.docutils,
 .field-list code.docutils,
 .field-list .docutils.literal.notranslate {
-    border: None;
-    padding-left: 0;
-    padding-right: 0;
-    color: #404040;
+    background-color: #E9F5F5;
+    border-radius: 5px;
+    padding: 2px 4px;
+    color: #333333;
+}
+
+
+@media (max-width: 768px) {
+    .wy-side-nav-search {
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        overflow-y: auto;
+        z-index: 1000;
+        background-color: var(--main-bg-color);
+    }
+
+    .rst-content {
+        margin-left: 250px;
+    }
+
+    .sidebar-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: calc(100% - 60px);
+        z-index: 1010;
+    }
 }

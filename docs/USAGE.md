@@ -579,6 +579,7 @@ Let's cut to the chase and see how it works:
     ```
 
     This will open a new tab in your browser with the following visualization:
+
     <style>
         iframe {
             width: 100%;
@@ -588,8 +589,9 @@ Let's cut to the chase and see how it works:
             border-radius: 15px;
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
             opacity: 0.9;
-            margin: 20px;
+            margin: 20px auto;
             padding: 10px;
+            display: block;
         }
     </style>
     <iframe src="theta_star.html"></iframe>
