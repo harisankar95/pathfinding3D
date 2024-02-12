@@ -81,30 +81,3 @@ div[class^='highlight'] {
     padding: 2px 4px;
     color: #333333;
 }
-
-
-@media (max-width: 768px) {
-    .wy-side-nav-search {
-        display: block;
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 250px;
-        overflow-y: auto;
-        z-index: 1000;
-        background-color: var(--main-bg-color);
-    }
-
-    .rst-content {
-        margin-left: 250px;
-    }
-
-    .sidebar-toggle {
-        display: block;
-        position: fixed;
-        top: 15px;
-        left: calc(100% - 60px);
-        z-index: 1010;
-    }
-}
