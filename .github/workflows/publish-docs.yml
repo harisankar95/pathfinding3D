@@ -20,6 +20,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
 
+      - name: Install dependencies
+        run: |
+          pip install -e .[vis]
+
       - name: Build docs
         run: |
           pip install sphinx sphinx_rtd_theme recommonmark sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page sphinx-autodoc-annotation
