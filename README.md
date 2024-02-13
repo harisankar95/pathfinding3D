@@ -141,14 +141,25 @@ The following diagram illustrates the process:
 
 ```mermaid
   graph TD;
-      find_path["find_path"] --> init_find["init_find (re)set global values and open list"];
+      style find_path stroke:#333,stroke-width:2px
+      style init_find stroke:#333,stroke-width:2px
+      style while_open_list_not_empty stroke:#333,stroke-width:2px
+      style check_neighbors stroke:#333,stroke-width:2px
+      style pop_node stroke:#333,stroke-width:2px
+      style find_neighbors stroke:#333,stroke-width:2px
+      style process_node stroke:#333,stroke-width:2px
+      style return_empty_list stroke:#333,stroke-width:2px
+      style return_path stroke:#333,stroke-width:2px
+
+      find_path["find_path"] --> init_find["init_find\n(re)set global values\nand open list"];
       init_find --> while_open_list_not_empty["while open_list not empty"];
-      while_open_list_not_empty --> check_neighbors["check_neighbors (for the node with min 'f' value in open list)"];
-      check_neighbors --> pop_node["pop_node (node with min 'f' value)"];
-      pop_node --> find_neighbors["find_neighbors (get neighbors)"];
-      find_neighbors --> process_node["process_node (calculate new cost for each neighbor)"];
+      while_open_list_not_empty --> check_neighbors["check_neighbors\n(for node with min 'f' value)"];
+      check_neighbors --> pop_node["pop_node\n(node with min 'f' value)"];
+      pop_node --> find_neighbors["find_neighbors\n(get neighbors)"];
+      find_neighbors --> process_node["process_node\n(calculate new cost)"];
       process_node --> while_open_list_not_empty;
-      while_open_list_not_empty -- "open list empty" --> done["done"];
+      while_open_list_not_empty -- "open list empty" --> return_empty_list["return empty list"];
+      while_open_list_not_empty -- "path found" --> return_path["return path"];
 ```
 
 </div>
