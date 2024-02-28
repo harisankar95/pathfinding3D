@@ -39,11 +39,10 @@ extensions = [
     "sphinx.ext.graphviz",  # for graphviz
     "sphinx.ext.mathjax",  # for math
     "sphinx_autodoc_typehints",  # for type hints
-    "sphinx_autodoc_annotation",  # for annotations
     "sphinx_copybutton",  # for copy button
     "sphinx-prompt",  # for prompt
     "notfound.extension",  # for 404 page
-    "recommonmark",  # for markdown
+    "myst_parser",  # for markdown
 ]
 
 templates_path = ["_templates"]

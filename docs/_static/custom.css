@@ -81,3 +81,13 @@ div[class^='highlight'] {
     padding: 2px 4px;
     color: #333333;
 }
+
+/* Tables */
+.wy-table-responsive table td,
+.wy-table-responsive table th {
+    white-space: normal !important;
+}
+
+.wy-table-responsive {
+    overflow: visible !important;
+}
