@@ -22,11 +22,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -e .[vis]
+          pip install -e .[vis,doc]
 
       - name: Build docs
         run: |
-          pip install sphinx sphinx_rtd_theme myst-parser sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page
           sphinx-build -b html docs/ ./public
           cp -r docs/additional_resources/* ./public/
 
