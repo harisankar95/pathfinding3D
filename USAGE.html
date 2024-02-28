@@ -9,8 +9,8 @@
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=c40191fa" />
-      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=c40191fa" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=92a69bc3" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=92a69bc3" />
 
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -139,7 +139,7 @@
 <section id="basic-usage">
 <h2>Basic usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading"></a></h2>
 <p>A simple usage example to find a path using the A* algorithm in a 3D environment.</p>
-<ol>
+<ol class="arabic">
 <li><p>Import the required libraries:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -228,6 +228,7 @@
 <span class="c1"># Output the results</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;operations:&quot;</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="s2">&quot;path length:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;path:&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </section>
@@ -238,10 +239,10 @@
 <section id="toy-example-connecting-two-building-storeys-with-a-bridge">
 <h3>Toy Example: Connecting Two Building Storeys with a Bridge<a class="headerlink" href="#toy-example-connecting-two-building-storeys-with-a-bridge" title="Permalink to this heading"></a></h3>
 <p>Let’s consider an example where we want to connect the second storey of two adjacent buildings with a bridge.</p>
-<ol>
+<ol class="arabic">
 <li><p>Define the Grids for Each Building:</p>
 <ul class="simple">
-<li><p>Create two 3D grid arrays representing each building (’world0’ and ‘world1’).</p></li>
+<li><p>Create two 3D grid arrays representing each building (‘world0’ and ‘world1’).</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathfinding3d.core.grid</span> <span class="kn">import</span> <span class="n">Grid</span>
 <span class="kn">from</span> <span class="nn">pathfinding3d.core.world</span> <span class="kn">import</span> <span class="n">World</span>
@@ -366,7 +367,7 @@
 </section>
 <section id="example-with-open3d">
 <h3>Example with Open3D<a class="headerlink" href="#example-with-open3d" title="Permalink to this heading"></a></h3>
-<ol>
+<ol class="arabic">
 <li><p>Import the required libraries:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 
@@ -481,7 +482,7 @@ Here, we define the start and end points of our path and create a grid represent
 <h2>Example with any angle of movement<a class="headerlink" href="#example-with-any-angle-of-movement" title="Permalink to this heading"></a></h2>
 <p>Often, it is desirable to allow movement in any direction rather than being restricted to the 26 discrete directions in a 3D grid. This can be achieved by using the <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> class. The <code class="docutils literal notranslate"><span class="pre">ThetaStarFinder</span></code> class is a subclass of the <code class="docutils literal notranslate"><span class="pre">AStarFinder</span></code> class and can be used in the same way.</p>
 <p>Let’s cut to the chase and see how it works:</p>
-<ol>
+<ol class="arabic">
 <li><p>As usual, import the required libraries:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -697,7 +698,9 @@ AStarFinder<span class="w"> </span>path<span class="w"> </span>cost:<span class=
          padding: 10px;
          display: block;
      }
- </style> <iframe src="theta_star.html"></iframe><p>You can rotate the figure by clicking and dragging the mouse. You can also zoom in and out using the mouse wheel.</p>
+ </style>
+ <iframe src="theta_star.html"></iframe>
+<p>You can rotate the figure by clicking and dragging the mouse. You can also zoom in and out using the mouse wheel.</p>
 </li>
 </ol>
 <p>The full code is available here: <a class="reference external" href="https://github.com/harisankar95/pathfinding3D/blob/main/examples/04_theta_star.py">04_theta_star</a>.</p>
