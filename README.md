@@ -4,7 +4,7 @@
 
 [![MIT License](https://img.shields.io/github/license/harisankar95/pathfinding3d)](LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/pathfinding3d)](https://pypi.org/project/pathfinding3d/)
-[![Pipeline](https://github.com/harisankar95/pathfinding3D/actions/workflows/test-main.yml/badge.svg?branch=main)](https://github.com/harisankar95/pathfinding3D/actions/workflows/test-main.yml)
+[![Pipeline](https://github.com/harisankar95/pathfinding3D/actions/workflows/run-tests.yml/badge.svg?branch=main)](https://github.com/harisankar95/pathfinding3D/actions/workflows/run-tests.yml)
 [![codecov](https://codecov.io/gh/harisankar95/pathfinding3D/branch/main/graph/badge.svg?token=ZQZQZQZQZQ)](https://codecov.io/gh/harisankar95/pathfinding3D)
 [![codestyle](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Documentation](https://img.shields.io/badge/documentation-view-blue)](https://harisankar95.github.io/pathfinding3D/INTRO.html)
