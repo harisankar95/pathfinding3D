@@ -25,13 +25,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install numpy pytest coverage pytest-mock
-          pip install -e .[vis]
+          pip install -e .[vis,test,doc]
 
       - name: Run tests with pytest
         run: coverage run --source pathfinding3d -m pytest 
 
-      - name: Show basic test coverage report
+      - name: Generate coverage reports
         run: |
           coverage report -m
           coverage xml
@@ -46,7 +45,6 @@ jobs:
 
       - name: Build docs
         run: |
-          pip install sphinx sphinx_rtd_theme myst-parser sphinx-autodoc-typehints sphinx-copybutton sphinx-prompt sphinx-notfound-page
           sphinx-build -b html docs/ ./public
           cp -r docs/additional_resources/* ./public/
 

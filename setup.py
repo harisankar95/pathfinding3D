@@ -7,6 +7,23 @@ from setuptools import find_packages, setup
 with open(os.path.join("pathfinding3d", "version.txt"), encoding="utf-8") as file_handler:
     __version__ = file_handler.read().strip()
 
+# Test requirements
+test_requirements = [
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+]
+# Documentation requirements
+doc_requirements = [
+    "sphinx",
+    "sphinx_rtd_theme",
+    "myst-parser",
+    "sphinx-autodoc-typehints",
+    "sphinx-copybutton",
+    "sphinx-prompt",
+    "sphinx-notfound-page",
+]
+
 setup(
     name="pathfinding3d",
     description="Pathfinding algorithms in 3D grids (based on python-pathfinding)",
@@ -26,25 +43,12 @@ setup(
     package_data={"pathfinding3d": ["version.txt"]},
     install_requires=["numpy"],
     extras_require={
-        "dev": [
-            "black",
-            "pytest",
-            "pytest-mock",
-            "coverage",
-            "sphinx<=7.2.6",
-            "sphinx_rtd_theme",
-            "myst-parser",
-            "sphinx-autodoc-typehints",
-            "sphinx-copybutton",
-            "sphinx-prompt",
-            "sphinx-notfound-page",
-        ],
         "vis": ["plotly"],
+        "dev": ["black"] + test_requirements + doc_requirements,
+        "test": test_requirements,
+        "doc": doc_requirements,
     },
-    tests_require=[
-        "pytest",
-        "coverage",
-    ],
+    tests_require=test_requirements,
     python_requires=">=3.8",
     platforms=["any"],
 )
