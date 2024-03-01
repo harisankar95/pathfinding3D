@@ -17,7 +17,7 @@ Pathfinding algorithms in 3D for python3 born from the fork of [python-pathfindi
 
 Pathfinding3D is a comprehensive library designed for 3D pathfinding applications.
 
-Currently there are 7 path-finders bundled in this library, namely:
+Currently there are 8 path-finders bundled in this library, namely:
 
 - A\*: Versatile and most widely used algorithm.
 - Dijkstra: A\* without heuristic.
