@@ -101,7 +101,7 @@ class GridNode(Node):
     # Set it to None if you only have one grid.
     grid_id: Optional[int] = None
 
-    connections: Optional[List] = None
+    connections: List["GridNode"] = dataclasses.field(default_factory=list)
 
     def __post_init__(self):
         super().__init__()
@@ -126,7 +126,4 @@ class GridNode(Node):
         other_node : GridNode
             The node to connect to.
         """
-        if not self.connections:
-            self.connections = [other_node]
-        else:
-            self.connections.append(other_node)
+        self.connections.append(other_node)
