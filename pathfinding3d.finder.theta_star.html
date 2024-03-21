@@ -144,11 +144,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>heuristic</strong> (<em>Callable</em>) – </p></li>
-<li><p><strong>weight</strong> (<em>int</em>) – </p></li>
-<li><p><strong>diagonal_movement</strong> (<em>int</em>) – </p></li>
-<li><p><strong>time_limit</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_runs</strong> (<em>int</em><em> | </em><em>float</em>) – </p></li>
+<li><p><strong>heuristic</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.12)"><em>Callable</em></a>) – </p></li>
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>diagonal_movement</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>time_limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – </p></li>
+<li><p><strong>max_runs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -161,11 +161,11 @@ Diagonal movement is forced to always. Not weighted.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>heuristic</strong> (<em>Callable</em>) – heuristic used to calculate distance of 2 points</p></li>
-<li><p><strong>weight</strong> (<em>int</em>) – weight for the edges</p></li>
-<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
+<li><p><strong>weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – weight for the edges</p></li>
+<li><p><strong>diagonal_movement</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
-<li><p><strong>time_limit</strong> (<em>float</em>) – max. runtime in seconds</p></li>
-<li><p><strong>max_runs</strong> (<em>int</em>) – max. amount of tries until we abort the search
+<li><p><strong>time_limit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><em>float</em></a>) – max. runtime in seconds</p></li>
+<li><p><strong>max_runs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – max. amount of tries until we abort the search
 (optional, only if we enter huge grids and have time constrains)
 &lt;=0 means there are no constrains and the code might run on any
 large map.</p></li>
@@ -187,7 +187,7 @@ and if so, skip the parent.</p>
 <li><p><strong>parent</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the parent node (of the current node we like to test)</p></li>
 <li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – the end point to calculate the cost of the path</p></li>
 <li><p><strong>open_list</strong> (<em>List</em>) – the list that keeps track of our current path</p></li>
-<li><p><strong>open_value</strong> (<em>bool</em>) – needed if we like to set the open list to something
+<li><p><strong>open_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – needed if we like to set the open list to something
 else than True (used for bi-directional algorithms)</p></li>
 </ul>
 </dd>
@@ -210,7 +210,7 @@ else than True (used for bi-directional algorithms)</p></li>
 <dd class="field-even"><p>heuristic value</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -227,7 +227,7 @@ else than True (used for bi-directional algorithms)</p></li>
 <li><p><strong>end</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – end node</p></li>
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 <li><p><strong>open_list</strong> (<em>List</em>) – stores nodes that will be processed next</p></li>
-<li><p><strong>open_value</strong> (<em>int</em>) – </p></li>
+<li><p><strong>open_value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -248,7 +248,7 @@ else than True (used for bi-directional algorithms)</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>grid</strong> (<a class="reference internal" href="pathfinding3d.core.grid.html#pathfinding3d.core.grid.Grid" title="pathfinding3d.core.grid.Grid"><em>Grid</em></a>) – grid that stores all possible steps/tiles as 3D-list</p></li>
 <li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to find neighbors for</p></li>
-<li><p><strong>diagonal_movement</strong> (<em>int</em>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – if diagonal movement is allowed
 (see enum in diagonal_movement)</p></li>
 </ul>
 </dd>
@@ -277,7 +277,7 @@ else than True (used for bi-directional algorithms)</p></li>
 <dd class="field-even"><p>path, number of iterations</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[List, int]</p>
+<dd class="field-odd"><p>Tuple[List, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)">int</a>]</p>
 </dd>
 </dl>
 </dd></dl>

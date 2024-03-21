@@ -146,15 +146,15 @@ will be used to determine what nodes are walkable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em>) – The width of the grid.</p></li>
-<li><p><strong>height</strong> (<em>int</em>) – The height of the grid.</p></li>
-<li><p><strong>depth</strong> (<em>int</em>) – The depth of the grid.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The width of the grid.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The height of the grid.</p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – The depth of the grid.</p></li>
 <li><p><strong>matrix</strong> (<em>MatrixType</em>) – A 3D array of values (numbers or objects specifying weight)
 that determine how nodes are connected and if they are walkable.
 If no matrix is given, all nodes will be walkable.</p></li>
-<li><p><strong>inverse</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, all values in the matrix that are not 0 will be considered
+<li><p><strong>inverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, all values in the matrix that are not 0 will be considered
 walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em>, </em><em>optional</em>) – The id of the grid.</p></li>
+<li><p><strong>grid_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The id of the grid.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -169,17 +169,17 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dl class="py class">
 <dt class="sig sig-object py" id="pathfinding3d.core.grid.Grid">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pathfinding3d.core.grid.</span></span><span class="sig-name descname"><span class="pre">Grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A grid represents the map (as 3d-list of nodes).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em>) – </p></li>
-<li><p><strong>height</strong> (<em>int</em>) – </p></li>
-<li><p><strong>depth</strong> (<em>int</em>) – </p></li>
-<li><p><strong>matrix</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em><em>] </em><em>| </em><em>ndarray</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
-<li><p><strong>inverse</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>matrix</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>]</em><em>]</em><em>] </em><em>| </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>ndarray</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>grid_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>inverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -190,15 +190,15 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em><em>, </em><em>optional</em>) – The width of the grid.</p></li>
-<li><p><strong>height</strong> (<em>int</em><em>, </em><em>optional</em>) – The height of the grid.</p></li>
-<li><p><strong>depth</strong> (<em>int</em><em>, </em><em>optional</em>) – The depth of the grid.</p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The width of the grid.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The height of the grid.</p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – The depth of the grid.</p></li>
 <li><p><strong>matrix</strong> (<em>MatrixType</em>) – A 3D array of values (numbers or objects specifying weight)
 that determine how nodes are connected and if they are walkable.
 If no matrix is given, all nodes will be walkable.</p></li>
-<li><p><strong>inverse</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true, all values in the matrix that are not 0 will be considered
+<li><p><strong>inverse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, all values in the matrix that are not 0 will be considered
 walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
-<li><p><strong>grid_id</strong> (<em>int</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>grid_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -209,14 +209,14 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <span class="sig-name descname"><span class="pre">_validate_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pathfinding3d/core/grid.html#Grid._validate_dimensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pathfinding3d.core.grid.Grid._validate_dimensions" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>width</strong> (<em>int</em>) – </p></li>
-<li><p><strong>height</strong> (<em>int</em>) – </p></li>
-<li><p><strong>depth</strong> (<em>int</em>) – </p></li>
-<li><p><strong>matrix</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em><em>] </em><em>| </em><em>ndarray</em><em> | </em><em>None</em>) – </p></li>
+<li><p><strong>width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – </p></li>
+<li><p><strong>matrix</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.12)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>]</em><em>]</em><em>] </em><em>| </em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><em>ndarray</em></a><em> | </em><em>None</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -231,7 +231,7 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dd class="field-odd"><p>True, if grid is valid</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -243,9 +243,9 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – x position</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – y position</p></li>
-<li><p><strong>z</strong> (<em>int</em>) – z position</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – x position</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – y position</p></li>
+<li><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – z position</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -264,16 +264,16 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – x position</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – y position</p></li>
-<li><p><strong>z</strong> (<em>int</em>) – z position</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – x position</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – y position</p></li>
+<li><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – z position</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True, if position is inside map</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -285,16 +285,16 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>int</em>) – x position</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – y position</p></li>
-<li><p><strong>z</strong> (<em>int</em>) – z position</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – x position</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – y position</p></li>
+<li><p><strong>z</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – z position</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True, if position is inside map and walkable</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -306,16 +306,16 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dx</strong> (<em>int</em>) – x distance</p></li>
-<li><p><strong>dy</strong> (<em>int</em>) – y distance</p></li>
-<li><p><strong>dz</strong> (<em>int</em>) – z distance</p></li>
+<li><p><strong>dx</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – x distance</p></li>
+<li><p><strong>dy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – y distance</p></li>
+<li><p><strong>dz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a>) – z distance</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>distance between current node and the neighbor (cost)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -329,14 +329,14 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node_a</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – current node</p></li>
 <li><p><strong>node_b</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – neighbor node</p></li>
-<li><p><strong>weighted</strong> (<em>bool</em><em>, </em><em>optional</em>) – True, if weighted algorithm is used, by default False</p></li>
+<li><p><strong>weighted</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – True, if weighted algorithm is used, by default False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>distance between current node and the neighbor (cost)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -349,7 +349,7 @@ walkable. Otherwise all values that are 0 will be considered walkable.</p></li>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>node</strong> (<a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a>) – node to get neighbors from</p></li>
-<li><p><strong>diagonal_movement</strong> (<em>int</em><em>, </em><em>optional</em>) – if diagonal movement is allowed
+<li><p><strong>diagonal_movement</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><em>int</em></a><em>, </em><em>optional</em>) – if diagonal movement is allowed
 (see enum in diagonal_movement), by default DiagonalMovement.never</p></li>
 </ul>
 </dd>
@@ -383,18 +383,18 @@ If omitted, the grid is visualized without a path. Defaults to None.</p></li>
 If not provided and a path is given, the first node of the path is used. Defaults to None.</p></li>
 <li><p><strong>end</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="pathfinding3d.core.node.html#pathfinding3d.core.node.GridNode" title="pathfinding3d.core.node.GridNode"><em>GridNode</em></a><em>, </em><em>Tuple</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The end node for the path, as either a GridNode or a tuple of coordinates.
 If not provided and a path is given, the last node of the path is used. Defaults to None.</p></li>
-<li><p><strong>visualize_weight</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to visualize the weights of the nodes, enhancing the representation of node costs.
+<li><p><strong>visualize_weight</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether to visualize the weights of the nodes, enhancing the representation of node costs.
 Defaults to True.</p></li>
-<li><p><strong>save_html</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the visualization is saved to an HTML file specified by <cite>save_to</cite> instead of being displayed.
+<li><p><strong>save_html</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, the visualization is saved to an HTML file specified by <cite>save_to</cite> instead of being displayed.
 Defaults to False.</p></li>
-<li><p><strong>save_to</strong> (<em>str</em><em>, </em><em>optional</em>) – File path where the HTML visualization is saved if <cite>save_html</cite> is True.
+<li><p><strong>save_to</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><em>str</em></a><em>, </em><em>optional</em>) – File path where the HTML visualization is saved if <cite>save_html</cite> is True.
 Defaults to “./pathfinding3d_visualization.html”.</p></li>
-<li><p><strong>always_show</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, displays the visualization in the browser even when <cite>save_html</cite> is True.
+<li><p><strong>always_show</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, displays the visualization in the browser even when <cite>save_html</cite> is True.
 Useful for immediate feedback while also saving the result. Defaults to False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>Warning</strong> – If plotly is not installed, a warning is logged and the visualization is skipped.</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Warning" title="(in Python v3.12)"><strong>Warning</strong></a> – If plotly is not installed, a warning is logged and the visualization is skipped.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
