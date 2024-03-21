@@ -80,8 +80,8 @@ class GridNode(Node):
         The weight of the node.
     grid_id : Optional[int]
         The id of the grid this node belongs to.
-    connections : Optional[List]
-        The connections of this node.
+    connections : List[GridNode]
+        The nodes this node is connected to.
     """
 
     # Coordinates
