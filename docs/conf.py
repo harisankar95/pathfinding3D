@@ -43,6 +43,7 @@ extensions = [
     "sphinx-prompt",  # for prompt
     "notfound.extension",  # for 404 page
     "myst_parser",  # for markdown
+    "sphinx.ext.intersphinx",  # for intersphinx
 ]
 
 templates_path = ["_templates"]
@@ -136,6 +137,13 @@ highlight_language = "python3"
 
 # napoleon
 napoleon_numpy_docstring = True
+
+# intersphinx
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
+    "plotly": ("https://plotly.com/python-api-reference/", None),
+}
 
 # todo-section
 todo_include_todos = False
