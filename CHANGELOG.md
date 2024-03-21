@@ -1,5 +1,10 @@
 # Version History
 
+## 0.7.2
+
+- Added __version__ attribute to the package
+- Added intersphinx links to the documentation
+
 ## 0.7.1
 
 - Added logo, updated README and documentation
